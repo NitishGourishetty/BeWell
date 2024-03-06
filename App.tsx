@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import SignUpPage from './Pages/SignUpPage';
+import SignUpPage from './pages/SignUpPage';
 
 export default function App() {
   return (
