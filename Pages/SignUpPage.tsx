@@ -2,13 +2,14 @@ import React from "react";
 import { View, Pressable } from "react-native";
 import { Text, TextField } from 'react-native-ui-lib'
 import { Dimensions } from "react-native" 
+import proximanova from "../assets/fonts/proxima-nova/proximanova-regular.otf"
 
 export default function SignUpPage(){
     const width = Dimensions.get("window").width * 0.9;
     const height = Dimensions.get("window").height * 0.9;
     return(
         <View style={{flex : 1, alignItems : "center", justifyContent : "center", position : "absolute"}}>
-            <Text style={{fontSize : height/10, position : "absolute", bottom : height/3, textAlign : "center", color : "#498C68", fontFamily : "Helvetica", width : width}}>
+            <Text style={{fontSize : height/10, position : "absolute", bottom : height/3, textAlign : "center", color : "#498C68", fontFamily : proximanova, width : width}}>
                 Sign Up
             </Text>
             <View style={{}}>
@@ -49,7 +50,5 @@ export default function SignUpPage(){
             />
             </View>
         </View>
-
-        // password
     )
 }
