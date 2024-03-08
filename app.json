@@ -30,7 +30,7 @@
     [   
       "expo-font",
       {
-        "fonts" : ["./assets/fonts/proxima-nova/proxima-nova-regular.otf", "./assets/fonts/proxima-nova/proxima-nova-bold.otf"]
+        "fonts" : ["./assets/fonts/proxima-nova/proxima-nova-regular.otf", "./assets/fonts/proxima-nova/proxima-nova-bold.otf", "./assets/fonts/proxima-nova/proxima-nova-semibold.otf"]
       }
     ]
     ]
