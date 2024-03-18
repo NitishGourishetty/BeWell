@@ -20,7 +20,7 @@ function DateBlock (){
 }
 function HabitBlock(){
     return(
-        <View style={{ backgroundColor:"rgba(27, 49, 43, 0.5)", opacity:"50%", paddingHorizontal: 25, paddingVertical: 4, marginVertical:5, marginHorizontal: 10, borderRadius: 12}}>
+        <View style={{ backgroundColor: 'rgba(27, 49, 43, 0.5)' , opacity:"50%", paddingHorizontal: 25, paddingVertical: 4, marginVertical:5, marginHorizontal: 10, borderRadius: 12}}>
             <Text style= {{fontFamily: "Poppins-Regular", color:"#FFFEFC"}}>
                 Physical Activity
             </Text>
