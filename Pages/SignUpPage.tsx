@@ -9,7 +9,7 @@ export default function SignUpPage(){
     const height = Dimensions.get("window").height * 0.9;
     return(
         <View style={{flex : 1, alignItems : "center", justifyContent : "center", position : "absolute"}}>
-            <Text style={{fontSize : height/10, position : "absolute", bottom : height/3, textAlign : "center", color : "#498C68", fontFamily : proximanova, width : width}}>
+            <Text style={{fontSize : height/10, position : "absolute", bottom : height/3, textAlign : "center", color : "#498C68", width : width}}>
                 Sign Up
             </Text>
             <View style={{}}>
@@ -28,8 +28,10 @@ export default function SignUpPage(){
                 // showCharCounter
                 // maxLength={30}
                 underlineColorAndroid="#AFC689"
-            />
+                />
+
             </View>
+            
 
 
             <View style={{}}>
