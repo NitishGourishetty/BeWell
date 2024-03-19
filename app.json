@@ -4,10 +4,10 @@
     "slug": "BeWell",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Vector.png",
+    "icon": "./assets/logoleaf.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash2.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

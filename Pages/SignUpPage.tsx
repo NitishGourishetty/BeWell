@@ -2,17 +2,13 @@ import React from "react";
 import { ScrollView, View, Pressable } from "react-native";
 import { Image, Text, TextField } from 'react-native-ui-lib';
 import { Dimensions } from "react-native";
-import { useFonts } from "expo-font";
+import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { MARGIN_KEY_PATTERN } from "react-native-ui-lib/src/commons/modifiers";
 
 export default function SignUpPage(){
     const width = Dimensions.get("window").width * 0.9;
     const height = Dimensions.get("window").height * 0.9;
-    const [fontsLoaded, fontError] = useFonts({
-        'proxima-nova-regular': require('../assets/fonts/proxima-nova/proxima-nova-regular.otf'),
-        'proxima-nova-bold' : require('../assets/fonts/proxima-nova/proxima-nova-bold.otf'),
-        'proxima-nova-semibold' : require('../assets/fonts/proxima-nova/proxima-nova-semibold.otf')
-    });
+    const [fontsLoaded, fontError] = useCustomFonts();
 
     return(
         <ScrollView contentContainerStyle={{flex : 1, alignItems : "center", justifyContent : "center", backgroundColor : "E6D6B8"}}>
