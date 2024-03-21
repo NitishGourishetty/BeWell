@@ -3,14 +3,10 @@ import {SafeAreaView, Pressable,ScrollView, StyleSheet } from "react-native";
 import {Text, View} from "react-native-ui-lib"
 import CalendarModule from "./MainHomeModules/CalendarModule";
 import { useWindowDimensions } from "react-native";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 type Subsection = {
     header: string;
     
-}
-
-function Subsections(){
-
 }
 
 export default function MainHomePage(){
