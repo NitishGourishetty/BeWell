@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function StreaksModule({ days }) {
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: "#5D8E740", borderRadius: 15, padding: 10 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', backgroundColor: "#5D8E74", borderRadius: 15, padding: 10 }}>
             <Text style={{ color: 'white' }}>
                 {days}
             </Text>

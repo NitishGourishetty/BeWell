@@ -61,12 +61,16 @@ export default function CalendarModule() {
     return (
         <View style={ModuleStyles.Module}>
             <DateBlock />
-            <View style={{ height: '80%', width: 9, backgroundColor: "#FFFFFF", alignSelf: "center", borderRadius: 4, marginLeft: "10%" }}></View>
+            <View style={{ height: '80%', width: 9, backgroundColor: "#FFFFFF", alignSelf: "center", borderRadius: 4, marginLeft: "10%", marginRight: '2%' }}></View>
 
             <View style={{ flexDirection: "column", marginVertical: 10 }}>
-                <HabitBlock title={"Reading Dune Messiah"} beginningTime={1} endingTime={2} index={0} />
-                <HabitBlock title={"Restore House Atreides"} beginningTime={3} endingTime={5} index={1} />
-                <HabitBlock title={"Fight the Harkonnens"} beginningTime={8} endingTime={11} index={2} />
+                <ScrollView >
+                    <View >
+                        <HabitBlock title={"Reading Dune Messiah"} beginningTime={1} endingTime={2} index={0} />
+                        <HabitBlock title={"Restore House Atreides"} beginningTime={3} endingTime={5} index={1} />
+                        <HabitBlock title={"Fight the Harkonnens"} beginningTime={8} endingTime={11} index={2} />
+                    </View>
+                </ScrollView>
             </View>
 
 
@@ -76,7 +80,7 @@ export default function CalendarModule() {
 
 export const ModuleStyles = StyleSheet.create({
     Module: {
-        flex: 1,
+        height: '24%',
         borderRadius: 12,
         backgroundColor: '#B1BC9E',
         flexDirection: 'row',
