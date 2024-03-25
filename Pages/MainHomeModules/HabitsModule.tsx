@@ -5,33 +5,49 @@ import { useFonts } from 'expo-font'
 import { ModuleStyles } from "./CalendarModule";
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
+import { useState, useEffect } from 'react'
 
-const HabitsContent = () => {
+function HabitsContent({ habitName, time }: HabitsProps) {
+
     return (
         <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
             <View>
                 <View style={{ flexDirection: 'column' }}>
                     <Text style={styles.habit}>
-                        Defeat The Harkonnens
+                        {habitName}
                     </Text>
                     <Text style={styles.time}>
-                        @10 A.M
+                        @{time} A.M
                     </Text>
                 </View>
             </View>
             <TouchableOpacity style={{ justifyContent: 'center' }}>
-                <AntDesign name="plus" size={60} />
+                <AntDesign name="plus" size={45} />
             </TouchableOpacity>
         </View>
 
     )
 }
-
-export default function HabitsModule() {
+interface HabitsProps {
+    habitName: String,
+    time: Number,
+    index?: number
+}
+export default function HabitsModule({ habitName, time, index }: HabitsProps) {
+    const [backgroundColor, setBackgroundColor] = useState("")
+    useEffect(() => {
+        if (index % 3 === 0) {
+            setBackgroundColor("#AFC689");
+        } else if (index % 3 === 1) {
+            setBackgroundColor("#7AAD79");
+        } else {
+            setBackgroundColor("#498C68")
+        }
+    }, [])
     return (
-        <View style={styles.module}>
+        <View style={[styles.module, { backgroundColor: backgroundColor }]}>
             <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10 }}>
-                <HabitsContent />
+                <HabitsContent habitName={habitName} time={time} />
             </View>
         </View >
     )
@@ -41,8 +57,8 @@ const styles = StyleSheet.create({
     module: {
         flex: 1,
         borderRadius: 12,
-        backgroundColor: '#B1BC9E',
         flexDirection: 'row',
+        marginVertical: 10
     },
     habit: {
         fontFamily: "Poppins-SemiBold",

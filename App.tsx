@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
-import {createNativeStackNavigator} from "@react-navigation/native-stack"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import SignUpPage from './Pages/SignUpPage';
@@ -35,7 +35,9 @@ export default function App() {
 
   // Fonts are loaded, render your navigation
   return (
+
     <NavigationContainer>
+      <StatusBar translucent={true} backgroundColor="transparent" />
       <MainStack />
     </NavigationContainer>
   );

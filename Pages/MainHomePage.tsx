@@ -5,6 +5,7 @@ import CalendarModule from "./MainHomeModules/CalendarModule";
 import { useWindowDimensions } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import HabitsModule from "./MainHomeModules/HabitsModule";
+import StreaksModule from "./MainHomeModules/StreaksModule";
 
 
 export default function MainHomePage() {
@@ -25,11 +26,14 @@ export default function MainHomePage() {
                     <Text style={styles.Subheading}>
                         Streaks
                     </Text>
+                    <StreaksModule days={10} />
 
                     <Text style={styles.Subheading}>
                         Habits
                     </Text>
-                    <HabitsModule />
+                    <HabitsModule habitName={"Defeating The Harkonnens"} time={10} index={0} />
+                    <HabitsModule habitName={"Talk to Jannii"} time={7} index={1} />
+                    <HabitsModule habitName={"Fight the Holy War"} time={12} index={2} />
 
                 </View>
             </ScrollView>

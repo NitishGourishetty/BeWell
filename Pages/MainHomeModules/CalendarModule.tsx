@@ -3,6 +3,7 @@ import { View, Text } from "react-native-ui-lib";
 import { Dimensions, useWindowDimensions, StyleSheet, ScrollView } from "react-native";
 import { useFonts } from 'expo-font'
 import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
+import { useState, useEffect } from "react";
 
 const width = Dimensions.get("window").width
 const height = Dimensions.get("window").height
@@ -30,10 +31,21 @@ interface HabitBlockProps {
     title: string;
     beginningTime: number;
     endingTime: number;
+    index: number;
 }
-const HabitBlock: React.FC<HabitBlockProps> = ({ title, beginningTime, endingTime }) => {
+const HabitBlock: React.FC<HabitBlockProps> = ({ title, beginningTime, endingTime, index }) => {
+    const [backgroundColor, setBackgroundColor] = useState("")
+    useEffect(() => {
+        if (index % 2 === 0) {
+            setBackgroundColor("rgba(73, 140, 104, 0.7)");
+        } else {
+            setBackgroundColor("rgba(27, 49, 43, 0.5)");
+        }
+    }, []);
+
+
     return (
-        <View style={{ backgroundColor: "rgba(27, 49, 43, 0.5)", paddingHorizontal: 25, paddingVertical: 4, marginVertical: 5, marginHorizontal: 10, borderRadius: 12, width: 200 }}>
+        <View style={{ backgroundColor: backgroundColor, paddingHorizontal: 25, paddingVertical: 4, marginVertical: 5, marginHorizontal: 10, borderRadius: 12, width: 200 }}>
             <Text style={{ fontFamily: "Poppins-Regular", color: "#FFFEFC" }}>
                 {title}
             </Text>
@@ -52,9 +64,9 @@ export default function CalendarModule() {
             <View style={{ height: '80%', width: 9, backgroundColor: "#FFFFFF", alignSelf: "center", borderRadius: 4, marginLeft: "10%" }}></View>
 
             <View style={{ flexDirection: "column", marginVertical: 10 }}>
-                <HabitBlock title={"Reading Dune Messiah"} beginningTime={1} endingTime={2} />
-                <HabitBlock title={"Restore House Atreides"} beginningTime={3} endingTime={5} />
-                <HabitBlock title={"Fight the Harkonnens"} beginningTime={8} endingTime={11} />
+                <HabitBlock title={"Reading Dune Messiah"} beginningTime={1} endingTime={2} index={0} />
+                <HabitBlock title={"Restore House Atreides"} beginningTime={3} endingTime={5} index={1} />
+                <HabitBlock title={"Fight the Harkonnens"} beginningTime={8} endingTime={11} index={2} />
             </View>
 
 
