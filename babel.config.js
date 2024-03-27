@@ -15,27 +15,6 @@ module.exports = function(api) {
           "verbose": false
         }
       ],
-      [
-        'module-resolver',
-        {
-          root: ['./src'],
-          extensions: [
-            '.ios.ts',
-            '.android.ts',
-            '.ts',
-            '.js',
-            '.jsx',
-            '.ios.tsx',
-            '.android.tsx',
-            '.tsx',
-            '.jsx',
-            '.js',
-            '.json',
-          ],
-          alias: {
-            '@app': './src',
-          },
-        },
-      ],
     ],
-  };
+  }
+};
