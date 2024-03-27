@@ -1,10 +1,10 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainHomePage from '../Pages/MainHomePage';
-import SignUpPage from '../Pages/SignUpPage';
+import MainHomePage from '../pages/MainHomePage';
+import SignUpPage from '../pages/SignUpPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
-import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
+import FriendsListPage from '../pages/FriendsModule/FriendsListPage';
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
