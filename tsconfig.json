@@ -1,4 +1,15 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "./src",                       /* Base directory to resolve non-absolute module names. */
+    "paths": {
+      "@app/*": [
+        "src/*"
+      ],
+      "typeRoots": [
+        "./src/types"
+      ],
+    }
+  },
   "extends": "expo/tsconfig.base"
 }
