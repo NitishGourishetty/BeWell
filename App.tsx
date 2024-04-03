@@ -4,8 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
-import SignUpPage from './Pages/SignUpPage';
-import MainHomePage from './Pages/MainHomePage';
 import { useCustomFonts } from './assets/fonts/fontDeclarations';
 import * as Font from 'expo-font';
 import { MainStack } from './Navigation/BottomTabStack';
