@@ -3,7 +3,6 @@ import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
-import borderRadiusesInstance from "react-native-ui-lib/src/style/borderRadiuses";
 
 const height = Dimensions.get("window").height * 0.9;
 export default function LoginPage(){

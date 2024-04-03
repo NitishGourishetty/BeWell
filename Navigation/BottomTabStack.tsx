@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../pages/FriendsModule/FriendsListPage';
+import ProfilePicturePage from '../pages/ProfilePicturePage';
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -57,7 +58,7 @@ export function MainStack() {
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={FriendsListPage} />
+            <BottomTabStack.Screen name="Testing" component={ProfilePicturePage} />
         </Tab.Navigator>
     )
 }
