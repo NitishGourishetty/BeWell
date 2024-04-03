@@ -1,12 +1,10 @@
 import React from "react";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import { ScrollView, View, Pressable, StyleSheet } from "react-native";
-import { Image, Text, Button } from 'react-native-ui-lib';
-import { Dimensions, TouchableOpacity } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
+import { Text, Button } from 'react-native-ui-lib';
+import { Dimensions } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import { MARGIN_KEY_PATTERN } from "react-native-ui-lib/src/commons/modifiers";
 
-const width = Dimensions.get("window").width * 0.9;
 const height = Dimensions.get("window").height * 0.9;
 export default function SignUpPage(){
     useCustomFonts();
@@ -76,10 +74,6 @@ export default function SignUpPage(){
                         iconSource={() => <AntDesign name="apple1" size={24} color="black" />}
                     />
                 </View>
-                {/*not sure why we have this because you would have to choose one of the htree optins above, not continue*/}
-                <TouchableOpacity style={styles.button}>
-                    <AntDesign name="arrowright" size={45} />
-                </TouchableOpacity>
             </View>
         </ScrollView>
     )

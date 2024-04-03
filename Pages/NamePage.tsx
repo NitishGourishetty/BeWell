@@ -1,14 +1,12 @@
 import React from "react";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import { ScrollView, View, Pressable, StyleSheet } from "react-native";
-import { Image, Text, TextField } from 'react-native-ui-lib';
+import { ScrollView, View, StyleSheet } from "react-native";
+import { Text, TextField } from 'react-native-ui-lib';
 import { Dimensions, TouchableOpacity } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import { MARGIN_KEY_PATTERN } from "react-native-ui-lib/src/commons/modifiers";
 
-const width = Dimensions.get("window").width * 0.9;
 const height = Dimensions.get("window").height * 0.9;
-export default function SignUpPage(){
+export default function NamePage(){
     useCustomFonts();
 
     return(

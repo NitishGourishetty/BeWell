@@ -1,10 +1,11 @@
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainHomePage from '../pages/MainHomePage';
-import SignUpPage from '../pages/SignUpPage';
+import LoginPage from '../pages/LoginPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../pages/FriendsModule/FriendsListPage';
+import ProfilePicturePage from '../pages/ProfilePicturePage';
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -22,7 +23,7 @@ export function MainStack() {
                     if (rn === 'Home') {
                         iconName = 'home'
                     }
-                    else if (rn === 'Sign Up') {
+                    else if (rn === 'Login') {
                         iconName = 'person'
                     }
                     else if (rn === 'Testing') {
@@ -55,9 +56,9 @@ export function MainStack() {
 
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
-            <BottomTabStack.Screen name="Sign Up" component={SignUpPage} />
+            <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={FriendsListPage} />
+            <BottomTabStack.Screen name="Testing" component={ProfilePicturePage} />
         </Tab.Navigator>
     )
 }

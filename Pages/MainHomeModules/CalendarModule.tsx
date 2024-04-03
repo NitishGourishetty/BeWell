@@ -5,8 +5,6 @@ import { useFonts } from 'expo-font'
 import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { useState, useEffect } from "react";
 
-const width = Dimensions.get("window").width
-const height = Dimensions.get("window").height
 
 function DateBlock() {
     // Get the current date
