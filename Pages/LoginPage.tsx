@@ -30,8 +30,8 @@ export default function LoginPage(){
                         containerStyle={styles.textField}
                         placeholder={'Username'}
                         selectionColor="#AFC689"
-                        floatingPlaceholderColor="#80828C"
-                        floatingPlaceholder
+                        // floatingPlaceholderColor="#80828C"
+                        // floatingPlaceholder
                         enableErrors
                         validate={['required', (value) => value.length > 6]}
                         validationMessage={['Field is required', 'Password is too short']}
@@ -41,8 +41,8 @@ export default function LoginPage(){
                         color="#80828C"
                         containerStyle={styles.textField}
                         placeholder={'Password'}
-                        floatingPlaceholderColor="#80828C"
-                        floatingPlaceholder
+                        // floatingPlaceholderColor="#80828C"
+                        // floatingPlaceholder
                         enableErrors
                         validate={['required', (value) => value.length > 6]}
                         validationMessage={['Field is required', 'Password is too short']}
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         backgroundColor: "#F1F3F6",
         borderRadius: 10,
-        paddingLeft: 20
+        paddingLeft: 20,
+        paddingTop: 20
     },
     button: {
         marginBottom: 5,

@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
     Subheading: {
         fontFamily: "Poppins-SemiBold",
         fontSize: 22,
-        marginBottom: "2%",
-        marginTop: "2%",
+        marginBottom: "4%",
+        marginTop: "4%",
         justifyContent: "flex-start",
         alignSelf: "flex-start",
         marginLeft: '7%'
