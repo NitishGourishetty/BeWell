@@ -912,8 +912,6 @@ PODS:
   - React-Mapbuffer (0.73.6):
     - glog
     - React-debug
-  - react-native-document-picker (9.1.1):
-    - React-Core
   - react-native-image-picker (7.1.2):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1161,7 +1159,6 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector-modern`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
-  - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - React-nativeconfig (from `../node_modules/react-native/ReactCommon`)
@@ -1274,8 +1271,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   React-Mapbuffer:
     :path: "../node_modules/react-native/ReactCommon"
-  react-native-document-picker:
-    :path: "../node_modules/react-native-document-picker"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
@@ -1379,7 +1374,6 @@ SPEC CHECKSUMS:
   React-jsinspector: 85583ef014ce53d731a98c66a0e24496f7a83066
   React-logger: 3eb80a977f0d9669468ef641a5e1fabbc50a09ec
   React-Mapbuffer: 84ea43c6c6232049135b1550b8c60b2faac19fab
-  react-native-document-picker: 3599b238843369026201d2ef466df53f77ae0452
   react-native-image-picker: d3db110a3ded6e48c93aef7e8e51afdde8b16ed0
   react-native-safe-area-context: 0ee144a6170530ccc37a0fd9388e28d06f516a89
   React-nativeconfig: b4d4e9901d4cabb57be63053fd2aa6086eb3c85f
@@ -1415,6 +1409,6 @@ SPEC CHECKSUMS:
   Yoga: 805bf71192903b20fc14babe48080582fee65a80
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 45e7ddc1edcd1ab32f0ccb75636e6c07efd41d5c
+PODFILE CHECKSUM: e868d7fa401cc6ebb9fc919a6d75c6961ab328f3
 
 COCOAPODS: 1.15.2
