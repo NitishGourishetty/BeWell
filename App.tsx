@@ -4,23 +4,22 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
-import SignUpPage from './pages/SignUpPage';
-import MainHomePage from './pages/MainHomePage';
-import { useCustomFonts } from './assets/fonts/fontDeclarations';
 import * as Font from 'expo-font';
 import { MainStack } from './Navigation/BottomTabStack';
-import TempSignUp from './pages/TempSignUp'
+import TempSignUp from './Pages/TempSignUp'
 
 import 'react-native-url-polyfill/auto'
 import { supabase } from './lib/supabase'
-import Auth from './pages/TempSignUp'
-import Account from './pages/TempAccountPage'
+import Auth from './Pages/TempSignUp'
+import Account from './Pages/TempAccountPage'
 import { Session } from '@supabase/supabase-js'
+import LoginPage from './Pages/LoginPage';
+import SignUpPage from './Pages/TempSignUp';
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
-  // const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
   // useEffect(() => {
   //   async function loadFonts() {
@@ -47,6 +46,7 @@ export default function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+      
     })
 
     supabase.auth.onAuthStateChange((_event, session) => {
@@ -57,16 +57,26 @@ export default function App() {
 
   // Fonts are loaded, render your navigation
   return (
+    // <NavigationContainer>
+    //   <MainStack />
+    //   <StatusBar translucent={true} backgroundColor="transparent" />
+    // </NavigationContainer> 
 
-    <NavigationContainer>
-      <MainStack />
-      <StatusBar translucent={true} backgroundColor="transparent" />
-    </NavigationContainer>
+    // <View>
+    //   <LoginPage></LoginPage>
+    // </View>
+    
+    <>
+      {session && session.user ? <SignUpPage/> : <LoginPage/>}
+    </>
+    
+    // <LoginPage></LoginPage>
+    
     
     //if user not logged in forces them to auth page and only auth page, we can change this later
-  //   <View>
-  //   {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-  // </View>
+    // <View>
+    //   {session && session.user ? <SignUpPage/> : <SignUpPage/>}
+    // </View>
     
   );
 }

@@ -75,7 +75,13 @@ export default function Auth() {
       <View style={styles.verticallySpaced}>
         <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} />
       </View>
+
+      <View style={styles.verticallySpaced}>
+        <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
+      </View>
     </View>
+
+    
   )
 }
 

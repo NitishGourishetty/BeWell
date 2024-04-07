@@ -1,18 +1,56 @@
 import React, { useState } from "react";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
+import { ScrollView, AppState, Alert, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
+import { supabase } from '../lib/supabase'
+
+
+// Tells Supabase Auth to continuously refresh the session automatically if
+// the app is in the foreground. When this is added, you will continue to receive
+// `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
+// if the user's session is terminated. This should only be registered once.
+AppState.addEventListener('change', (state) => {
+    if (state === 'active') {
+      supabase.auth.startAutoRefresh()
+    } else {
+      supabase.auth.stopAutoRefresh()
+    }
+  })
 
 const height = Dimensions.get("window").height * 0.9;
+
 export default function LoginPage(){
-    useCustomFonts();
-    const [username, setUsername] = useState("");
+    // useCustomFonts();
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleLogin = () => {
-        console.log("Username:", username);
-        console.log("Password:", password);
-    };
+    const [loading, setLoading] = useState(false)
+    
+    async function signInWithEmail() {
+        setLoading(true)
+        const { error } = await supabase.auth.signInWithPassword({
+          email: email,
+          password: password,
+        })
+    
+        if (error) Alert.alert(error.message)
+        setLoading(false)
+      }
+
+      async function signUpWithEmail() {
+        setLoading(true)
+        const {
+          data: { session },
+          error,
+        } = await supabase.auth.signUp({
+          email: email,
+          password: password,
+        })
+    
+        if (error) Alert.alert(error.message)
+        if (!session) Alert.alert('Please check your inbox for email verification!')
+        setLoading(false)
+      }
 
     return(
         <ScrollView contentContainerStyle={styles.container}>
@@ -35,7 +73,7 @@ export default function LoginPage(){
                         enableErrors
                         validate={['required', (value) => value.length > 6]}
                         validationMessage={['Field is required', 'Password is too short']}
-                        onChangeText={text => setUsername(text)}
+                        onChangeText={text => setEmail(text)}
                     />
                     <TextField
                         color="#80828C"
@@ -61,7 +99,7 @@ export default function LoginPage(){
                         textAlign: "center",
                         flex: 1
                     }}
-                    onPress={handleLogin}
+                    onPress={() => signInWithEmail()}
                 />
                 <View style={styles.signUp}>
                     <Text style={{color: '#80828C', fontFamily : "Poppins-Regular", marginRight : 3}}>
@@ -75,7 +113,6 @@ export default function LoginPage(){
                     </TouchableOpacity>
                 </View>
             </View>
-            
         </ScrollView>
     )
 }
