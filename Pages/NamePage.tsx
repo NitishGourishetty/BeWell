@@ -1,56 +1,49 @@
-import * as React from "react";
+import * as React from 'react';
+import { useState } from 'react';
+import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import { ScrollView, View, StyleSheet } from "react-native";
-import { Text, TextField } from 'react-native-ui-lib';
-import { Dimensions, TouchableOpacity } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
 const height = Dimensions.get("window").height * 0.9;
-export default function NamePage(){
-    useCustomFonts();
 
-    return(
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.content}>
+export default function ProfilePicturePage(){
+    useCustomFonts();
+    const [imageSource, setImageSource] = useState(null);
+    const openImagePicker = async () => {
+        let result = await launchImageLibraryAsync({
+            allowsEditing: true,
+            quality: 1,
+        })
+        if (!result.canceled) {
+            setImageSource(result.assets?.[0]?.uri);
+        } else {
+            alert('You did not select any image.');
+        }
+    }
+        return (
+            <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>
-                    {'What should \n we call you?'}
+                    {'Add a Profile \n Picture'}
                 </Text>
-                {/* <Image 
-                    source={require('../assets/img/sign-up.png')}
-                    style={{resizeMode : "center"}}
-                /> */}
-                <View style={styles.textFieldsContainer}>
-                    <TextField
-                        color="#498C68"
-                        containerStyle={styles.textField}
-                        placeholder={'first'}
-                        selectionColor="#AFC689"
-                        floatingPlaceholderColor="#AFC689"
-                        floatingPlaceholder
-                        enableErrors
-                        validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Password is too short']}
-                        underlineColorAndroid="#AFC689"
+                <View style={styles.content}>
+                <TouchableOpacity onPress={openImagePicker}>
+                    {imageSource ? (
+                    <Image
+                        source={{ uri: imageSource }}
+                        style={{ width: 200, height: 200, borderRadius : 100}}
                     />
-                    <TextField
-                        color="#498C68"
-                        containerStyle={styles.textField}
-                        placeholder={'last'}
-                        floatingPlaceholderColor="#AFC689"
-                        floatingPlaceholder
-                        enableErrors
-                        validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Password is too short']}
-                        underlineColorAndroid="#AFC689"
-                    />
-                </View>
-                <TouchableOpacity style={styles.button}>
+                    ) : (
+                    <FontAwesome name="user-circle" size={200} color="black" />
+                    )}
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.arrow}>
                     <AntDesign name="arrowright" size={45} />
                 </TouchableOpacity>
             </View>
         </ScrollView>
-    )
-}
+        )
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -70,16 +63,12 @@ const styles = StyleSheet.create({
         fontFamily: 'Poppins-SemiBold',
         marginBottom: 50
     },
-    textFieldsContainer: {
-        width: "100%",
-        marginBottom: 20,
-    },
-    textField: {
+    button: {
         borderBottomColor: '#AFC689',
         borderBottomWidth: 1,
         marginBottom: 20
     },
-    button: {
+    arrow: {
         alignSelf: 'flex-end',
         marginTop: 50
     }
