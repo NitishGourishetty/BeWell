@@ -8,13 +8,14 @@ import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
 import ProfilePicturePage from '../Pages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/TempSignUp';
+import { Session } from '@supabase/supabase-js'
 
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 
-export function MainStack() {
+export function MainStack({ session }: { session: Session }) {
     return (
         <Tab.Navigator
             initialRouteName='Home'

@@ -57,11 +57,8 @@ export default function App() {
 
   // Fonts are loaded, render your navigation
   return (
-
-
-
     <>
-      {
+      {/* {
         session && session.user ?
           <NavigationContainer>
             <MainStack />
@@ -71,7 +68,10 @@ export default function App() {
           <NavigationContainer>
             <LoginStack />
           </NavigationContainer>
-      }
+      } */}
+      <NavigationContainer>
+        <LoginStack />
+      </NavigationContainer>
     </>
 
     // <LoginPage></LoginPage>

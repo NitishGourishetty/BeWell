@@ -54,6 +54,7 @@ export default function LoginPage({ navigation }) {
         if (!session) Alert.alert('Please check your inbox for email verification!')
         setLoading(false)
     }
+    
     const handleLogin = () => {
         console.log("Username:", email);
         console.log("Password:", password);
@@ -114,7 +115,8 @@ export default function LoginPage({ navigation }) {
                         textAlign: "center",
                         flex: 1
                     }}
-                    onPress={() => signInWithEmail()}
+                    onPress={() => signInWithEmail().then(()=>handleLogin())}
+                    // onPress={() => navigation.navigate('Friends')}
                 />
                 <View style={styles.signUp}>
                     <Text style={{ color: '#80828C', fontFamily: "Poppins-Regular", marginRight: 3 }}>
