@@ -7,8 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
 import ProfilePicturePage from '../Pages/ProfilePicturePage';
-import FriendsListPage from '../pages/FriendsModule/FriendsListPage';
-import TempSignUpPage from '../pages/TempSignUp';
+import TempSignUpPage from '../Pages/TempSignUp';
 
 
 const BottomTabStack = createNativeStackNavigator()

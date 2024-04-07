@@ -1,24 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { TextInput } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
+
 import { AntDesign } from '@expo/vector-icons';
+import LoginStack from "../Navigation/LoginStack";
+import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height * 0.9;
-export default function LoginPage(){
+export default function LoginPage({ navigation }) {
     useCustomFonts();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const handleLogin = () => {
         console.log("Username:", username);
         console.log("Password:", password);
+        if (username && password) {
+            setPassword('')
+            setUsername('')
+            navigation.navigate('Friends')
+        }
     };
 
-    return(
+    return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.content}>
-                <View style={{aspectRatio: 71/25, maxHeight: "20%", marginBottom: 30}}>
-                    <Image 
+                <View style={{ aspectRatio: 71 / 25, maxHeight: "20%", marginBottom: 30 }}>
+                    <Image
                         source={require('../assets/img/logo.png')}
                         style={styles.logo}
                         resizeMode="contain"
@@ -35,7 +44,8 @@ export default function LoginPage(){
                         enableErrors
                         validate={['required', (value) => value.length > 6]}
                         validationMessage={['Field is required', 'Password is too short']}
-                        onChangeText={text => setUsername(text)}
+                        onChangeText={setUsername}
+                        value={username}
                     />
                     <TextField
                         color="#80828C"
@@ -46,10 +56,12 @@ export default function LoginPage(){
                         enableErrors
                         validate={['required', (value) => value.length > 6]}
                         validationMessage={['Field is required', 'Password is too short']}
-                        onChangeText={text => setPassword(text)}
+                        onChangeText={setPassword}
+                        value={password}
                     />
+
                 </View>
-                <Button 
+                <Button
                     label="Login"
                     backgroundColor="#5D8E74"
                     color="white"
@@ -64,18 +76,18 @@ export default function LoginPage(){
                     onPress={handleLogin}
                 />
                 <View style={styles.signUp}>
-                    <Text style={{color: '#80828C', fontFamily : "Poppins-Regular", marginRight : 3}}>
+                    <Text style={{ color: '#80828C', fontFamily: "Poppins-Regular", marginRight: 3 }}>
                         New user?
                     </Text>
-                    <TouchableOpacity onPress={() => Linking.openURL('https://youtu.be/dQw4w9WgXcQ')} style={{alignSelf: "flex-end"}}> 
+                    <TouchableOpacity onPress={() => Linking.openURL('https://youtu.be/dQw4w9WgXcQ')} style={{ alignSelf: "flex-end" }}>
                         {/* don't know how to link properly */}
-                        <Text style={{color: '#5D8E74', fontFamily : "Poppins-Regular"}}>
+                        <Text style={{ color: '#5D8E74', fontFamily: "Poppins-Regular" }}>
                             Sign Up
                         </Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            
+
         </ScrollView>
     )
 }
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     logo: {
-        flex: 1, 
+        flex: 1,
         width: undefined,
         height: undefined,
     },
@@ -114,7 +126,7 @@ const styles = StyleSheet.create({
     },
     signUp: {
         width: "100%",
-        flexDirection : "row",
-        justifyContent : "flex-end"
+        flexDirection: "row",
+        justifyContent: "flex-end"
     }
 });

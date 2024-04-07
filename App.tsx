@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -16,6 +17,7 @@ import { supabase } from './lib/supabase'
 import Auth from './pages/TempSignUp'
 import Account from './pages/TempAccountPage'
 import { Session } from '@supabase/supabase-js'
+import LoginStack from './Navigation/LoginStack';
 
 const Stack = createNativeStackNavigator()
 
@@ -59,15 +61,15 @@ export default function App() {
   return (
 
     <NavigationContainer>
-      <MainStack />
+      <LoginStack />
       <StatusBar translucent={true} backgroundColor="transparent" />
     </NavigationContainer>
-    
+
     //if user not logged in forces them to auth page and only auth page, we can change this later
-  //   <View>
-  //   {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-  // </View>
-    
+    //   <View>
+    //   {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
+    // </View>
+
   );
 }
 

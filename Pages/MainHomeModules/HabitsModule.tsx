@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text } from "react-native-ui-lib";
 import { Dimensions, useWindowDimensions, StyleSheet } from "react-native";
 import { useFonts } from 'expo-font'
-import { ModuleStyles } from "./CalendarModule";
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
 import { useState, useEffect } from 'react'
