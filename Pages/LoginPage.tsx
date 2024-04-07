@@ -19,7 +19,7 @@ export default function LoginPage(){
             <View style={styles.content}>
                 <View style={{aspectRatio: 71/25, maxHeight: "20%", marginBottom: 30}}>
                     <Image 
-                        source={require('../assets/logo.png')}
+                        source={require('../assets/img/logo.png')}
                         style={styles.logo}
                         resizeMode="contain"
                     />
