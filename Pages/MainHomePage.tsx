@@ -1,11 +1,11 @@
 import React from "react-native"
 import { SafeAreaView, Pressable, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib"
-import CalendarModule from "./MainHomeModules/CalendarModule";
 import { useWindowDimensions } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import HabitsModule from "./MainHomeModules/HabitsModule";
 import StreaksModule from "./MainHomeModules/StreaksModule";
+import CalendarModule from "./MainHomeModules/CalendarModule";
 
 
 export default function MainHomePage() {
@@ -21,8 +21,6 @@ export default function MainHomePage() {
                         Calendar
                     </Text>
                     <CalendarModule />
-
-
                     <Text style={styles.Subheading}>
                         Streaks
                     </Text>
@@ -46,8 +44,8 @@ const styles = StyleSheet.create({
     Subheading: {
         fontFamily: "Poppins-SemiBold",
         fontSize: 22,
-        marginBottom: "2%",
-        marginTop: "2%",
+        marginBottom: "4%",
+        marginTop: "4%",
         justifyContent: "flex-start",
         alignSelf: "flex-start",
         marginLeft: '7%'
