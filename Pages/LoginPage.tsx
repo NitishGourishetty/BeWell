@@ -21,7 +21,7 @@ AppState.addEventListener('change', (state) => {
 const height = Dimensions.get("window").height * 0.9;
 
 export default function LoginPage(){
-    // useCustomFonts();
+    useCustomFonts();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)

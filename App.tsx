@@ -20,26 +20,6 @@ const Stack = createNativeStackNavigator()
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   async function loadFonts() {
-  //     await Font.loadAsync({
-  //       'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
-  //       'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
-  //       'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
-  //     });
-  //     setFontsLoaded(true);
-  //   }
-
-  //   loadFonts();
-  // }, []);
-
-  // if (!fontsLoaded) {
-  //   // Font loading in progress
-  //   return null; // or you can render a loading indicator
-  // }
-
-
   //session for user being logged in or not
   const [session, setSession] = useState<Session | null>(null)
 
@@ -54,20 +34,38 @@ export default function App() {
     })
   }, [])
 
+  //font loading
+  useEffect(() => {
+    async function loadFonts() {
+      await Font.loadAsync({
+        'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
+        'Poppins-Regular': require('./assets/fonts/Poppins-Regular.ttf'),
+        'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
+      });
+      setFontsLoaded(true);
+    }
+
+    loadFonts();
+  }, []);
+
+  if (!fontsLoaded) {
+    // Font loading in progress
+    return null; // or you can render a loading indicator
+  }
 
   // Fonts are loaded, render your navigation
   return (
-    // <NavigationContainer>
-    //   <MainStack />
-    //   <StatusBar translucent={true} backgroundColor="transparent" />
-    // </NavigationContainer> 
 
-    // <View>
-    //   <LoginPage></LoginPage>
-    // </View>
+
     
     <>
-      {session && session.user ? <SignUpPage/> : <LoginPage/>}
+      {session && session.user ? 
+        <NavigationContainer>
+          <MainStack />
+          <StatusBar translucent={true} backgroundColor="transparent" />
+        </NavigationContainer>  
+      : 
+        <LoginPage/>}
     </>
     
     // <LoginPage></LoginPage>
