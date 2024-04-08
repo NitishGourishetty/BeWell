@@ -6,10 +6,10 @@ import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
 import ProfilePicturePage from '../Pages/ProfilePicturePage';
 import Account from '../Pages/TempAccountPage'
-
-
+import { Session } from '@supabase/supabase-js'
 
 const loginFlow = createNativeStackNavigator();
+
 
 export default function LoginStack() {
     return (
