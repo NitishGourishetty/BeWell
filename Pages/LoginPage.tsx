@@ -62,7 +62,7 @@ export default function LoginPage({ navigation }) {
         if (email && password) {
             setPassword('')
             setEmail('')
-            navigation.navigate('Friends')
+            navigation.navigate('Sign Up')
         }
     };
 

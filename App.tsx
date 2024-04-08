@@ -61,17 +61,17 @@ export default function App() {
 
 
     <>
-      {
+      {/* {
         session && session.user ?
           <NavigationContainer>
             <MainStack />
             <StatusBar translucent={true} backgroundColor="transparent" />
           </NavigationContainer>
-          :
+          : */}
           <NavigationContainer>
             <SignUpStack />
           </NavigationContainer>
-      }
+      {/* } */}
     </>
 
     // <LoginPage></LoginPage>
