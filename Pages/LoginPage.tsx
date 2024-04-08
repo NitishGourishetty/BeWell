@@ -37,9 +37,24 @@ export default function LoginPage({ navigation }) {
         })
 
         if (error) Alert.alert(error.message)
+        if (!error) handleLogin()
         setLoading(false)
     }
 
+    async function signUpWithEmail() {
+        setLoading(true)
+        const {
+            data: { session },
+            error,
+        } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+        })
+
+        if (error) Alert.alert(error.message)
+        if (!session) Alert.alert('Please check your inbox for email verification!')
+        setLoading(false)
+    }
 
     const handleLogin = () => {
         console.log("Username:", email);
@@ -101,7 +116,8 @@ export default function LoginPage({ navigation }) {
                         textAlign: "center",
                         flex: 1
                     }}
-                    onPress={() => signInWithEmail().then(() => handleLogin)}
+                    onPress={() => signInWithEmail()}
+                // onPress={() => navigation.navigate('Friends')}
                 />
                 <View style={styles.signUp}>
                     <Text style={{ color: '#80828C', fontFamily: "Poppins-Regular", marginRight: 3 }}>

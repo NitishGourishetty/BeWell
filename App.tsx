@@ -77,10 +77,10 @@ export default function App() {
     // <LoginPage></LoginPage>
 
 
-    //if user not logged in forces them to auth page and only auth page, we can change this later
+    /* //if user not logged in forces them to auth page and only auth page, we can change this later
     //   <View>
     //   {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-    // </View>
+    // </View> */
 
   );
 }
