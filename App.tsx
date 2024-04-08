@@ -57,30 +57,31 @@ export default function App() {
 
   // Fonts are loaded, render your navigation
   return (
-    <>
-      {/* {
-        session && session.user ?
-          <NavigationContainer>
-            <MainStack />
-            <StatusBar translucent={true} backgroundColor="transparent" />
-          </NavigationContainer>
-          :
-          <NavigationContainer>
-            <LoginStack />
-          </NavigationContainer>
-      } */}
+    // <>
+    //   {
+    //     session && session.user ?
+    //       <NavigationContainer>
+    //         <MainStack />
+    //         <StatusBar translucent={true} backgroundColor="transparent" />
+    //       </NavigationContainer>
+    //       :
+    //       <NavigationContainer>
+    //         <LoginStack />
+    //       </NavigationContainer>
+    //   }
+    //   </>
       <NavigationContainer>
         <LoginStack />
       </NavigationContainer>
-    </>
+     
 
-    // <LoginPage></LoginPage>
+    /* <LoginPage></LoginPage> */
 
 
-    //if user not logged in forces them to auth page and only auth page, we can change this later
+    /* //if user not logged in forces them to auth page and only auth page, we can change this later
     //   <View>
     //   {session && session.user ? <Account key={session.user.id} session={session} /> : <Auth />}
-    // </View>
+    // </View> */
 
   );
 }

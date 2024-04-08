@@ -36,7 +36,8 @@ export default function LoginPage({ navigation }) {
             password: password,
         })
 
-        if (error) Alert.alert(error.message)
+        if (error) Alert.alert(error.message) 
+        if(!error) handleLogin()
         setLoading(false)
     }
 
@@ -115,7 +116,7 @@ export default function LoginPage({ navigation }) {
                         textAlign: "center",
                         flex: 1
                     }}
-                    onPress={() => signInWithEmail().then(()=>handleLogin())}
+                    onPress={() => signInWithEmail()}
                     // onPress={() => navigation.navigate('Friends')}
                 />
                 <View style={styles.signUp}>
