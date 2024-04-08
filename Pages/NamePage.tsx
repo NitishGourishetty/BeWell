@@ -4,6 +4,7 @@ import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
+import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
 
 const height = Dimensions.get("window").height * 0.9;
 
@@ -22,26 +23,28 @@ export default function ProfilePicturePage(){
         }
     }
         return (
-            <ScrollView contentContainerStyle={styles.container}>
-                <Text style={styles.title}>
-                    {'Add a Profile \n Picture'}
-                </Text>
-                <View style={styles.content}>
-                <TouchableOpacity onPress={openImagePicker}>
-                    {imageSource ? (
-                    <Image
-                        source={{ uri: imageSource }}
-                        style={{ width: 200, height: 200, borderRadius : 100}}
-                    />
-                    ) : (
-                    <FontAwesome name="user-circle" size={200} color="black" />
-                    )}
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.arrow}>
-                    <AntDesign name="arrowright" size={45} />
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+            <KeyboardAvoidingContainer>
+                <ScrollView contentContainerStyle={styles.container}>
+                    <Text style={styles.title}>
+                        {'Add a Profile \n Picture'}
+                    </Text>
+                    <View style={styles.content}>
+                    <TouchableOpacity onPress={openImagePicker}>
+                        {imageSource ? (
+                        <Image
+                            source={{ uri: imageSource }}
+                            style={{ width: 200, height: 200, borderRadius : 100}}
+                        />
+                        ) : (
+                        <FontAwesome name="user-circle" size={200} color="black" />
+                        )}
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.arrow}>
+                        <AntDesign name="arrowright" size={45} />
+                    </TouchableOpacity>
+                </View>
+                </ScrollView>
+            </KeyboardAvoidingContainer>
         )
 };
 
