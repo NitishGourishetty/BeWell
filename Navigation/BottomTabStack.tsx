@@ -15,7 +15,7 @@ const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
 
-export function MainStack({ session }: { session: Session }) {
+export function MainStack() {
     return (
         <Tab.Navigator
             initialRouteName='Home'
