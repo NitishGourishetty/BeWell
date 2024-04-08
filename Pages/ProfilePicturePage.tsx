@@ -37,7 +37,7 @@ export default function ProfilePicturePage(){
                     <FontAwesome name="user-circle" size={200} color="black" />
                     )}
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.arrow}>
+                <TouchableOpacity style={styles.arrow} onPress={()=>setImageSource(null)}>
                     <AntDesign name="arrowright" size={45} />
                 </TouchableOpacity>
             </View>
