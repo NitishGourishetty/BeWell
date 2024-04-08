@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase'
 import { StyleSheet, View, Alert } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Session } from '@supabase/supabase-js'
-import { getUserProfile, updateProfile, addHabit } from '../lib/backend'
+import { getUserProfile, updateProfile, addHabit, getUsersHabits } from '../lib/backend'
 
 export default function Account() {
   const [loading, setLoading] = useState(true)
@@ -47,6 +47,22 @@ export default function Account() {
     }
   }
 
+  async function getHabitInfo() {
+    try {
+      if (!session?.user) throw new Error('No user on the session!')
+      let data = await getUsersHabits(session);
+      if(data) {
+       //Do Stuff with data
+       alert(data.length)
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message)
+        alert("ERROR")
+      }
+    }
+  }
+
   return (
     <View style={styles.container}>
       <View style={[styles.verticallySpaced, styles.mt20]}>
@@ -75,9 +91,15 @@ export default function Account() {
         <Input label="Website" value={habitText || ''} onChangeText={(text) => setHabitText(text)} />
       </View>
 
-      <View style={styles.verticallySpaced}>
+      {/* <View style={styles.verticallySpaced}>
         <Button title="Create Habit" onPress={() => addHabit(session, habitText)} />
+      </View> */}
+
+      <View style={styles.verticallySpaced}>
+        <Button title="Get Habit" onPress={() => getHabitInfo()} />
       </View>
+
+
     </View>
   )
 }

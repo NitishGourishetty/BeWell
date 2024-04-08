@@ -78,6 +78,27 @@ export async function addHabit(session, habitText) {
     }
   }
 
+export async function getUsersHabits(session) {
+    try {
+        if (!session?.user) throw new Error('No usser on the session!')
+  
+        const { data, error, status } = await supabase
+          .from('habits')
+          .select('habit_info, public, id')
+          .eq('profile', session?.user.id)
+        if (error && status !== 406) {
+          throw error
+        }
+        return data;
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message)
+          return null;
+        }
+      } finally {
+      }
+}
+
 export function getHabit({ session }: { session: Session }) {
     
 }
