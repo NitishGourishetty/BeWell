@@ -6,7 +6,7 @@ import LoginPage from '../Pages/LoginPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
-import HabitSetupPage from '../Pages/HabitSetupPage';
+import HabitSetupPage from '../Pages/GoalSetupPage';
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()

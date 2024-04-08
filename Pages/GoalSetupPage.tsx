@@ -8,7 +8,7 @@ import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingCont
 
 const height = Dimensions.get("window").height * 0.9;
 
-export default function HabitSetupPage(){
+export default function GoalSetupPage(){
     useCustomFonts();
     const [goalName, setGoalName] = useState(null);
         return (
@@ -29,7 +29,7 @@ export default function HabitSetupPage(){
                                 enableErrors
                                 validate={['required', (value) => value.length > 6]}
                                 validationMessage={['Field is required', 'Password is too short']}
-                                onChangeText={text => setGoalName(text)}
+                                onChangeText={(text) => setGoalName(text)}
                             />
                             <TouchableOpacity style={styles.arrow}>
                                 <AntDesign name="arrowright" size={45} />
