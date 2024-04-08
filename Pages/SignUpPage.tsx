@@ -3,7 +3,7 @@ import { TextInput } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, AppState, Alert, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
-import SignUpStack from "../Navigation/SignUpStack";
+import NamePage from "./NamePage";
 import { AntDesign } from '@expo/vector-icons';
 import { supabase } from '../lib/supabase'
 
@@ -19,37 +19,35 @@ AppState.addEventListener('change', (state) => {
         supabase.auth.stopAutoRefresh()
     }
 })
-import LoginStack from "../Navigation/SignUpStack";
+import SignUpStack from "../Navigation/SignUpStack";
 import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height * 0.9;
-export default function LoginPage({ navigation }) {
+export default function Page({ navigation }) {
     useCustomFonts();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
 
-    async function signInWithEmail() {
+    async function signUpWithEmail() {
         setLoading(true)
-        const { error } = await supabase.auth.signInWithPassword({
+        const {
+            data: { session },
+            error,
+        } = await supabase.auth.signUp({
             email: email,
             password: password,
         })
 
         if (error) Alert.alert(error.message)
+        if (!session) Alert.alert('Please check your inbox for email verification!')
         setLoading(false)
     }
 
-
-    const handleLogin = () => {
-        console.log("Username:", email);
-        console.log("Password:", password);
-        if (email && password) {
-            setPassword('')
-            setEmail('')
-            navigation.navigate('Friends')
-        }
-    };
+    const handlePress = () => {
+        signUpWithEmail();
+        navigation.navigate('Name');
+    }
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -90,7 +88,7 @@ export default function LoginPage({ navigation }) {
 
                 </View>
                 <Button
-                    label="Login"
+                    label="Sign Up"
                     backgroundColor="#5D8E74"
                     color="white"
                     borderRadius={10}
@@ -101,19 +99,8 @@ export default function LoginPage({ navigation }) {
                         textAlign: "center",
                         flex: 1
                     }}
-                    onPress={() => signInWithEmail().then(() => handleLogin)}
+                    onPress={() => handlePress()}
                 />
-                <View style={styles.signUp}>
-                    <Text style={{ color: '#80828C', fontFamily: "Poppins-Regular", marginRight: 3 }}>
-                        New user?
-                    </Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Sign Up')} style={{ alignSelf: "flex-end" }}>
-                        {/* don't know how to link properly */}
-                        <Text style={{ color: '#5D8E74', fontFamily: "Poppins-Regular" }}>
-                            Sign Up
-                        </Text>
-                    </TouchableOpacity>
-                </View>
             </View>
 
         </ScrollView>

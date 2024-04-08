@@ -7,7 +7,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
 import { MainStack } from './Navigation/BottomTabStack';
-import LoginStack from './Navigation/LoginStack'
+import SignUpStack from './Navigation/SignUpStack'
 import TempSignUp from './Pages/TempSignUp'
 
 import 'react-native-url-polyfill/auto'
@@ -69,7 +69,7 @@ export default function App() {
           </NavigationContainer>
           :
           <NavigationContainer>
-            <LoginStack />
+            <SignUpStack />
           </NavigationContainer>
       }
     </>
