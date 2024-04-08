@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import * as React from "react";
+import { useState } from "react";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
