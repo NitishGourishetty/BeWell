@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainHomePage from '../Pages/MainHomePage';
@@ -7,6 +6,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
 import PrivacySetupPage from '../Pages/PrivacySetupPage';
+import SetGoalsPage from '../Pages/SetGoalsPage';
+import TimePage from '../Pages/TimePage';
+import GoalSetupPage from '../Pages/GoalSetupPage';
+import UserPwdPage from '../Pages/UserPwdPage';
+
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -59,8 +63,7 @@ export function MainStack() {
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={PrivacySetupPage} />
+            <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
         </Tab.Navigator>
     )
 }
-
