@@ -8,6 +8,10 @@ import ProfilePicturePage from '../Pages/ProfilePicturePage';
 import NamePage from '../Pages/NamePage';
 import SignUpPage from '../Pages/SignUpPage';
 import Account from '../Pages/TempAccountPage';
+import SetGoalsPage from '../Pages/SetGoalsPage';
+import GoalSetupPage from '../Pages/GoalSetupPage';
+import TimePage from '../Pages/TimePage';
+import PrivacySetupPage from '../Pages/PrivacySetupPage';
 
 
 const signUpFlow = createNativeStackNavigator();
@@ -19,7 +23,10 @@ export default function SignUpStack() {
             <signUpFlow.Screen name={"Sign Up"} component={SignUpPage} />
             <signUpFlow.Screen name={"Name"} component={NamePage} />
             <signUpFlow.Screen name={"Profile Picture"} component={ProfilePicturePage} />
-
+            <signUpFlow.Screen name={"SetGoals"} component={SetGoalsPage} />
+            <signUpFlow.Screen name={"GoalSetup"} component={GoalSetupPage} />
+            <signUpFlow.Screen name={"TimePage"} component={TimePage} />
+            <signUpFlow.Screen name={"PrivacySetup"} component={PrivacySetupPage} />
         </signUpFlow.Navigator>
     )
 }

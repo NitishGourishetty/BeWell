@@ -3,12 +3,13 @@ import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { Text, TextField } from 'react-native-ui-lib';
 import { Dimensions, TouchableOpacity } from "react-native";
-import { AntDesign } from '@expo/vector-icons';
+import { FontAwesome, AntDesign } from '@expo/vector-icons';
+import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
+
 
 const height = Dimensions.get("window").height * 0.9;
-export default function NamePage() {
+export default function NamePage({ navigation }) {
     useCustomFonts();
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <View style={styles.content}>
@@ -44,7 +45,7 @@ export default function NamePage() {
                         underlineColorAndroid="#AFC689"
                     />
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("Profile Picture") }}>
                     <AntDesign name="arrowright" size={45} />
                 </TouchableOpacity>
             </View>
