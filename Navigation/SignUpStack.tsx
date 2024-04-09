@@ -8,7 +8,7 @@ import ProfilePicturePage from '../Pages/ProfilePicturePage';
 import NamePage from '../Pages/NamePage';
 import SignUpPage from '../Pages/SignUpPage';
 import Account from '../Pages/TempAccountPage';
-import
+
 
 const signUpFlow = createNativeStackNavigator();
 
