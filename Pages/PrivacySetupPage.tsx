@@ -33,7 +33,6 @@ export default function PrivacySetupPage({ navigation }) {
                 </Text>
                 <View style={styles.buttonsContainer}>
                     <Button
-                        onPress={() => { setPrivate(true) }}
                         label="Private"
                         backgroundColor="#498C68"
                         color="black"
@@ -56,7 +55,6 @@ export default function PrivacySetupPage({ navigation }) {
                     </Text>
                     <Button
                         label="Public"
-                        onPress={() => { setPrivate(false) }}
                         backgroundColor="#AFC689"
                         color="black"
                         borderRadius={5}
