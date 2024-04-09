@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
 import { Image, Button } from 'react-native-ui-lib';
@@ -9,6 +9,7 @@ const height = Dimensions.get("window").height * 0.9;
 export default function PrivacySetupPage(){
     useCustomFonts();
     const [isPrivate, setPrivate] = useState(false);
+    useEffect(()=>console.log("Private: ", isPrivate), [isPrivate]);
     return(
         <View style={styles.container}>
             <Image 
