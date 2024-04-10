@@ -1,9 +1,10 @@
+import * as React from "react"
 import { useState, useEffect } from 'react'
-import { supabase } from '../lib/supabase'
+import { supabase } from '../../lib/supabase'
 import { StyleSheet, View, Alert } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Session } from '@supabase/supabase-js'
-import { getUserProfile, updateProfile, addHabit, getUsersHabits } from '../lib/backend'
+import { getUserProfile, updateProfile, addHabit, getUsersHabits } from '../../lib/backend'
 
 export default function Account() {
   const [loading, setLoading] = useState(true)

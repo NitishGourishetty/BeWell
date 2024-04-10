@@ -1,18 +1,19 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainHomePage from '../Pages/MainHomePage';
+import MainHomePage from '../Pages/MainHomeModules/MainHomePage';
 import LoginPage from '../Pages/LoginPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
 import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
-import PrivacySetupPage from '../Pages/PrivacySetupPage';
-import SetGoalsPage from '../Pages/SetGoalsPage';
-import TimePage from '../Pages/TimePage';
-import GoalSetupPage from '../Pages/GoalSetupPage';
-import UserPwdPage from '../Pages/UserPwdPage';
+import PrivacySetupPage from '../Pages/SignUpFlowPages/PrivacySetupPage';
+import SetGoalsPage from '../Pages/SignUpFlowPages/SetGoalsPage';
+import TimePage from '../Pages/SignUpFlowPages/TimePage';
+import GoalSetupPage from '../Pages/SignUpFlowPages/GoalSetupPage';
+import UserPwdPage from '../Pages/SignUpFlowPages/UserPwdPage';
 
-import ProfilePicturePage from '../Pages/ProfilePicturePage';
-import TempSignUpPage from '../Pages/TempSignUp';
+import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
+import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
+import Account from '../Pages/NotInUse/TempAccountPage';
 import { Session } from '@supabase/supabase-js'
 import Feed from '../Pages/BeWellFeed/Feed';
 
@@ -66,8 +67,13 @@ export function MainStack() {
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
+<<<<<<< HEAD
             <BottomTabStack.Screen name="Feed" component={Feed} />
             <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
+=======
+            <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
+            <BottomTabStack.Screen name="Testing" component={Account} />
+>>>>>>> cc18b3c9c0652e3b49054a84fbd1b4bce6490a82
         </Tab.Navigator>
     )
 }

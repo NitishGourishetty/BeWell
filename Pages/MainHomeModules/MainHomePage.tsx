@@ -1,11 +1,11 @@
-import React from "react-native"
+import * as React from "react-native"
 import { SafeAreaView, Pressable, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib"
 import { useWindowDimensions } from "react-native";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import StreaksModule from "./MainHomeModules/StreaksModule";
-import CalendarModule from "./MainHomeModules/CalendarModule";
-import HabitsModule from "./MainHomeModules/HabitsModule";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
+import StreaksModule from "./StreaksModule";
+import CalendarModule from "./CalendarModule";
+import HabitsModule from "./HabitsModule";
 
 
 export default function MainHomePage() {
