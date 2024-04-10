@@ -14,6 +14,7 @@ import UserPwdPage from '../Pages/UserPwdPage';
 import ProfilePicturePage from '../Pages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/TempSignUp';
 import { Session } from '@supabase/supabase-js'
+import Feed from '../Pages/BeWellFeed/Feed';
 
 
 const BottomTabStack = createNativeStackNavigator()
@@ -65,7 +66,7 @@ export function MainStack() {
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
-            <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
+            <BottomTabStack.Screen name="Feed" component={Feed} />
             <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
         </Tab.Navigator>
     )
