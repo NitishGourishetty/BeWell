@@ -64,7 +64,7 @@ export default function LoginPage({ navigation }) {
         if (email && password) {
             setPassword('')
             setEmail('')
-            navigation.navigate('Sign Up')
+            navigation.navigate('MainStack')
         }
     };
 
@@ -116,7 +116,7 @@ export default function LoginPage({ navigation }) {
                             textAlign: "center",
                             flex: 1
                         }}
-                        onPress={handleLogin}
+                        onPress={signInWithEmail}
                     />
                     <View style={styles.signUp}>
                         <Text style={{ color: '#80828C', fontFamily: "Poppins-Regular", marginRight: 3 }}>
