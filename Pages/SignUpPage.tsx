@@ -40,12 +40,12 @@ export default function Page({ navigation }) {
         })
 
         if (error) Alert.alert(error.message)
+        if(!error) handlePress()
         if (!session) Alert.alert('Please check your inbox for email verification!')
         setLoading(false)
     }
 
     const handlePress = () => {
-        signUpWithEmail();
         navigation.navigate('Name');
     }
 
@@ -99,7 +99,7 @@ export default function Page({ navigation }) {
                         textAlign: "center",
                         flex: 1
                     }}
-                    onPress={() => handlePress()}
+                    onPress={() => signUpWithEmail()}
                 />
             </View>
 
