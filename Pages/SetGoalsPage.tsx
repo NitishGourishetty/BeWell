@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image } from "react-native";
+import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image, Alert } from "react-native";
 import { Text, Button } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
 import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
@@ -61,7 +61,7 @@ export default function SetGoalsPage({ navigation }) {
                             onPress={handlePress}
                         />
                     </View>
-                    <TouchableOpacity style={styles.arrow} onPress={navigation.navigate("MainStack")}>
+                    <TouchableOpacity style={styles.arrow} onPress={() => navigation.navigate("MainStack")}>
                         <AntDesign name="arrowright" size={45}/>
                     </TouchableOpacity>
                 </View>
