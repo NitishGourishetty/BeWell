@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -8,15 +8,15 @@ import { useEffect, useState } from 'react';
 import * as Font from 'expo-font';
 import { MainStack } from './Navigation/BottomTabStack';
 import SignUpStack from './Navigation/SignUpStack'
-import TempSignUp from './Pages/TempSignUp'
+import TempSignUp from './Pages/NotInUse/TempSignUp'
 
 import 'react-native-url-polyfill/auto'
 import { supabase } from './lib/supabase'
-import Auth from './Pages/TempSignUp'
-import Account from './Pages/TempAccountPage'
+import Auth from './Pages/NotInUse/TempSignUp'
+import Account from './Pages/NotInUse/TempAccountPage'
 import { Session } from '@supabase/supabase-js'
 import LoginPage from './Pages/LoginPage';
-import SignUpPage from './Pages/TempSignUp';
+import SignUpPage from './Pages/NotInUse/TempSignUp';
 
 const Stack = createNativeStackNavigator()
 
