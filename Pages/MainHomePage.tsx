@@ -3,9 +3,9 @@ import { SafeAreaView, Pressable, ScrollView, StyleSheet } from "react-native";
 import { Text, View } from "react-native-ui-lib"
 import { useWindowDimensions } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import HabitsModule from "./MainHomeModules/HabitsModule";
 import StreaksModule from "./MainHomeModules/StreaksModule";
 import CalendarModule from "./MainHomeModules/CalendarModule";
+import HabitsModule from "./MainHomeModules/HabitsModule";
 
 
 export default function MainHomePage() {

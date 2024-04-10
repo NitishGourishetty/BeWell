@@ -1,13 +1,31 @@
-import React from "react";
-import { View, Text } from "react-native-ui-lib";
+import * as React from "react";
+import { View, Text, Image } from "react-native-ui-lib";
 import { Dimensions, useWindowDimensions, StyleSheet } from "react-native";
 import { useFonts } from 'expo-font'
-import { ModuleStyles } from "./CalendarModule";
 import { AntDesign } from '@expo/vector-icons';
 import { TouchableOpacity } from "react-native";
 import { useState, useEffect } from 'react'
+import * as ImagePicker from 'expo-image-picker'
+import * as Permissions from 'expo'
 
 function HabitsContent({ habitName, time }: HabitsProps) {
+    const [imageSource, setImageSource] = useState(null);
+    const openCamera = async() =>{
+        const status = await ImagePicker.requestCameraPermissionsAsync();
+        if(!status.granted){
+            alert("Camera permission is required to take photos")
+            return;
+        }
+        let result = await ImagePicker.launchCameraAsync({
+            allowsEditing: true,
+            quality: 1,
+        })
+        if (!result.canceled) {
+            setImageSource(result.assets?.[0]?.uri);
+        } else {
+            alert('You did not select any image.');
+        }
+    }
 
     return (
         <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -21,7 +39,11 @@ function HabitsContent({ habitName, time }: HabitsProps) {
                     </Text>
                 </View>
             </View>
-            <TouchableOpacity style={{ justifyContent: 'center' }}>
+                {/*<Image
+                    source={{ uri: imageSource }}
+                    style={{ width: "20%", borderRadius : 10}}
+                />*/}
+            <TouchableOpacity style={{ justifyContent: 'center' }} onPress={openCamera}>
                 <AntDesign name="plus" size={45} />
             </TouchableOpacity>
         </View>
