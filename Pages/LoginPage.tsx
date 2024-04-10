@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react"
+import { useState, useEffect } from "react";
 import { TextInput } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, AppState, Alert, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";

@@ -1,9 +1,9 @@
 import * as React from "react";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Text, Button } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
-import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
+import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
 
 
 const height = Dimensions.get("window").height * 0.9;
@@ -66,7 +66,7 @@ export default function SetGoalsPage({ navigation }) {
                     </TouchableOpacity>
                 </View>
                 <Image
-                    source={require("../assets/img/habit_set_footer.png")}
+                    source={require("../../assets/img/habit_set_footer.png")}
                     style={{ width: "100%", height: "125%", position: "absolute", zIndex: -1 }}
 
                 />
