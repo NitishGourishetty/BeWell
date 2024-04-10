@@ -7,11 +7,11 @@ import { Alert } from 'react-native'
 //Some functions will need to have a seperate await and loading states when implemented
 export async function getUserProfile(session) {
     try {
-        if (!session?.user) throw new Error('No usser on the session!')
+        if (!session?.user) throw new Error('No user on the session!')
   
         const { data, error, status } = await supabase
           .from('profiles')
-          .select(`username, website, avatar_url`)
+          .select(`first_name, last_name`)
           .eq('id', session?.user.id)
           .single()
         if (error && status !== 406) {
@@ -30,23 +30,20 @@ export async function getUserProfile(session) {
 
 export async function updateProfile({
     session,
-    username,
-    website,
-    avatar_url,
+    first_name,
+    last_name,
   }: {
     session: Session
-    username: string
-    website: string
-    avatar_url: string
+    first_name: string
+    last_name: string
   }) {
     try {
       if (!session?.user) throw new Error('No user on the session!')
 
       const updates = {
         id: session?.user.id,
-        username,
-        website,
-        avatar_url,
+        first_name,
+        last_name,
         updated_at: new Date(),
       }
 
@@ -99,7 +96,25 @@ export async function getUsersHabits(session) {
       }
 }
 
-export function getHabit({ session }: { session: Session }) {
-    
+export async function getSpecificHabit({ habit_info, session }: { habit_info: string, session: Session }) {
+  try {
+    if (!session?.user) throw new Error('No usser on the session!')
+
+    const { data, error, status } = await supabase
+      .from('habits')
+      .select('habit_info, public, id')
+      .eq('profile', session?.user.id)
+      .eq('habit_text', habit_info)
+    if (error && status !== 406) {
+      throw error
+    }
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      Alert.alert(error.message)
+      return null;
+    }
+  } finally {
+  }
 }
 

@@ -12,6 +12,7 @@ import SetGoalsPage from '../Pages/SetGoalsPage';
 import GoalSetupPage from '../Pages/GoalSetupPage';
 import TimePage from '../Pages/TimePage';
 import PrivacySetupPage from '../Pages/PrivacySetupPage';
+import { MainStack } from '../Navigation/BottomTabStack';
 
 
 const signUpFlow = createNativeStackNavigator();
@@ -27,6 +28,7 @@ export default function SignUpStack() {
             <signUpFlow.Screen name={"GoalSetup"} component={GoalSetupPage} />
             <signUpFlow.Screen name={"TimePage"} component={TimePage} />
             <signUpFlow.Screen name={"PrivacySetup"} component={PrivacySetupPage} />
+            <signUpFlow.Screen name ={"MainStack"} component={MainStack} />
         </signUpFlow.Navigator>
     )
 }

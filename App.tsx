@@ -24,11 +24,16 @@ export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
   //session for user being logged in or not
   const [session, setSession] = useState<Session | null>(null)
+  const [loggedIn, setLoggedIn] = useState(false)
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
-
+      if(session) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
     })
 
     supabase.auth.onAuthStateChange((_event, session) => {
@@ -56,13 +61,12 @@ export default function App() {
   }
 
   // Fonts are loaded, render your navigation
+
+  //LOGIN IS SCUFFED MAYBE USE SESSION DIFFERENTLY - NITISH -> SIGN OUT SHOULD NAVIGATE HOME THEN!!
   return (
-
-
-
     <>
       {
-        session && session.user ?
+        loggedIn ?
           <NavigationContainer>
             <MainStack />
             <StatusBar translucent={true} backgroundColor="transparent" />
