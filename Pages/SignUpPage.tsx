@@ -41,7 +41,7 @@ export default function Page({ navigation }) {
 
         if (error) Alert.alert(error.message)
         if(!error) handlePress()
-        if (!session) Alert.alert('Please check your inbox for email verification!')
+        if (!session) Alert.alert('Session error')
         setLoading(false)
     }
 
