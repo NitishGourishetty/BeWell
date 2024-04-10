@@ -13,7 +13,6 @@ import UserPwdPage from '../Pages/SignUpFlowPages/UserPwdPage';
 
 import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
-import Account from '../Pages/NotInUse/TempAccountPage';
 import { Session } from '@supabase/supabase-js'
 import Feed from '../Pages/BeWellFeed/Feed';
 
@@ -67,13 +66,8 @@ export function MainStack() {
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
-<<<<<<< HEAD
             <BottomTabStack.Screen name="Feed" component={Feed} />
             <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
-=======
-            <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={Account} />
->>>>>>> cc18b3c9c0652e3b49054a84fbd1b4bce6490a82
         </Tab.Navigator>
     )
 }
