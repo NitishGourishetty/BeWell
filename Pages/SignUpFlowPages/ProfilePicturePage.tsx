@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { useState, useEffect } from 'react';
+import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import { launchImageLibraryAsync } from 'expo-image-picker';
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 
 const height = Dimensions.get("window").height * 0.9;
@@ -10,9 +10,22 @@ const height = Dimensions.get("window").height * 0.9;
 export default function ProfilePicturePage({ navigation }) {
     useCustomFonts();
     const [imageSource, setImageSource] = useState(null);
+    useEffect(()=>console.log("Image Source:", imageSource), [imageSource]);
     const handlePress = () => {
-        setImageSource(null);
-        navigation.navigate("SetGoals")
+        if(imageSource == null){
+            Alert.alert(
+                "Confirmation",
+                `Are you sure you don't want to pick a profile picture?`,
+                [
+                    {text: 'Yes', onPress: () => navigation.navigate("SetGoals") , isPreferred : true},
+                    {text: 'No', onPress: () => console.log('Canceled'), style: 'cancel'},
+                ]
+            )
+        }
+        else{
+            setImageSource(null);
+            navigation.navigate("SetGoals")
+        }
     }
     const openImagePicker = async () => {
         let result = await launchImageLibraryAsync({

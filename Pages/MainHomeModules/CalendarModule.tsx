@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { View, Text } from "react-native-ui-lib";
 import { Dimensions, useWindowDimensions, StyleSheet, ScrollView } from "react-native";
 import { useFonts } from 'expo-font'
