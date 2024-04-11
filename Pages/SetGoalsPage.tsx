@@ -28,18 +28,18 @@ export default function SetGoalsPage({ route, navigation }) {
         navigation.navigate("GoalSetup")
     }
 
-    const isFocused = useIsFocused();
+    // const isFocused = useIsFocused();
 
     React.useEffect(() => {
         console.log("called");
  
         // Call only when screen open or when back on screen 
-        if(isFocused && route.params!=undefined){ 
+        if(route.params!=undefined){ 
             // let {ha} = habit_info
            alert(JSON.stringify(route.params))
         }
         console.log("hello")
-    }, [route.params, isFocused]);
+    }, [route.params]);
 
 
     return (
