@@ -27,6 +27,7 @@ export default function SignUpStack() {
             <signUpFlow.Screen name={"GoalSetup"} component={GoalSetupPage} />
             <signUpFlow.Screen name={"TimePage"} component={TimePage} />
             <signUpFlow.Screen name={"PrivacySetup"} component={PrivacySetupPage} />
+            <signUpFlow.Screen name ={"MainStack"} component={MainStack} />
         </signUpFlow.Navigator>
     )
 }

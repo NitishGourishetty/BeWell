@@ -35,9 +35,9 @@ export default function Account() {
       if (!session?.user) throw new Error('No user on the session!')
       let data = await getUserProfile(session); //calling from backend
       if (data) {
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
+        // setUsername(data.username)
+        // setWebsite(data.website)
+        // setAvatarUrl(data.avatar_url)
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -79,7 +79,7 @@ export default function Account() {
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Button
           title={loading ? 'Loading ...' : 'Update'}
-          onPress={() => updateProfile({session, username, website, avatar_url: avatarUrl })}
+          // onPress={() => updateProfile({session, username, website, avatar_url: avatarUrl })}
           disabled={loading}
         />
       </View>

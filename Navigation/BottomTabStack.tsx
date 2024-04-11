@@ -15,6 +15,7 @@ import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
 import Account from '../Pages/NotInUse/TempAccountPage';
 import { Session } from '@supabase/supabase-js'
+import Account from '../Pages/TempAccountPage';
 
 
 const BottomTabStack = createNativeStackNavigator()
