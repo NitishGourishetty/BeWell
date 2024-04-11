@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
 import { Image, Button } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
@@ -25,7 +25,7 @@ export default function PrivacySetupPage({ route, navigation }) {
     return (
         <View style={styles.container}>
             <Image
-                source={require('../assets/img/privacy_header.png')}
+                source={require('../../assets/img/privacy_header.png')}
                 style={styles.topRightSplash}
             />
             <View style={styles.content}>
@@ -34,7 +34,7 @@ export default function PrivacySetupPage({ route, navigation }) {
                 </Text>
                 <View style={styles.buttonsContainer}>
                     <Button
-                        label="Private"
+                        label="Just for Me"
                         backgroundColor="#498C68"
                         color="black"
                         borderRadius={5}
@@ -55,7 +55,7 @@ export default function PrivacySetupPage({ route, navigation }) {
                         {"In private mode, no one can see the progress on your habit."}
                     </Text>
                     <Button
-                        label="Public"
+                        label="With Friends"
                         backgroundColor="#AFC689"
                         color="black"
                         borderRadius={5}
@@ -78,7 +78,7 @@ export default function PrivacySetupPage({ route, navigation }) {
                 </View>
             </View>
             <Image
-                source={require('../assets/img/privacy_footer.png')}
+                source={require('../../assets/img/privacy_footer.png')}
                 style={styles.bottomLeftSplash}
             />
         </View>

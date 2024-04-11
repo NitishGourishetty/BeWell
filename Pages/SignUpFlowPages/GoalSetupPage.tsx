@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Dimensions, SafeAreaView, KeyboardAvoidingView, ScrollView, View, TouchableOpacity, StyleSheet, Text, Platform } from 'react-native';
 import { TextField } from "react-native-ui-lib"
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { AntDesign } from '@expo/vector-icons';
-import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
+import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
 
 const height = Dimensions.get("window").height * 0.9;
 
