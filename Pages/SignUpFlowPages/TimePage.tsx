@@ -11,12 +11,14 @@ export default function TimePage({ route, navigation }) {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
     let data = [];
-    const { habit_info, session } = route.params;
+    const { habit_info} = route.params;
+
+    function confirmHabit() {
+        navigation.navigate("PrivacySetup", {habit_info: habit_info, startTime: startTime, endTime:endTime});
+    }
+
     useEffect(() => {
         console.log("Start Time:", `${startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
-
-       // data =  getSpecificHabit({habit_info, session});
-        console.log(data.length);
     }, [startTime]);
 
     useEffect(() => {
@@ -59,7 +61,7 @@ export default function TimePage({ route, navigation }) {
                 "Confirmation",
                 `Start Time: ${startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}\nEnd Time: ${endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`,
                 [
-                    { text: 'Confirm', onPress: () => navigation.navigate("PrivacySetup"), isPreferred: true },
+                    { text: 'Confirm', onPress: () => confirmHabit(), isPreferred: true },
                     { text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel' },
                 ]
             )
