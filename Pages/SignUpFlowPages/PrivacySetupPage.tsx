@@ -33,7 +33,7 @@ export default function PrivacySetupPage({ navigation }) {
                 </Text>
                 <View style={styles.buttonsContainer}>
                     <Button
-                        label="Private"
+                        label="Just for Me"
                         backgroundColor="#498C68"
                         color="black"
                         borderRadius={5}
@@ -54,7 +54,7 @@ export default function PrivacySetupPage({ navigation }) {
                         {"In private mode, no one can see the progress on your habit."}
                     </Text>
                     <Button
-                        label="Public"
+                        label="With Friends"
                         backgroundColor="#AFC689"
                         color="black"
                         borderRadius={5}

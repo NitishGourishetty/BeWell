@@ -52,3 +52,35 @@ export default function NamePage({ navigation }) {
         </ScrollView>
     )
 }
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "E6D6B8"
+    },
+    content: {
+        width: "80%",
+        alignItems: "center",
+    },
+    title: {
+        fontSize: height / 20,
+        textAlign: "center",
+        color: "#498C68",
+        fontFamily: 'Poppins-SemiBold',
+        marginBottom: 50
+    },
+    textFieldsContainer: {
+        width: "100%",
+        marginBottom: 20,
+    },
+    textField: {
+        borderBottomColor: '#AFC689',
+        borderBottomWidth: 1,
+        marginBottom: 20
+    },
+    button: {
+        alignSelf: 'flex-end',
+        marginTop: 50
+    }
+});

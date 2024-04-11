@@ -55,10 +55,10 @@ export default function UserPwdPage({navigation}){
                             // floatingPlaceholderColor="#80828C"
                             // floatingPlaceholder
                             enableErrors
-                            validateOnChange
                             validate={['required', (value) => value.length > 6]}
                             validationMessage={['Field is required', 'Username is too short']}
                             onChangeText={text => setUsername(text)}
+                            typ
                         />
                         <TextField
                             color="#80828C"
