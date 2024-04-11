@@ -3,11 +3,11 @@ import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Text, Button } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
-import { supabase } from "../lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { addHabit } from "../lib/backend";
 import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
+import { supabase } from "../../lib/supabase";
+import { addHabit } from "../../lib/backend";
 
 
 const height = Dimensions.get("window").height * 0.9;
