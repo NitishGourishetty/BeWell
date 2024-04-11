@@ -66,12 +66,12 @@ export default function App() {
   return (
     <>
       {
-        loggedIn ?
-          <NavigationContainer>
-            <MainStack />
-            <StatusBar translucent={true} backgroundColor="transparent" />
-          </NavigationContainer>
-          :
+        // loggedIn ?
+        //   <NavigationContainer>
+        //     <MainStack />
+        //     <StatusBar translucent={true} backgroundColor="transparent" />
+        //   </NavigationContainer>
+        //   :
           <NavigationContainer>
             <SignUpStack />
           </NavigationContainer>

@@ -4,14 +4,47 @@ import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image, Aler
 import { Text, Button } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
 import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
+import { supabase } from "../lib/supabase";
+import { Session } from "@supabase/supabase-js";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 
 
 const height = Dimensions.get("window").height * 0.9;
-export default function SetGoalsPage({ navigation }) {
+export default function SetGoalsPage({ route, navigation }) {
     useCustomFonts();
+    const [session, setSession] = React.useState<Session | null>(null)
+    const [data, setData] = React.useState(null)
+    //Pass the Session into this next time
+    React.useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          setSession(session)
+    
+        })
+        supabase.auth.onAuthStateChange((_event, session) => {
+          setSession(session)
+        })
+      }, [])
+
     const handlePress = () => {
-        navigation.navigate("GoalSetup")
+        navigation.navigate("GoalSetup", {session: session})
     }
+
+    const isFocused = useIsFocused();
+
+    React.useEffect(() => {
+        console.log("called");
+ 
+        // Call only when screen open or when back on screen 
+        if(isFocused){ 
+            alert("hi");
+            setData(route.params)
+            const { habit_info, session, startTime, endTime } = route.params;
+            alert(habit_info)
+        }
+        console.log("hello")
+    }, [route.params, isFocused]);
+
+
     return (
         <KeyboardAvoidingContainer>
             <ScrollView contentContainerStyle={styles.container}>
