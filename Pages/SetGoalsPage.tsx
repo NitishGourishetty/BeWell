@@ -7,6 +7,7 @@ import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingCont
 import { supabase } from "../lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { addHabit } from "../lib/backend";
 
 
 const height = Dimensions.get("window").height * 0.9;
@@ -14,6 +15,7 @@ export default function SetGoalsPage({ route, navigation }) {
     useCustomFonts();
     const [session, setSession] = React.useState<Session | null>(null)
     const [data, setData] = React.useState(null)
+    const [numGoals, setNumGoals] = React.useState(0)
     React.useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
           setSession(session)
@@ -29,16 +31,18 @@ export default function SetGoalsPage({ route, navigation }) {
     }
 
     // const isFocused = useIsFocused();
-
     React.useEffect(() => {
-        console.log("called");
- 
+        console.log("goal useEffect being called");
         // Call only when screen open or when back on screen 
         if(route.params!=undefined){ 
             // let {ha} = habit_info
-           alert(JSON.stringify(route.params))
+            let { habit_info, startTime, endTime, visibility } = route.params;
+        
+           alert(habit_info + startTime + endTime + visibility)
+           addHabit(session, habit_info, startTime, endTime, visibility)
+           setNumGoals(numGoals+1)
+
         }
-        console.log("hello")
     }, [route.params]);
 
 
