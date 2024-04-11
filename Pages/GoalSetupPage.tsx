@@ -12,11 +12,9 @@ export default function GoalSetupPage({ route, navigation }) {
     useCustomFonts();
     const [goalName, setGoalName] = useState(null);
     //Pass the Session into this next time
-    const { session } = route.params;
-
     async function handlePress() {
         //addHabit(session, goalName)
-        navigation.navigate("TimePage", {session: session, habit_info: goalName})
+        navigation.navigate("TimePage", {habit_info: goalName})
     }
     return (
         <KeyboardAvoidingContainer>

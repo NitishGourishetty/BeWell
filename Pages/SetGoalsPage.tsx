@@ -28,7 +28,7 @@ export default function SetGoalsPage({ route, navigation }) {
       }, [])
 
     const handlePress = () => {
-        navigation.navigate("GoalSetup", {session: session})
+        navigation.navigate("GoalSetup")
     }
 
     const isFocused = useIsFocused();
@@ -38,7 +38,8 @@ export default function SetGoalsPage({ route, navigation }) {
  
         // Call only when screen open or when back on screen 
         if(isFocused && habit_info!=undefined){ 
-           alert(habit_info.habit_info)
+            let {habitInfo} = habit_info
+           alert(JSON.stringify(habit_info))
         }
         console.log("hello")
     }, [route.params, isFocused]);

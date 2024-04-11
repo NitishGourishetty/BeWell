@@ -11,10 +11,10 @@ export default function TimePage({ route, navigation }) {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
     let data = [];
-    const { habit_info, session } = route.params;
+    const { habit_info} = route.params;
 
     function confirmHabit() {
-        navigation.navigate("PrivacySetup", {session: session, habit: habit_info, startTime: startTime, endTime:endTime});
+        navigation.navigate("PrivacySetup", {habit_info: habit_info, startTime: startTime, endTime:endTime});
     }
 
     useEffect(() => {
