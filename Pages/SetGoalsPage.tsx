@@ -14,6 +14,8 @@ export default function SetGoalsPage({ route, navigation }) {
     useCustomFonts();
     const [session, setSession] = React.useState<Session | null>(null)
     const [data, setData] = React.useState(null)
+    let habit_info = undefined
+     habit_info  = route.params != undefined ? route.params : undefined ;
     //Pass the Session into this next time
     React.useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
@@ -35,11 +37,8 @@ export default function SetGoalsPage({ route, navigation }) {
         console.log("called");
  
         // Call only when screen open or when back on screen 
-        if(isFocused){ 
-            alert("hi");
-            setData(route.params)
-            const { habit_info, session, startTime, endTime } = route.params;
-            alert(habit_info)
+        if(isFocused && habit_info!=undefined){ 
+           alert(habit_info.habit_info)
         }
         console.log("hello")
     }, [route.params, isFocused]);
