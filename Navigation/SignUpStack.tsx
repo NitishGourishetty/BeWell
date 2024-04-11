@@ -20,10 +20,10 @@ const signUpFlow = createNativeStackNavigator();
 export default function SignUpStack() {
     return (
         <signUpFlow.Navigator screenOptions={{ animationTypeForReplace: "pop" }}>
-            {/* <signUpFlow.Screen name={"Login"} component={LoginPage} />
+            <signUpFlow.Screen name={"Login"} component={LoginPage} />
             <signUpFlow.Screen name={"Sign Up"} component={SignUpPage} />
             <signUpFlow.Screen name={"Name"} component={NamePage} />
-            <signUpFlow.Screen name={"Profile Picture"} component={ProfilePicturePage} /> */}
+            <signUpFlow.Screen name={"Profile Picture"} component={ProfilePicturePage} />
             <signUpFlow.Screen name={"SetGoals"} component={SetGoalsPage} />
             <signUpFlow.Screen name={"GoalSetup"} component={GoalSetupPage} />
             <signUpFlow.Screen name={"TimePage"} component={TimePage} />
