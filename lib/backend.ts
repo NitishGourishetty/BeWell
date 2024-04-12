@@ -61,12 +61,12 @@ export async function updateProfile({
   }
 
 
-export async function addHabit(session, habitText) {
+export async function addHabit(session, habitText, startTime, endTime, visibility) {
     try {
       if (!session?.user) throw new Error('No user on the session!')
       const { error } = await supabase
       .from('habits')
-      .insert({habit_info: habitText, profile: session?.user.id })
+      .insert({habit_info: habitText, profile: session?.user.id, time_start: startTime, time_end: endTime, public: visibility })
 
     } catch (error) {
       if (error instanceof Error) {
