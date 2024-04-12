@@ -95,7 +95,7 @@ export default function SetGoalsPage({ route, navigation }) {
                             onPress={handlePress}
                         />
                     </View>
-                    <TouchableOpacity style={styles.arrow}>
+                    <TouchableOpacity style={styles.arrow} onPress={() => {navigation.navigate("MainStack")}}>
                         <AntDesign name="arrowright" size={45} />
                     </TouchableOpacity>
                 </View>
