@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Dimensions, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { AntDesign } from '@expo/vector-icons';
-import { getSpecificHabit } from '../lib/backend';
+import { getSpecificHabit } from '../../lib/backend';
 
 const height = Dimensions.get("window").height * 0.9;
 
@@ -11,10 +11,10 @@ export default function TimePage({ route, navigation }) {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
     let data = [];
-    const { habit_info} = route.params;
+    const { habitInfo } = route.params;
 
     function confirmHabit() {
-        navigation.navigate("PrivacySetup", {habit_info: habit_info, startTime: startTime, endTime:endTime});
+        navigation.navigate("PrivacySetup", {habitInfo: habitInfo, startTime: startTime, endTime: endTime});
     }
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export default function TimePage({ route, navigation }) {
 
     useEffect(() => {
         console.log("End Time:", `${endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
-        console.log(habit_info)
+        console.log(habitInfo)
     }, [endTime]);
 
     const onStartChange = (event: DateTimePickerEvent, date: Date) => {

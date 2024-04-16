@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Text, Button } from 'react-native-ui-lib';
@@ -8,43 +9,42 @@ import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
 import { supabase } from "../../lib/supabase";
 import { addHabit } from "../../lib/backend";
+import HabitsModule from "../MainHomeModules/HabitsModule";
 
 
 const height = Dimensions.get("window").height * 0.9;
 export default function SetGoalsPage({ route, navigation }) {
     useCustomFonts();
-    const [session, setSession] = React.useState<Session | null>(null)
-    const [data, setData] = React.useState(null)
-    const [numGoals, setNumGoals] = React.useState(0)
-    React.useEffect(() => {
+    const [session, setSession] = useState<Session | null>(null)
+    const [data, setData] = useState(null)
+    const [habit, setHabit] = useState("")
+    const [numGoals, setNumGoals] = useState(0)
+    useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
-          setSession(session)
-    
+            setSession(session)
         })
         supabase.auth.onAuthStateChange((_event, session) => {
-          setSession(session)
+            setSession(session)
         })
-      }, [])
+    }, [])
 
     const handlePress = () => {
         navigation.navigate("GoalSetup")
     }
 
     // const isFocused = useIsFocused();
-    React.useEffect(() => {
+    useEffect(() => {
         console.log("goal useEffect being called");
         // Call only when screen open or when back on screen 
-        if(route.params!=undefined){ 
-            // let {ha} = habit_info
-            let { habit_info, startTime, endTime, visibility } = route.params;
-        
-           alert(habit_info + startTime + endTime + visibility)
-           addHabit(session, habit_info, startTime, endTime, visibility)
-           setNumGoals(numGoals+1)
-
+        if (route.params != undefined) {
+            let { habitInfo, startTime, endTime, visibility } = route.params;
+            setNumGoals(numGoals + 1)
+            console.log(numGoals)
+            alert(habitInfo + "\n" + startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\n" + endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + "\n" + (visibility ? "Just for Me" : "With Friends") + "\n" + numGoals)
+            addHabit(session, habitInfo, startTime, endTime, visibility)
+            setHabit(habitInfo)
         }
     }, [route.params]);
-
 
     return (
         <KeyboardAvoidingContainer>
@@ -54,19 +54,26 @@ export default function SetGoalsPage({ route, navigation }) {
                         {'Set Your Goals'}
                     </Text>
                     <View style={styles.buttonsContainer}>
-                        <Button
-                            backgroundColor="lightgrey"
-                            color="black"
-                            borderRadius={5}
-                            style={{
-                                marginBottom: 20,
-                                height: "20%",
-                                flexDirection: 'row',
-                                alignItems: 'center'
-                            }}
-                            iconSource={() => <AntDesign name="plus" size={40} color="black" />}
-                            onPress={handlePress}
-                        />
+                        {numGoals == 1 && route.params ?
+                            <HabitsModule
+                                habitName={habit}
+                                time={7} 
+                                index={numGoals}
+                            /> : 
+                            <Button
+                                backgroundColor="lightgrey"
+                                color="black"
+                                borderRadius={5}
+                                style={{
+                                    marginBottom: 20,
+                                    height: "20%",
+                                    flexDirection: 'row',
+                                    alignItems: 'center'
+                                }}
+                                iconSource={() => <AntDesign name="plus" size={40} color="black" />}
+                                onPress={handlePress}
+                            />
+                        }
                         <Button
                             backgroundColor="lightgrey"
                             color="black"
@@ -95,7 +102,7 @@ export default function SetGoalsPage({ route, navigation }) {
                             onPress={handlePress}
                         />
                     </View>
-                    <TouchableOpacity style={styles.arrow} onPress={() => {navigation.navigate("MainStack")}}>
+                    <TouchableOpacity style={styles.arrow} onPress={() => { navigation.navigate("MainStack") }}>
                         <AntDesign name="arrowright" size={45} />
                     </TouchableOpacity>
                 </View>

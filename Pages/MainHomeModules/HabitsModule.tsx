@@ -38,6 +38,7 @@ function HabitsContent({ habitName, time }: HabitsProps) {
                         @{time} A.M
                     </Text>
                 </View>
+                
             </View>
                 {/*<Image
                     source={{ uri: imageSource }}
