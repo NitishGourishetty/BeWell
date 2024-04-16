@@ -3,15 +3,49 @@ import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, TouchableOpacity, Dimensions, Image } from "react-native";
 import { Text, Button } from 'react-native-ui-lib';
 import { AntDesign } from '@expo/vector-icons';
+import { Session } from "@supabase/supabase-js";
+import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
+import { supabase } from "../../lib/supabase";
+import { addHabit } from "../../lib/backend";
 
 
 const height = Dimensions.get("window").height * 0.9;
-export default function SetGoalsPage({ navigation }) {
+export default function SetGoalsPage({ route, navigation }) {
     useCustomFonts();
+    const [session, setSession] = React.useState<Session | null>(null)
+    const [data, setData] = React.useState(null)
+    const [numGoals, setNumGoals] = React.useState(0)
+    React.useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          setSession(session)
+    
+        })
+        supabase.auth.onAuthStateChange((_event, session) => {
+          setSession(session)
+        })
+      }, [])
+
     const handlePress = () => {
         navigation.navigate("GoalSetup")
     }
+
+    // const isFocused = useIsFocused();
+    React.useEffect(() => {
+        console.log("goal useEffect being called");
+        // Call only when screen open or when back on screen 
+        if(route.params!=undefined){ 
+            // let {ha} = habit_info
+            let { habit_info, startTime, endTime, visibility } = route.params;
+        
+           alert(habit_info + startTime + endTime + visibility)
+           addHabit(session, habit_info, startTime, endTime, visibility)
+           setNumGoals(numGoals+1)
+
+        }
+    }, [route.params]);
+
+
     return (
         <KeyboardAvoidingContainer>
             <ScrollView contentContainerStyle={styles.container}>
@@ -61,8 +95,8 @@ export default function SetGoalsPage({ navigation }) {
                             onPress={handlePress}
                         />
                     </View>
-                    <TouchableOpacity style={styles.arrow} onPress={navigation.navigate("MainStack")}>
-                        <AntDesign name="arrowright" size={45}/>
+                    <TouchableOpacity style={styles.arrow} onPress={() => {navigation.navigate("MainStack")}}>
+                        <AntDesign name="arrowright" size={45} />
                     </TouchableOpacity>
                 </View>
                 <Image

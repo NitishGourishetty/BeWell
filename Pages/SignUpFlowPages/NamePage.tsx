@@ -1,10 +1,14 @@
-import * as React from "react";
-import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
-import { ScrollView, View, StyleSheet } from "react-native";
+import React from "react";
+import { ScrollView, View, StyleSheet, Alert } from "react-native";
 import { Text, TextField } from 'react-native-ui-lib';
 import { Dimensions, TouchableOpacity } from "react-native";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
-import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
+import { Session } from '@supabase/supabase-js'
+import { useState, useEffect } from 'react'
+import { updateProfile } from "../../lib/backend";
+import { supabase } from "../../lib/supabase";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
+
 
 
 const height = Dimensions.get("window").height * 0.9;

@@ -4,31 +4,49 @@ import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, Alert } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
 import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
+import { supabase } from "../../lib/supabase";
 
 const height = Dimensions.get("window").height * 0.9;
 export default function UserPwdPage({navigation}){
     useCustomFonts();
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmedPassword, setConfirmedPassword] = useState("");
-    useEffect(()=>console.log("Username: ", username), [username]);
-    useEffect(()=>console.log("Password: ", password), [password]);
-    useEffect(()=>console.log("Confirmed Password: ", confirmedPassword), [confirmedPassword]);
+    const [loading, setLoading] = useState(false)
+    // useEffect(()=>console.log("Email: ", email), [email]);
+    // useEffect(()=>console.log("Password: ", password), [password]);
+    // useEffect(()=>console.log("Confirmed Password: ", confirmedPassword), [confirmedPassword]);
+
+    async function signUpWithEmail() {
+        setLoading(true)
+        const {
+            data: { session },
+            error,
+        } = await supabase.auth.signUp({
+            email: email,
+            password: password,
+        })
+
+        if (error) Alert.alert(error.message)
+        if(!error) navigation.navigate("Name")
+        if (!session) Alert.alert('Session error')
+        setLoading(false)
+    }
     const handleLogin = () => {
-        if(password.length == 0 || username.length == 0)
+        if(password.length == 0 || email.length == 0)
             alert("Please complete all fields")
         else if(password != confirmedPassword)
             alert("Please ensure your passwords match.")
         else if(password.length <= 6)
             alert("Please ensure your password is at least 7 characters.")
-        else if(username.length <= 6)
-            alert("Please ensure your username is at least 7 characters.")
+        else if(email.length <= 6)
+            alert("Please ensure your email is at least 7 characters.")
         else {
             Alert.alert(
                 "Confirmation",
-                `Username: ${username}\nPassword: ${password}`,
+                `Email: ${email}\nPassword: ${password}`,
                 [
-                    {text: 'Confirm', onPress: () => navigation.navigate("Name") , isPreferred : true},
+                    {text: 'Confirm', onPress: () => signUpWithEmail() , isPreferred : true},
                     {text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel'},
                 ]
             )
@@ -55,10 +73,10 @@ export default function UserPwdPage({navigation}){
                             // floatingPlaceholderColor="#80828C"
                             // floatingPlaceholder
                             enableErrors
-                            validateOnChange
                             validate={['required', (value) => value.length > 6]}
-                            validationMessage={['Field is required', 'Username is too short']}
-                            onChangeText={text => setUsername(text)}
+                            validationMessage={['Field is required', 'Email is too short']}
+                            onChangeText={text => setEmail(text)}
+                            typ
                         />
                         <TextField
                             color="#80828C"

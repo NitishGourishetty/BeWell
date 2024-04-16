@@ -3,18 +3,27 @@ import { useState, useEffect } from 'react';
 import { Dimensions, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { AntDesign } from '@expo/vector-icons';
+import { getSpecificHabit } from '../lib/backend';
 
 const height = Dimensions.get("window").height * 0.9;
 
-export default function TimePage({ navigation }) {
+export default function TimePage({ route, navigation }) {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
+    let data = [];
+    const { habit_info} = route.params;
+
+    function confirmHabit() {
+        navigation.navigate("PrivacySetup", {habit_info: habit_info, startTime: startTime, endTime:endTime});
+    }
+
     useEffect(() => {
         console.log("Start Time:", `${startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
     }, [startTime]);
 
     useEffect(() => {
         console.log("End Time:", `${endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`);
+        console.log(habit_info)
     }, [endTime]);
 
     const onStartChange = (event: DateTimePickerEvent, date: Date) => {
@@ -52,7 +61,7 @@ export default function TimePage({ navigation }) {
                 "Confirmation",
                 `Start Time: ${startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}\nEnd Time: ${endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`,
                 [
-                    { text: 'Confirm', onPress: () => navigation.navigate("PrivacySetup"), isPreferred: true },
+                    { text: 'Confirm', onPress: () => confirmHabit(), isPreferred: true },
                     { text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel' },
                 ]
             )

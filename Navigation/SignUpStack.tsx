@@ -13,6 +13,7 @@ import GoalSetupPage from '../Pages/SignUpFlowPages/GoalSetupPage';
 import TimePage from '../Pages/SignUpFlowPages/TimePage';
 import PrivacySetupPage from '../Pages/SignUpFlowPages/PrivacySetupPage';
 import { MainStack } from '../Navigation/BottomTabStack';
+import { MainStack } from './BottomTabStack';
 
 
 const signUpFlow = createNativeStackNavigator();

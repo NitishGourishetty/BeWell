@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
@@ -10,6 +10,7 @@ const height = Dimensions.get("window").height * 0.9;
 export default function ProfilePicturePage({ navigation }) {
     useCustomFonts();
     const [imageSource, setImageSource] = useState(null);
+    useEffect(()=>console.log("Image Source:", imageSource), [imageSource]);
     const handlePress = () => {
         if(imageSource == null){
             Alert.alert(
