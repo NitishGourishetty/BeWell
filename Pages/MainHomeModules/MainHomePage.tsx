@@ -22,11 +22,6 @@ export default function MainHomePage() {
                     </Text>
                     <CalendarModule />
                     <Text style={styles.Subheading}>
-                        Streaks
-                    </Text>
-                    <StreaksModule days={10} />
-
-                    <Text style={styles.Subheading}>
                         Habits
                     </Text>
                     <HabitsModule habitName={"Defeating The Harkonnens"} time={"10"} index={0} />
