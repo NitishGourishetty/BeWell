@@ -65,7 +65,7 @@ export default function HabitsModule({ habitName, time, index }: HabitsProps) {
             <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10 }}>
                 <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <HabitsContent habitName={habitName} time={time}/>
-                    <StreaksModule days={10}/>
+                    <StreaksModule days={10} color={backgroundColor}/>
                     <TouchableOpacity style={{ justifyContent: 'center', marginLeft : 15, zIndex : 1, padding : 10}} onPress={openCamera}>
                         <AntDesign name="camera" size={45} color={backgroundColor}/>
                     </TouchableOpacity>
