@@ -10,9 +10,9 @@ import * as Permissions from 'expo'
 
 function HabitsContent({ habitName, time }: HabitsProps) {
     const [imageSource, setImageSource] = useState(null);
-    const openCamera = async() =>{
+    const openCamera = async () => {
         const status = await ImagePicker.requestCameraPermissionsAsync();
-        if(!status.granted){
+        if (!status.granted) {
             alert("Camera permission is required to take photos")
             return;
         }
@@ -39,7 +39,7 @@ function HabitsContent({ habitName, time }: HabitsProps) {
                     </Text>
                 </View>
             </View>
-                {/*<Image
+            {/*<Image
                     source={{ uri: imageSource }}
                     style={{ width: "20%", borderRadius : 10}}
                 />*/}

@@ -29,7 +29,8 @@ export default function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
-      if(session) {
+      console.log("THIS IS SESSION", session)
+      if (session) {
         setLoggedIn(true);
       } else {
         setLoggedIn(false);

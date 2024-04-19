@@ -98,7 +98,7 @@ export async function getUsersHabits(session) {
 
 export async function getSpecificHabit({ habit_info, session }: { habit_info: string, session: Session }) {
   try {
-    if (!session?.user) throw new Error('No usser on the session!')
+    if (!session?.user) throw new Error('No user on the session!')
 
     const { data, error, status } = await supabase
       .from('habits')

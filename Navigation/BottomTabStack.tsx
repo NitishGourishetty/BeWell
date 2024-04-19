@@ -40,11 +40,12 @@ export function MainStack() {
                         iconName = 'hammer'
                     }
                     else if (rn === 'Friends') {
-                        iconName = "person-add"
+                        iconName = "group"
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />
                 },
+                headerShown: false,
                 tabBarActiveTintColor: "#000000",
                 headerBackgroundContainerStyle: {
                     marginVertical: "-2%"
@@ -67,7 +68,7 @@ export function MainStack() {
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Feed" component={Feed} />
-            <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
+            <BottomTabStack.Screen name="Testing" component={TempSignUpPage} />
         </Tab.Navigator>
     )
 }
