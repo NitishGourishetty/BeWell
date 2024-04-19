@@ -40,7 +40,7 @@ export default function App() {
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.log("ERROR")
+        console.log("Checking onboarding data [restarting]")
       }
     }
   }
