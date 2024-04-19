@@ -8,7 +8,7 @@ import { Session } from "@supabase/supabase-js";
 import { useFocusEffect, useIsFocused } from "@react-navigation/native";
 import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
 import { supabase } from "../../lib/supabase";
-import { addHabit } from "../../lib/backend";
+import { addHabit, finishOnboarding } from "../../lib/backend";
 import HabitSetupModule from "./HabitSetupModule";
 
 
@@ -37,6 +37,11 @@ export default function SetGoalsPage({ route, navigation }) {
 
     const handlePress = () => {
         navigation.navigate("GoalSetup")
+    }
+
+    function completeOnboarding() {
+        finishOnboarding(session)
+        navigation.navigate("MainStack")
     }
 
     // const isFocused = useIsFocused();
@@ -137,7 +142,7 @@ export default function SetGoalsPage({ route, navigation }) {
                             />
                         }
                     </View>
-                    <TouchableOpacity style={styles.arrow} onPress={() => { navigation.navigate("MainStack") }}>
+                    <TouchableOpacity style={styles.arrow} onPress={() => { completeOnboarding() }}>
                         <AntDesign name="arrowright" size={45} />
                     </TouchableOpacity>
                 </View>
