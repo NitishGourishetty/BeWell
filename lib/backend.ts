@@ -75,13 +75,15 @@ export async function addHabit(session, habitText, startTime, endTime, visibilit
     }
   }
 
+
+
 export async function getUsersHabits(session) {
     try {
         if (!session?.user) throw new Error('No usser on the session!')
   
         const { data, error, status } = await supabase
           .from('habits')
-          .select('habit_info, public, id')
+          .select('habit_info')
           .eq('profile', session?.user.id)
         if (error && status !== 406) {
           throw error

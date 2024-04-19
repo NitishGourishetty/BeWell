@@ -14,6 +14,7 @@ import UserPwdPage from '../Pages/SignUpFlowPages/UserPwdPage';
 import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
 import { Session } from '@supabase/supabase-js'
+import SignUpStack from './SignUpStack';
 import Feed from '../Pages/BeWellFeed/Feed';
 
 
@@ -62,7 +63,9 @@ export function MainStack() {
                     borderBlockColor: 'grey',
                     backgroundColor: "white",
 
-                }
+                },
+                headerShown: false,
+
             })}
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />

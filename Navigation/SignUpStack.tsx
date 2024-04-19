@@ -20,7 +20,7 @@ const signUpFlow = createNativeStackNavigator();
 
 export default function SignUpStack() {
     return (
-        <signUpFlow.Navigator screenOptions={{ animationTypeForReplace: "pop" }}>
+        <signUpFlow.Navigator screenOptions={{ animationTypeForReplace: "pop", headerShown: false }}>
             <signUpFlow.Screen name={"Login"} component={LoginPage} />
             <signUpFlow.Screen name={"Sign Up"} component={UserPwdPage} />
             <signUpFlow.Screen name={"Name"} component={NamePage} />
