@@ -71,9 +71,21 @@ export default function MainHomePage() {
                         Habits
                     </Text>
 
-                    <HabitsModule habitName={habitData[0].habit_info} time={10} index={0} />
-                    <HabitsModule habitName={habitData[1].habit_info} time={7} index={1} />
-                    <HabitsModule habitName={habitData[2].habit_info} time={12} index={2} />
+                  
+                    {habitData != null ? 
+                    <>
+                      <HabitsModule habitName={habitData[0].habit_info} time={10} index={0} />
+                      <HabitsModule habitName={habitData[0].habit_info} time={7} index={1} />
+                      <HabitsModule habitName={habitData[0].habit_info} time={12} index={2} /> 
+                    </>: 
+                    <>
+                    <HabitsModule habitName={"loading"} time={10} index={0} />
+                    <HabitsModule habitName={"loading"} time={10} index={0} />
+                    <HabitsModule habitName={"loading"} time={10} index={0} />
+                    </>
+                    }
+
+                    
 
                 </View>
             </ScrollView>
