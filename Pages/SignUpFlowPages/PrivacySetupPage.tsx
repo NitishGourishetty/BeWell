@@ -8,20 +8,14 @@ import { FontAwesome } from '@expo/vector-icons';
 const height = Dimensions.get("window").height * 0.9;
 export default function PrivacySetupPage({ route, navigation }) {
     useCustomFonts();
-
-    const [isPrivate, setPrivate] = useState(false);
-    const { habit_info, startTime, endTime } = route.params;
+    const { habitInfo, startTime, endTime } = route.params;
 
     const handlePrivate = () => {
-        setPrivate(true)
-        navigation.navigate("SetGoals", {habit_info: habit_info, startTime: startTime, endTime:endTime, visibility: isPrivate})
-
+        navigation.navigate("SetGoals", {habitInfo: habitInfo, startTime: startTime, endTime:endTime, visibility: true})
     }
     const handlePublic = () => {
-        setPrivate(false)
-        navigation.navigate("SetGoals", {habit_info: habit_info, startTime: startTime, endTime:endTime, visibility: isPrivate})
+        navigation.navigate("SetGoals", {habitInfo: habitInfo, startTime: startTime, endTime:endTime, visibility: false})
     }
-    useEffect(() => console.log("Private: ", isPrivate), [isPrivate]);
     return (
         <View style={styles.container}>
             <Image
