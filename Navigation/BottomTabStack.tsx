@@ -62,7 +62,9 @@ export function MainStack() {
                     borderBlockColor: 'grey',
                     backgroundColor: "white",
 
-                }
+                },
+                headerShown: false,
+
             })}
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
