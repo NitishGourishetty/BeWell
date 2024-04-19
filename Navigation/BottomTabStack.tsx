@@ -64,7 +64,6 @@ export function MainStack() {
                     backgroundColor: "white",
 
                 },
-                headerShown: false,
 
             })}
         >

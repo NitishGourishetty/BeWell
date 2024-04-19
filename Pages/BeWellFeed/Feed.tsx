@@ -2,42 +2,29 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { SafeAreaView, View, Text } from 'react-native'
 import { getUsersHabits } from '../../lib/backend'
+
 import { supabase } from '../../lib/supabase'
 import { Session } from '@supabase/supabase-js'
+import { useCustomFonts } from '../../assets/fonts/fontDeclarations'
+
 
 export default function Feed() {
     const [session, setSession] = useState<Session | null>(null)
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState({});
+    const [habitData, setHabitData] = useState(null)
+
 
     useEffect(() => {
-        async function fetchSession() {
-            try {
-                const { data: { session } } = await supabase.auth.getSession();
-                setSession(session);
-            } catch (error) {
-                console.error('Error fetching session:', error.message);
-            }
-        }
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session)
+        })
+        supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session)
+        })
 
-        fetchSession();
 
-        const authListener = (_event: string, session: Session | null) => {
-            setSession(session);
-        };
+    }, [])
 
-        const removeListener = supabase.auth.onAuthStateChange(authListener);
-
-        return () => {
-            removeListener();
-        };
-    }, []);
-
-    useEffect(() => {
-        if (session) {
-            getHabitInfo();
-        }
-    }, [session]);
 
     async function getHabitInfo() {
         try {
@@ -46,9 +33,7 @@ export default function Feed() {
             let data = await getUsersHabits(session);
             if (data) {
                 //Do Stuff with data
-                console.log("DATA: ", data);
-                console.log("type: ", typeof (data))
-                setData(data);
+                setHabitData(data)
             }
         } catch (error) {
             if (error instanceof Error) {
@@ -57,18 +42,19 @@ export default function Feed() {
             }
         } finally {
             setLoading(false)
+            console.log(habitData)
         }
     }
     useEffect(() => {
         if (session) getHabitInfo()
     }, [session])
     const user = "user";
-
+    useCustomFonts();
 
     return (
         <SafeAreaView>
             <Text>
-                Hello
+                Feed
             </Text>
         </SafeAreaView>
     );
