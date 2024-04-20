@@ -6,21 +6,16 @@ import { Image, Button } from 'react-native-ui-lib';
 import { FontAwesome } from '@expo/vector-icons';
 
 const height = Dimensions.get("window").height * 0.9;
-export default function PrivacySetupPage({ navigation }) {
+export default function PrivacySetupPage({ route, navigation }) {
     useCustomFonts();
-
-    const [isPrivate, setPrivate] = useState(false);
+    const { habitInfo, startTime, endTime } = route.params;
 
     const handlePrivate = () => {
-        setPrivate(true)
-        navigation.navigate("SetGoals")
-
+        navigation.navigate("SetGoals", {habitInfo: habitInfo, startTime: startTime, endTime:endTime, visibility: true})
     }
     const handlePublic = () => {
-        setPrivate(false)
-        navigation.navigate("SetGoals")
+        navigation.navigate("SetGoals", {habitInfo: habitInfo, startTime: startTime, endTime:endTime, visibility: false})
     }
-    useEffect(() => console.log("Private: ", isPrivate), [isPrivate]);
     return (
         <View style={styles.container}>
             <Image
@@ -33,7 +28,7 @@ export default function PrivacySetupPage({ navigation }) {
                 </Text>
                 <View style={styles.buttonsContainer}>
                     <Button
-                        label="Private"
+                        label="Just for Me"
                         backgroundColor="#498C68"
                         color="black"
                         borderRadius={5}
@@ -54,7 +49,7 @@ export default function PrivacySetupPage({ navigation }) {
                         {"In private mode, no one can see the progress on your habit."}
                     </Text>
                     <Button
-                        label="Public"
+                        label="With Friends"
                         backgroundColor="#AFC689"
                         color="black"
                         borderRadius={5}

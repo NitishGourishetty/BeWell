@@ -22,16 +22,11 @@ export default function MainHomePage() {
                     </Text>
                     <CalendarModule />
                     <Text style={styles.Subheading}>
-                        Streaks
-                    </Text>
-                    <StreaksModule days={10} />
-
-                    <Text style={styles.Subheading}>
                         Habits
                     </Text>
-                    <HabitsModule habitName={"Defeating The Harkonnens"} time={10} index={0} />
-                    <HabitsModule habitName={"Talk to Jannii"} time={7} index={1} />
-                    <HabitsModule habitName={"Fight the Holy War"} time={12} index={2} />
+                    <HabitsModule habitName={"Defeating The Harkonnens"} time={"10"} index={0} />
+                    <HabitsModule habitName={"Talk to Jannii"} time={"7"} index={1} />
+                    <HabitsModule habitName={"Fight the Holy War"} time={"12"} index={2} />
 
                 </View>
             </ScrollView>

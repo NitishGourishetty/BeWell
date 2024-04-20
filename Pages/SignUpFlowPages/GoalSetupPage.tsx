@@ -8,11 +8,13 @@ import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingC
 
 const height = Dimensions.get("window").height * 0.9;
 
-export default function GoalSetupPage({ navigation }) {
+export default function GoalSetupPage({ route, navigation }) {
     useCustomFonts();
     const [goalName, setGoalName] = useState(null);
-    const handlePress = () => {
-        navigation.navigate("TimePage")
+    //Pass the Session into this next time
+    async function handlePress() {
+        //addHabit(session, goalName)
+        navigation.navigate("TimePage", {habitInfo: goalName})
     }
     return (
         <KeyboardAvoidingContainer>

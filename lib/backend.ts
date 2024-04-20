@@ -60,13 +60,57 @@ export async function updateProfile({
     }
   }
 
+  export async function finishOnboarding(session) {
+    try {
+      if (!session?.user) throw new Error('No user on the session!')
 
-export async function addHabit(session, habitText) {
+      const updates = {
+        id: session?.user.id,
+        onboarded: true,
+        updated_at: new Date(),
+      }
+
+      const { error } = await supabase.from('profiles').upsert(updates)
+
+      if (error) {
+        throw error
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message)
+      }
+    } finally {
+    }
+  }
+
+  export async function checkOnboardStatus(session) {
+    try {
+        if (!session?.user) throw new Error('No user on the session!')
+  
+        const { data, error, status } = await supabase
+          .from('profiles')
+          .select(`onboarded`)
+          .eq('id', session?.user.id)
+          .single()
+        if (error && status !== 406) {
+          throw error
+        }
+        return data;
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message)
+          return null;
+        }
+      } finally {
+      }
+}
+
+export async function addHabit(session, habitText, startTime, endTime, visibility) {
     try {
       if (!session?.user) throw new Error('No user on the session!')
       const { error } = await supabase
       .from('habits')
-      .insert({habit_info: habitText, profile: session?.user.id })
+      .insert({habit_info: habitText, profile: session?.user.id, time_start: startTime, time_end: endTime, public: visibility })
 
     } catch (error) {
       if (error instanceof Error) {
@@ -74,6 +118,7 @@ export async function addHabit(session, habitText) {
       }
     }
   }
+
 
 export async function getUsersHabits(session) {
     try {

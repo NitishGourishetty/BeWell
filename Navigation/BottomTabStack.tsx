@@ -16,8 +16,6 @@ import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
 import Account from '../Pages/NotInUse/TempAccountPage';
 import { Session } from '@supabase/supabase-js'
 
-import Feed from '../Pages/BeWellFeed/Feed';
-
 
 const BottomTabStack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()

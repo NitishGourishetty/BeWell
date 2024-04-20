@@ -1,55 +1,97 @@
-import * as React from "react";
-import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
-import { ScrollView, View, StyleSheet } from "react-native";
+import React from "react";
+import { ScrollView, View, StyleSheet, Alert } from "react-native";
 import { Text, TextField } from 'react-native-ui-lib';
 import { Dimensions, TouchableOpacity } from "react-native";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
-import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
+import { Session } from '@supabase/supabase-js'
+import { useState, useEffect } from 'react'
+import { updateProfile } from "../../lib/backend";
+import { supabase } from "../../lib/supabase";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
+import KeyboardAvoidingContainer from "../../assets/components/KeyboardAvoidingContainer";
+
 
 
 const height = Dimensions.get("window").height * 0.9;
 export default function NamePage({ navigation }) {
-    useCustomFonts();
+    const [session, setSession] = useState<Session | null>(null)
+    const [first_name, setFirstName] = useState('')
+    const [last_name, setLastName] = useState('')
+    
+    //Pass in session next time, when revamping code
+
+    useEffect(() => {
+        supabase.auth.getSession().then(({ data: { session } }) => {
+          setSession(session)
+    
+        })
+        supabase.auth.onAuthStateChange((_event, session) => {
+          setSession(session)
+        })
+      }, [])
+
+      async function setProfileAttributes() {
+        if(first_name.length == 0 || last_name.length == 0){
+            alert("Please complete all fields.");
+            return;
+        }
+        try {
+            updateProfile({session, first_name, last_name});
+        } catch (error) {
+          if (error instanceof Error) {
+            Alert.alert(error.message)
+          }
+        }
+        finally {
+            navigation.navigate("Profile Picture");
+        }
+      }
+      useCustomFonts();
+    
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <View style={styles.content}>
-                <Text style={styles.title}>
-                    {'What should \n we call you?'}
-                </Text>
-                {/* <Image 
-                    source={require('../assets/img/sign-up.png')}
-                    style={{resizeMode : "center"}}
-                /> */}
-                <View style={styles.textFieldsContainer}>
-                    <TextField
-                        color="#498C68"
-                        containerStyle={styles.textField}
-                        placeholder={'first'}
-                        selectionColor="#AFC689"
-                        floatingPlaceholderColor="#AFC689"
-                        floatingPlaceholder
-                        enableErrors
-                        validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Password is too short']}
-                        underlineColorAndroid="#AFC689"
-                    />
-                    <TextField
-                        color="#498C68"
-                        containerStyle={styles.textField}
-                        placeholder={'last'}
-                        floatingPlaceholderColor="#AFC689"
-                        floatingPlaceholder
-                        enableErrors
-                        validate={['required', (value) => value.length > 6]}
-                        validationMessage={['Field is required', 'Password is too short']}
-                        underlineColorAndroid="#AFC689"
-                    />
+        <KeyboardAvoidingContainer>
+            <ScrollView contentContainerStyle={styles.container}>
+                <View style={styles.content}>
+                    <Text style={styles.title}>
+                        {'What should \n we call you?'}
+                    </Text>
+                    {/* <Image 
+                        source={require('../assets/img/sign-up.png')}
+                        style={{resizeMode : "center"}}
+                    /> */}
+                    <View style={styles.textFieldsContainer}>
+                        <TextField
+                            color="#498C68"
+                            containerStyle={styles.textField}
+                            placeholder={'first'}
+                            selectionColor="#AFC689"
+                            floatingPlaceholderColor="#AFC689"
+                            floatingPlaceholder
+                            enableErrors
+                            validate={['required', (value) => value.length > 6]}
+                            validationMessage={['Field is required', 'Password is too short']}
+                            underlineColorAndroid="#AFC689"
+                            onChangeText={(text) => setFirstName(text)}
+                        />
+                        <TextField
+                            color="#498C68"
+                            containerStyle={styles.textField}
+                            placeholder={'last'}
+                            floatingPlaceholderColor="#AFC689"
+                            floatingPlaceholder
+                            enableErrors
+                            validate={['required', (value) => value.length > 6]}
+                            validationMessage={['Field is required', 'Password is too short']}
+                            underlineColorAndroid="#AFC689"
+                            onChangeText={(text) => setLastName(text)}
+                        />
+                    </View>
+                    <TouchableOpacity style={styles.button} onPress={() => { setProfileAttributes() }}>
+                        <AntDesign name="arrowright" size={45} />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate("Profile Picture") }}>
-                    <AntDesign name="arrowright" size={45} />
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </KeyboardAvoidingContainer>
     )
 }
 
