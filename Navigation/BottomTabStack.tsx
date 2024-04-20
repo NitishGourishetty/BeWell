@@ -68,10 +68,6 @@ export function MainStack() {
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
-<<<<<<< HEAD
-            <BottomTabStack.Screen name="Feed" component={Feed} />
-            <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
-=======
             <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
             <BottomTabStack.Screen name="Testing" component={UserPwdPage} />
         </Tab.Navigator>
