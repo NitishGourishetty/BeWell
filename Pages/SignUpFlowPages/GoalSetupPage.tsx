@@ -1,36 +1,18 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Dimensions, SafeAreaView, KeyboardAvoidingView, ScrollView, View, TouchableOpacity, StyleSheet, Text, Platform } from 'react-native';
 import { TextField } from "react-native-ui-lib"
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { AntDesign } from '@expo/vector-icons';
-import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
-import { Session } from '@supabase/supabase-js';
-import { supabase } from '../lib/supabase';
-import { addHabit, getUsersHabits } from '../lib/backend';
-
+import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
 
 const height = Dimensions.get("window").height * 0.9;
 
 export default function GoalSetupPage({ navigation }) {
     useCustomFonts();
     const [goalName, setGoalName] = useState(null);
-    const [session, setSession] = useState<Session | null>(null)
-    //Pass the Session into this next time
-    useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-          setSession(session)
-    
-        })
-        supabase.auth.onAuthStateChange((_event, session) => {
-          setSession(session)
-        })
-      }, [])
-
-
-    async function handlePress() {
-        addHabit(session, goalName)
-        navigation.navigate("TimePage", {session: session, habit: goalName})
+    const handlePress = () => {
+        navigation.navigate("TimePage")
     }
     return (
         <KeyboardAvoidingContainer>

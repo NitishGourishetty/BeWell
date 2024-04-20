@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import { useState, useEffect } from "react";
 import { TextInput } from "react-native";
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { ScrollView, AppState, Alert, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
-import NamePage from "./NamePage";
+import NamePage from "./SignUpFlowPages/NamePage";
 import { AntDesign } from '@expo/vector-icons';
 import { supabase } from '../lib/supabase'
 

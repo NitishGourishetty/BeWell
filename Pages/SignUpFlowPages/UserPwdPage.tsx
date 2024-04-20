@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, Alert } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
-import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
+import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
 
 const height = Dimensions.get("window").height * 0.9;
-export default function UserPwdPage(){
+export default function UserPwdPage({navigation}){
     useCustomFonts();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -28,7 +28,7 @@ export default function UserPwdPage(){
                 "Confirmation",
                 `Username: ${username}\nPassword: ${password}`,
                 [
-                    {text: 'Confirm', onPress: () => console.log('Confirmed'), isPreferred : true},
+                    {text: 'Confirm', onPress: () => navigation.navigate("Name") , isPreferred : true},
                     {text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel'},
                 ]
             )
@@ -41,7 +41,7 @@ export default function UserPwdPage(){
                 <View style={styles.content}>
                     <View style={{aspectRatio: 71/25, maxHeight: "20%", marginBottom: 30}}>
                         <Image 
-                            source={require('../assets/img/logo.png')}
+                            source={require('../../assets/img/logo.png')}
                             style={styles.logo}
                             resizeMode="contain"
                         />
@@ -50,7 +50,7 @@ export default function UserPwdPage(){
                         <TextField
                             color="#80828C"
                             containerStyle={styles.textField}
-                            placeholder={'Please choose a username'}
+                            placeholder={'Please enter your email'}
                             selectionColor="#AFC689"
                             // floatingPlaceholderColor="#80828C"
                             // floatingPlaceholder
@@ -86,7 +86,7 @@ export default function UserPwdPage(){
                         />
                     </View>
                     <Button 
-                        label="Sign Up"
+                        label="Continue"
                         backgroundColor="#5D8E74"
                         color="white"
                         borderRadius={10}
