@@ -14,7 +14,7 @@ export default function GoalSetupPage({ route, navigation }) {
     //Pass the Session into this next time
     async function handlePress() {
         //addHabit(session, goalName)
-        navigation.navigate("TimePage", {habit_info: goalName})
+        navigation.navigate("TimePage", {habitInfo: goalName})
     }
     return (
         <KeyboardAvoidingContainer>

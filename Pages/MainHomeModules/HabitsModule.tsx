@@ -7,11 +7,32 @@ import { TouchableOpacity } from "react-native";
 import { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo'
-import { HabitsModuleProps } from "./MainHomePage";
+import StreaksModule from "../MainHomeModules/StreaksModule"
 
-function HabitsContent({ habitName, time }: HabitsProps) {
+function HabitsContent({ habitName, time, index }: HabitsProps) {
+    return (
+        <View>
+            <View style={{ flexDirection: 'column' }}>
+                <Text style={styles.habit}>
+                    {habitName}
+                </Text>
+                <Text style={styles.time}>
+                    @{time} A.M
+                </Text>
+            </View>
+        </View>
+    )
+}
+interface HabitsProps {
+    habitName: String,
+    time: String,
+    index?: number
+}
+export default function HabitsModule({ habitName, time, index }: HabitsProps) {
+    const [backgroundColor, setBackgroundColor] = useState("#AFC689")
     const [imageSource, setImageSource] = useState(null);
     const openCamera = async () => {
+
         const status = await ImagePicker.requestCameraPermissionsAsync();
         if (!status.granted) {
             alert("Camera permission is required to take photos")
@@ -27,33 +48,9 @@ function HabitsContent({ habitName, time }: HabitsProps) {
             alert('You did not select any image.');
         }
     }
-
-    return (
-        <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <View>
-                <View style={{ flexDirection: 'column' }}>
-                    <Text style={styles.habit}>
-                        {habitName}
-                    </Text>
-                    <Text style={styles.time}>
-                        @{time} A.M
-                    </Text>
-                </View>
-            </View>
-            {/*<Image
-                    source={{ uri: imageSource }}
-                    style={{ width: "20%", borderRadius : 10}}
-                />*/}
-            <TouchableOpacity style={{ justifyContent: 'center' }} onPress={openCamera}>
-                <AntDesign name="plus" size={45} />
-            </TouchableOpacity>
-        </View>
-
-    )
-}
-
-export const HabitsModule: React.FC<HabitsModuleProps> = ({ habitName, time, index }) => {
-    const [backgroundColor, setBackgroundColor] = useState("")
+    const viewGallery = () => {
+        alert("Lol show past pictures taken")
+    }
     useEffect(() => {
         if (index % 3 === 0) {
             setBackgroundColor("#AFC689");
@@ -64,11 +61,17 @@ export const HabitsModule: React.FC<HabitsModuleProps> = ({ habitName, time, ind
         }
     }, [])
     return (
-        <View style={[styles.module, { backgroundColor: backgroundColor }]}>
+        <TouchableOpacity style={[styles.module, { backgroundColor: backgroundColor }]} onPress={viewGallery}>
             <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10 }}>
-                <HabitsContent habitName={habitName} time={time} />
+                <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <HabitsContent habitName={habitName} time={time} />
+                    <StreaksModule days={10} color={backgroundColor} />
+                    <TouchableOpacity style={{ justifyContent: 'center', marginLeft: 15, zIndex: 1, padding: 10 }} onPress={openCamera}>
+                        <AntDesign name="camera" size={45} color={backgroundColor} />
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View >
+        </TouchableOpacity>
     )
 }
 
