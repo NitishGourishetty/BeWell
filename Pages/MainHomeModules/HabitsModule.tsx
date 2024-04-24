@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native";
 import { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo'
+import { HabitsModuleProps } from "./MainHomePage";
 
 function HabitsContent({ habitName, time }: HabitsProps) {
     const [imageSource, setImageSource] = useState(null);
@@ -50,12 +51,8 @@ function HabitsContent({ habitName, time }: HabitsProps) {
 
     )
 }
-interface HabitsProps {
-    habitName: String,
-    time: Number,
-    index?: number
-}
-export default function HabitsModule({ habitName, time, index }: HabitsProps) {
+
+export const HabitsModule: React.FC<HabitsModuleProps> = ({ habitName, time, index }) => {
     const [backgroundColor, setBackgroundColor] = useState("")
     useEffect(() => {
         if (index % 3 === 0) {

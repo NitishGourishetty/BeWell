@@ -5,28 +5,38 @@ import { useWindowDimensions } from "react-native";
 import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import StreaksModule from "./StreaksModule";
 import CalendarModule from "./CalendarModule";
-import HabitsModule from "./HabitsModule";
+import { HabitsModule } from "./HabitsModule";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import { addHabit, getUsersHabits } from "../../lib/backend";
 
 
+
+export type HabitsModuleProps = {
+  habitName: String;
+  time: Number;
+  index: Number;
+}
 export default function MainHomePage() {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
   const [habitData, setHabitData] = useState(null)
 
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+
 
     })
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
 
+
   }, [])
+
 
   async function getHabitInfo() {
     try {
@@ -35,7 +45,8 @@ export default function MainHomePage() {
       let data = await getUsersHabits(session);
       if (data) {
         //Do Stuff with data
-        alert(data[0].habit_info)
+        console.log(data)
+
         setHabitData(data)
       }
     } catch (error) {
@@ -51,9 +62,9 @@ export default function MainHomePage() {
     if (session) getHabitInfo()
   }, [session])
   const user = "user";
-  const { width, height } = useWindowDimensions()
   useCustomFonts();
   return (
+
 
     <SafeAreaView style={{ height: '100%' }}>
       <ScrollView showsVerticalScrollIndicator={true}>
@@ -67,9 +78,12 @@ export default function MainHomePage() {
           </Text>
           <StreaksModule days={10} />
 
+
           <Text style={styles.Subheading}>
             Habits
           </Text>
+
+
 
 
           {habitData != null ?
@@ -87,12 +101,17 @@ export default function MainHomePage() {
 
 
 
+
+
+
         </View>
       </ScrollView>
     </SafeAreaView>
 
+
   )
 }
+
 
 const styles = StyleSheet.create({
   Subheading: {
