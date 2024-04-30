@@ -5,6 +5,8 @@ import { Button } from 'react-native-ui-lib'
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
+import { supabase } from '../lib/supabase';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const height = Dimensions.get("window").height * 0.9;
 
@@ -12,6 +14,7 @@ export default function ProfilePage({ navigation }) {
     const imageSource = "NITISH PULL FROM DB!!!"
     useCustomFonts();
     return (
+        <SafeAreaView style={{ height: '100%' }}>
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>
                 {'Profile'}
@@ -26,6 +29,20 @@ export default function ProfilePage({ navigation }) {
                     {'username'}
                 </Text>
             </View>
+            <Button
+                label="Log Out"
+                backgroundColor="#5D8E74"
+                color="white"
+                borderRadius={10}
+                style={styles.button}
+                labelStyle={{
+                    fontFamily: "Poppins-SemiBold",
+                    fontSize: 17,
+                    textAlign: "center",
+                    flex: 1
+                }}
+                onPress={() => supabase.auth.signOut()}
+            />
             <View style={styles.user_info}>
                 <Text style={styles.subtitle}>
                         {'first'}
@@ -48,20 +65,9 @@ export default function ProfilePage({ navigation }) {
                         {'abhinavtata21@gmail.com'}
                 </Text>
             </View>
-            <Button
-                label="Log Out"
-                backgroundColor="#5D8E74"
-                color="white"
-                borderRadius={10}
-                style={styles.button}
-                labelStyle={{
-                    fontFamily: "Poppins-SemiBold",
-                    fontSize: 17,
-                    textAlign: "center",
-                    flex: 1
-                }}
-            />
+  
         </ScrollView>
+        </SafeAreaView>
     )
 };
 
