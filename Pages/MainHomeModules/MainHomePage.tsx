@@ -6,14 +6,52 @@ import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import StreaksModule from "./StreaksModule";
 import CalendarModule from "./CalendarModule";
 import HabitsModule from "./HabitsModule";
+import { useEffect, useState } from "react";
+import { Session } from "@supabase/supabase-js";
+import { supabase } from "../../lib/supabase";
+import { getUsersHabits } from "../../lib/backend";
 
 
 export default function MainHomePage() {
-    const user = "user";
-    const { width, height } = useWindowDimensions()
-    useCustomFonts();
-    return (
+  const [session, setSession] = useState<Session | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [habitData, setHabitData] = useState(null)
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
 
+    })
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+  }, [])
+  const user = "user";
+  const { width, height } = useWindowDimensions()
+  
+  async function getHabitInfo() {
+    try {
+        setLoading(true)
+      if (!session?.user) throw new Error('No user on the session!')
+      let data = await getUsersHabits(session);
+      if(data && data!=undefined) {
+       //Do Stuff with data
+       setHabitData(data)
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message)
+        console.log("ERROR MAIN PAGE")
+      }
+    } finally {
+        setLoading(false)
+    }
+  }
+  useEffect(() => {
+    if (session) getHabitInfo()
+  }, [session])
+  useCustomFonts();
+    return (
         <SafeAreaView style={{ height: '100%' }}>
             <ScrollView showsVerticalScrollIndicator={true}>
                 <View style={{ justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
@@ -24,10 +62,11 @@ export default function MainHomePage() {
                     <Text style={styles.Subheading}>
                         Habits
                     </Text>
-                    <HabitsModule habitName={"Defeating The Harkonnens"} time={"10"} index={0} />
-                    <HabitsModule habitName={"Talk to Jannii"} time={"7"} index={1} />
-                    <HabitsModule habitName={"Fight the Holy War"} time={"12"} index={2} />
-
+                    {habitData ? Object.entries(habitData).map((habit, index) => {
+                      return(
+                        <HabitsModule habitName={Object.values(habit[1])[0]} time={"10"} index={index} />
+                      );
+                    }) : undefined}
                 </View>
             </ScrollView>
         </SafeAreaView>
