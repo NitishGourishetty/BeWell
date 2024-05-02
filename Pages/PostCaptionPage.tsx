@@ -5,7 +5,6 @@ import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
-import CameraStack from '../Navigation/CameraStack';
 
 const height = Dimensions.get("window").height * 0.9;
 export default function PostCaptionPage({ navigation }) {
