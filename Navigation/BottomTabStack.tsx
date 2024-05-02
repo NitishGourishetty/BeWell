@@ -69,7 +69,7 @@ export function MainStack() {
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={PostCaptionPage} />
+            <BottomTabStack.Screen name="Testing" component={Account} />
         </Tab.Navigator>
     )
 }

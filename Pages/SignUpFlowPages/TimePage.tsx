@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Dimensions, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
+import { Dimensions, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert, Modal, Button } from 'react-native';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { getSpecificHabit } from '../../lib/backend';
+import InfoPopUp from '../../assets/components/InfoPopUp';
 
 const height = Dimensions.get("window").height * 0.9;
 
 export default function TimePage({ route, navigation }) {
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
+    const [modalVisible, setModalVisible] = useState(false);
     let data = [];
     const { habitInfo } = route.params;
 
@@ -68,9 +70,12 @@ export default function TimePage({ route, navigation }) {
 
         }
     };
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
+            <TouchableOpacity onPress={() => setModalVisible(true)} style={{position: "absolute", alignSelf: "flex-end", top: 0, padding: 20}}>
+                <FontAwesome name="info-circle" size={25} color="grey"/>
+            </TouchableOpacity>
+            <InfoPopUp visible={modalVisible} setModalVisible={setModalVisible} text={"Info about times"} />
             <View style={styles.content}>
                 <Text style={styles.startTitle}>
                     {'Set Start Time'}

@@ -23,9 +23,6 @@ export default function GoalSetupPage({ route, navigation }) {
                     {'What goal do you \n want to reach?'}
                 </Text>
                 <View style={styles.content}>
-                    <Text style={styles.subtitle}>
-                        {'Name'}
-                    </Text>
                     <TextField
                         color="#80828C"
                         containerStyle={styles.textField}
