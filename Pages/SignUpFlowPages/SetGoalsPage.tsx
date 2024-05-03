@@ -19,9 +19,12 @@ export default function SetGoalsPage({ route, navigation }) {
     const [habit1, setHabit1] = useState("")
     const [habit2, setHabit2] = useState("")
     const [habit3, setHabit3] = useState("")
-    const [time1, setTime1] = useState("")
-    const [time2, setTime2] = useState("")
-    const [time3, setTime3] = useState("")
+    const [start_time1, setStartTime1] = useState("")
+    const [start_time2, setStartTime2] = useState("")
+    const [start_time3, setStartTime3] = useState("")
+    const [end_time1, setEndTime1] = useState("")
+    const [end_time2, setEndTime2] = useState("")
+    const [end_time3, setEndTime3] = useState("")
     const [privacy1, setPrivacy1] = useState(false)
     const [privacy2, setPrivacy2] = useState(false)
     const [privacy3, setPrivacy3] = useState(false)
@@ -57,17 +60,20 @@ export default function SetGoalsPage({ route, navigation }) {
             addHabit(session, habitInfo, startTime, endTime, visibility)
             if(numGoals == 0){
                 setHabit1(habitInfo)
-                setTime1(startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+                setStartTime1(startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+                setEndTime1(endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
                 setPrivacy1(visibility)
             }
             else if(numGoals == 1){
                 setHabit2(habitInfo)
-                setTime2(startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+                setStartTime2(startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+                setEndTime2(endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
                 setPrivacy2(visibility)
             }
             else{
                 setHabit3(habitInfo)
-                setTime3(startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+                setStartTime3(startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+                setEndTime3(endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
                 setPrivacy3(visibility)
             }
         }
@@ -84,7 +90,8 @@ export default function SetGoalsPage({ route, navigation }) {
                         {numGoals > 0 && route.params ?
                             <HabitSetupModule
                                 habitName={habit1}
-                                time={time1} 
+                                start_time={start_time1} 
+                                end_time={end_time1} 
                                 index={1}
                                 privacy={privacy1}
                             /> : 
@@ -104,7 +111,8 @@ export default function SetGoalsPage({ route, navigation }) {
                         {numGoals > 1 && route.params ?
                             <HabitSetupModule
                                 habitName={habit2}
-                                time={time2} 
+                                start_time={start_time2} 
+                                end_time={end_time2} 
                                 index={2}
                                 privacy={privacy2}
                             /> : 
@@ -124,7 +132,8 @@ export default function SetGoalsPage({ route, navigation }) {
                         {numGoals > 2 && route.params ?
                             <HabitSetupModule
                                 habitName={habit3}
-                                time={time3} 
+                                start_time={start_time3} 
+                                end_time={end_time3} 
                                 index={3}
                                 privacy={privacy3}
                             /> : 

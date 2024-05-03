@@ -10,7 +10,7 @@ const height = Dimensions.get("window").height * 0.9;
 
 export default function GoalSetupPage({ route, navigation }) {
     useCustomFonts();
-    const [goalName, setGoalName] = useState(null);
+    const [goalName, setGoalName] = useState('');
     //Pass the Session into this next time
     async function handlePress() {
         //addHabit(session, goalName)
@@ -33,8 +33,8 @@ export default function GoalSetupPage({ route, navigation }) {
                         validationMessage={['Field is required', 'Password is too short']}
                         onChangeText={(text) => setGoalName(text)}
                     />
-                    <TouchableOpacity style={styles.arrow} onPress={handlePress}>
-                        <AntDesign name="arrowright" size={45} />
+                    <TouchableOpacity style={styles.arrow} onPress={handlePress} disabled={goalName.length < 2}>
+                        <AntDesign name="arrowright" size={45} color={(goalName.length < 2) ? "lightgrey" : "black"}/>
                     </TouchableOpacity>
                 </View>
             </ScrollView>

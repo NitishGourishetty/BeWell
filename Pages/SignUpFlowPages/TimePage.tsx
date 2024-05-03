@@ -75,7 +75,10 @@ export default function TimePage({ route, navigation }) {
             <TouchableOpacity onPress={() => setModalVisible(true)} style={{position: "absolute", alignSelf: "flex-end", top: 0, padding: 20}}>
                 <FontAwesome name="info-circle" size={25} color="grey"/>
             </TouchableOpacity>
-            <InfoPopUp visible={modalVisible} setModalVisible={setModalVisible} text={"Info about times"} />
+            <InfoPopUp 
+                visible={modalVisible}
+                setModalVisible={setModalVisible}
+                text={"Start Time and End Time dictate when you can upload an image for this specific goal.\nTo promote strong habits, try and minimize the size of this time window.\n\nNote: The times cannot be the same"} />
             <View style={styles.content}>
                 <Text style={styles.startTitle}>
                     {'Set Start Time'}
@@ -101,8 +104,8 @@ export default function TimePage({ route, navigation }) {
                     timeZoneName="America/Los_Angeles"
                     textColor="#AFC689"
                 />
-                <TouchableOpacity style={styles.arrow} onPress={confirmTime}>
-                    <AntDesign name="arrowright" size={45} />
+                <TouchableOpacity style={styles.arrow} onPress={confirmTime} disabled={endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) == startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}>
+                    <AntDesign name="arrowright" size={45} color={(endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) == startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })) ? "lightgrey" : "black"}/>
                 </TouchableOpacity>
             </View>
         </ScrollView>
