@@ -19,6 +19,7 @@ import LoginPage from './Pages/LoginPage';
 import SignUpPage from './Pages/NotInUse/TempSignUp';
 import { NavigationAction } from '@react-navigation/native';
 import { checkOnboardStatus } from './lib/backend';
+import { setupMicrotasks } from 'react-native-reanimated/lib/typescript/reanimated2/threads';
 const Stack = createNativeStackNavigator()
 
 export default function App() {
@@ -26,7 +27,7 @@ export default function App() {
   //session for user being logged in or not
   const [session, setSession] = useState<Session | null>(null)
   const [loggedIn, setLoggedIn] = useState(false)
-  const [onboarded, setOnboarded] = useState(false)
+  const [onboarded, setOnboarded] = useState(true)
 
   const navigationRef = useNavigationContainerRef();
 
@@ -54,6 +55,7 @@ export default function App() {
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
+        setOnboarded(false);
       }
     })
 
