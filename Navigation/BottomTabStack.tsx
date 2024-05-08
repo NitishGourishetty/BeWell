@@ -15,6 +15,7 @@ import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
 import Account from '../Pages/NotInUse/TempAccountPage';
 import ProfilePage from '../Pages/ProfilePage';
+import PostCaptionPage from '../Pages/PostCaptionPage';
 import { Session } from '@supabase/supabase-js'
 
 
@@ -68,7 +69,7 @@ export function MainStack() {
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={ProfilePage} />
+            <BottomTabStack.Screen name="Testing" component={Account} />
         </Tab.Navigator>
     )
 }

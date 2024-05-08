@@ -14,7 +14,7 @@ import KeyboardAvoidingContainer from "../../assets/components/KeyboardAvoidingC
 
 const height = Dimensions.get("window").height * 0.9;
 
-export default function NamePage({ navigation }) {
+export default function UsernamePage({ navigation }) {
     const [session, setSession] = useState<Session | null>(null)
     const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
@@ -32,6 +32,10 @@ export default function NamePage({ navigation }) {
       }, [])
 
       async function setProfileAttributes() {
+        if(first_name.length == 0 || last_name.length == 0){
+            alert("Please complete all fields.");
+            return;
+        }
         try {
             updateProfile({session, first_name, last_name});
         } catch (error) {
@@ -50,30 +54,13 @@ export default function NamePage({ navigation }) {
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.content}>
                     <Text style={styles.title}>
-                        {'What should \n we call you?'}
+                        {'Choose a username'}
                     </Text>
-                    {/* <Image 
-                        source={require('../assets/img/sign-up.png')}
-                        style={{resizeMode : "center"}}
-                    /> */}
                     <View style={styles.textFieldsContainer}>
                         <TextField
                             color="#498C68"
                             containerStyle={styles.textField}
-                            placeholder={'first'}
-                            selectionColor="#AFC689"
-                            floatingPlaceholderColor="#AFC689"
-                            floatingPlaceholder
-                            enableErrors
-                            validate={['required', (value) => value.length > 6]}
-                            validationMessage={['Field is required', 'Password is too short']}
-                            underlineColorAndroid="#AFC689"
-                            onChangeText={(text) => setFirstName(text)}
-                        />
-                        <TextField
-                            color="#498C68"
-                            containerStyle={styles.textField}
-                            placeholder={'last'}
+                            placeholder={'username'}
                             floatingPlaceholderColor="#AFC689"
                             floatingPlaceholder
                             enableErrors
@@ -83,8 +70,8 @@ export default function NamePage({ navigation }) {
                             onChangeText={(text) => setLastName(text)}
                         />
                     </View>
-                    <TouchableOpacity style={styles.button} onPress={() => { setProfileAttributes() }} disabled={first_name.length < 2 || last_name.length < 2}>
-                        <AntDesign name="arrowright" size={45} color={(first_name.length < 2 || last_name.length < 2) ? "lightgrey" : "black"}/>
+                    <TouchableOpacity style={styles.button} onPress={() => { setProfileAttributes() }}>
+                        <AntDesign name="arrowright" size={45} />
                     </TouchableOpacity>
                 </View>
             </ScrollView>
