@@ -8,7 +8,7 @@ import CalendarModule from "./CalendarModule";
 import HabitsModule from "./HabitsModule";
 
 
-export default function MainHomePage() {
+export default function MainHomePage({ navigation }) {
     const user = "user";
     const { width, height } = useWindowDimensions()
     useCustomFonts();
@@ -24,9 +24,9 @@ export default function MainHomePage() {
                     <Text style={styles.Subheading}>
                         Habits
                     </Text>
-                    <HabitsModule habitName={"Defeating The Harkonnens"} time={"10"} index={0} />
-                    <HabitsModule habitName={"Talk to Jannii"} time={"7"} index={1} />
-                    <HabitsModule habitName={"Fight the Holy War"} time={"12"} index={2} />
+                    <HabitsModule habitName={"Defeating The Harkonnens"} time={"10"} index={0} navigation={navigation} />
+                    <HabitsModule habitName={"Talk to Jannii"} time={"7"} index={1} navigation={navigation} />
+                    <HabitsModule habitName={"Fight the Holy War"} time={"12"} index={2} navigation={navigation} />
 
                 </View>
             </ScrollView>

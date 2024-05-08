@@ -33,24 +33,14 @@ export default function UserPwdPage({navigation}){
         setLoading(false)
     }
     const handleLogin = () => {
-        if(password.length == 0 || email.length == 0)
-            alert("Please complete all fields")
-        else if(password != confirmedPassword)
-            alert("Please ensure your passwords match.")
-        else if(password.length <= 6)
-            alert("Please ensure your password is at least 7 characters.")
-        else if(email.length <= 6)
-            alert("Please ensure your email is at least 7 characters.")
-        else {
-            Alert.alert(
-                "Confirmation",
-                `Email: ${email}\nPassword: ${password}`,
-                [
-                    {text: 'Confirm', onPress: () => signUpWithEmail() , isPreferred : true},
-                    {text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel'},
-                ]
-            )
-        }
+        Alert.alert(
+            "Confirmation",
+            `Email: ${email}\nPassword: ${password}`,
+            [
+                {text: 'Confirm', onPress: () => signUpWithEmail() , isPreferred : true},
+                {text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel'},
+            ]
+        )
     };
 
     return(
@@ -113,6 +103,7 @@ export default function UserPwdPage({navigation}){
                             flex: 1
                         }}
                         onPress={handleLogin}
+                        disabled={!(password.length > 6 && email.length > 6 && password == confirmedPassword)}
                     />
                 </View>
                 
