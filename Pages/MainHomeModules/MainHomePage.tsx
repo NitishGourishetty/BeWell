@@ -5,7 +5,7 @@ import { useWindowDimensions } from "react-native";
 import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import StreaksModule from "./StreaksModule";
 import CalendarModule from "./CalendarModule";
-import { HabitsModule } from "./HabitsModule";
+import HabitsModule from "./HabitsModule";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { Session } from "@supabase/supabase-js";
@@ -45,7 +45,6 @@ export default function MainHomePage() {
       let data = await getUsersHabits(session);
       if (data) {
         //Do Stuff with data
-        console.log(data)
 
         setHabitData(data)
       }
@@ -76,7 +75,7 @@ export default function MainHomePage() {
           <Text style={styles.Subheading}>
             Streaks
           </Text>
-          <StreaksModule days={10} />
+          <StreaksModule days={10} color={'red'} />
 
 
           <Text style={styles.Subheading}>
@@ -94,8 +93,8 @@ export default function MainHomePage() {
             </> :
             <>
               <HabitsModule habitName={"loading"} time={10} index={0} />
-              <HabitsModule habitName={"loading"} time={10} index={0} />
-              <HabitsModule habitName={"loading"} time={10} index={0} />
+              <HabitsModule habitName={"loading"} time={10} index={1} />
+              <HabitsModule habitName={"loading"} time={10} index={2} />
             </>
           }
 

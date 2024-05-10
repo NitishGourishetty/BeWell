@@ -120,11 +120,7 @@ export async function addHabit(session, habitText, startTime, endTime, visibilit
   }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 86bf3e843581bf201de636ecbd99480a56bc9b51
-export async function getUsersHabits(session) {
+export async function getUsersHabits(session: Session) {
     try {
         if (!session?.user) throw new Error('No usser on the session!')
   
@@ -144,6 +140,49 @@ export async function getUsersHabits(session) {
       } finally {
       }
 }
+
+export async function getFriendsPosts(session: Session) {
+  try {
+    if (!session?.user) throw new Error('No user on the session!');
+
+    const { data, error, status } = await supabase.from('posts').select('img_url, created_at, likes, profile, caption, habit').neq('img_url', "NULL");
+
+    if (error && status !== 406) {
+      throw error;
+    }
+
+    if (data) {
+      return data;
+    }
+
+  } catch (error) {
+    if (error instanceof Error) {
+      Alert.alert(error.message);
+    }
+    return
+  }
+}
+// export async function getPosts (session: Session){
+//   try{
+//     if (!session?.user) throw new Error('No user on the session!');
+
+//     const { data, error, status } = await supabase.from('posts').select('img_url').neq('img_url', "NULL");
+
+//     if (error && status !== 406) {
+//       throw error;
+//     }
+
+//     if (data) {
+//       return data;
+//     }
+//   }catch(error){
+//     if(error instanceof Error){
+//       Alert.alert(error.message);
+//     }
+//     return
+//   }
+// }
+
 
 export async function getSpecificHabit({ habit_info, session }: { habit_info: string, session: Session }) {
   try {

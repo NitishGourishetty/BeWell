@@ -25,11 +25,11 @@ function HabitsContent({ habitName, time, index }: HabitsProps) {
 }
 interface HabitsProps {
     habitName: String,
-    time: String,
+    time: Number,
     index?: number
 }
 export default function HabitsModule({ habitName, time, index }: HabitsProps) {
-    const [backgroundColor, setBackgroundColor] = useState("#AFC689")
+    const [backgroundColor, setBackgroundColor] = useState("")
     const [imageSource, setImageSource] = useState(null);
     const openCamera = async () => {
 
@@ -41,6 +41,7 @@ export default function HabitsModule({ habitName, time, index }: HabitsProps) {
         let result = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
             quality: 1,
+            aspect: [16, 9]
         })
         if (!result.canceled) {
             setImageSource(result.assets?.[0]?.uri);
