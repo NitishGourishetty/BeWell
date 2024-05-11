@@ -59,6 +59,33 @@ export async function updateProfile({
     } finally {
     }
   }
+export async function addLikes(session, id) {
+  try {
+    if (!session?.user) throw new Error('No user on the session!');
+
+    // Fetch the existing likes array from the database
+    const { data: posts, error: fetchError } = await supabase.from('posts').select("*").eq("id", );
+
+    if (fetchError) {
+      throw fetchError;
+    }
+
+    // Append the new user to the likes array or initialize it if it doesn't exist
+    const updatedLikes = posts?.likes ? [...posts.likes, session.user] : [session.user];
+
+    // Update the database with the new likes array
+    const { error: updateError } = await supabase.from('posts').upsert({ likes: updatedLikes });
+
+    if (updateError) {
+      throw updateError;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      Alert.alert(error.message);
+    }
+  }
+}
+
 
   export async function finishOnboarding(session) {
     try {

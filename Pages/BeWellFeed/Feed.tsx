@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, ScrollView, useWindowDimensions } from 'react-native';
+import { SafeAreaView, View, Text, ScrollView, useWindowDimensions, TouchableOpacity } from 'react-native';
 import * as backend from '../../lib/backend';
 
 import { supabase } from '../../lib/supabase';
@@ -8,6 +8,8 @@ import { Session } from '@supabase/supabase-js';
 import { useCustomFonts } from '../../assets/fonts/fontDeclarations';
 import { Image } from 'react-native';
 import moment from 'moment-timezone'
+
+
 
 interface Post {
     img_url: String,
@@ -18,21 +20,7 @@ interface Post {
     id: Number
 
 }
-const DoubleTapImage = () => {
-    const [lastTap, setLastTap] = useState(0);
 
-    const handleDoubleTap = () => {
-        const now = Date.now();
-        if (now - lastTap < 300) {
-            // Perform the action for double tap
-            console.log('Double tap detected!');
-            // Reset the lastTap state
-            setLastTap(0);
-            return;
-        }
-        setLastTap(now);
-    };
-}
 
 
 function FeedModule({ post }: { post: Post }) {
@@ -46,6 +34,19 @@ function FeedModule({ post }: { post: Post }) {
     const timestamp = moment(time);
     const formattedTime = timestamp.format("hh:mm A dddd")
 
+    const [lastTap, setLastTap] = useState(0);
+
+    const handleDoubleTap = () => {
+        const now = Date.now();
+        if (now - lastTap < 300) {
+            // Perform the action for double tap
+            console.log('Double tap detected!');
+            // Reset the lastTap state
+            setLastTap(0);
+            return;
+        }
+        setLastTap(now);
+    };
 
     // Get the day of the month (1-31)
 
@@ -53,10 +54,12 @@ function FeedModule({ post }: { post: Post }) {
 
         <View style={{ marginTop: 20, width: '100%' }}>
             <Text style={{ fontFamily: 'Poppins-Bold' }}> TATATA</Text>
-            <Text style={{ marginBottom: -30, fontFamily: 'Poppins-Regular' }}>{formattedTime}</Text>
+            <Text style={{ marginBottom: -15, fontFamily: 'Poppins-Regular' }}>{formattedTime}</Text>
             <View style={{ height: '100%', width: '100%', justifyContent: 'center', alignSelf: 'center' }}>
-                <Image src={img} style={{ width: '100%', height: '70%', borderRadius: 20, borderColor: 'rgba(192,192,192, 0.5)', borderWidth: 1 }} />
-                <Text style={{ fontFamily: 'Poppins-Regular', maxWidth: '75%', marginLeft: 10 }}>{caption}</Text>
+                <TouchableOpacity activeOpacity={1} onPress={handleDoubleTap}>
+                    <Image src={img} style={{ width: '100%', height: '80%', borderRadius: 20, borderColor: 'rgba(192,192,192, 0.5)', borderWidth: 1 }} />
+                </TouchableOpacity>
+                <Text style={{ fontFamily: 'Poppins-Regular', maxWidth: '100%', marginLeft: 10, marginTop: -50 }}>{caption}</Text>
                 <Text>Likes: {likes}</Text>
             </View>
         </View>
