@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo'
 
-function HabitsContent({ habitName, time }: HabitsProps) {
+function HabitsContent({ habitName, start_time, end_time }: HabitsProps) {
     return (
        <View>
            <View style={{ flexDirection: 'column' }}>
@@ -16,7 +16,7 @@ function HabitsContent({ habitName, time }: HabitsProps) {
                    {habitName}
                </Text>
                <Text style={styles.time}>
-                   @{time}
+                   {start_time} - {end_time}
                </Text>
            </View>
        </View>
@@ -24,11 +24,12 @@ function HabitsContent({ habitName, time }: HabitsProps) {
 }
 interface HabitsProps {
     habitName: String,
-    time: String,
+    start_time: String,
+    end_time: String,
     privacy: Boolean,
     index?: number
 }
-export default function HabitSetupModule({ habitName, time, index, privacy }: HabitsProps) {
+export default function HabitSetupModule({ habitName, start_time, end_time, index, privacy }: HabitsProps) {
     const [backgroundColor, setBackgroundColor] = useState("")
     useEffect(() => {
         if (index % 3 === 0) {
@@ -41,9 +42,9 @@ export default function HabitSetupModule({ habitName, time, index, privacy }: Ha
     }, [])
     return (
         <View style={[styles.module, { backgroundColor: backgroundColor }]}>
-            <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10 }}>
-                <View style={{ width: '90%', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <HabitsContent habitName={habitName} time={time} privacy={privacy}/>
+            <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10, alignItems: "center", justifyContent: "center" }}>
+                <View style={{ width: '90%', marginBottom: 20, flexDirection: 'row', justifyContent: 'center', alignItems: "center" }}>
+                    <HabitsContent habitName={habitName} start_time={start_time} end_time={end_time} privacy={privacy}/>
                     {privacy ? <FontAwesome name="lock" size={45} color={backgroundColor}/> : <FontAwesome name="users" size={45} color={backgroundColor}/>}
                 </View>
             </View>

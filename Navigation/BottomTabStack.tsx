@@ -13,6 +13,9 @@ import UserPwdPage from '../Pages/SignUpFlowPages/UserPwdPage';
 
 import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
 import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
+import Account from '../Pages/NotInUse/TempAccountPage';
+import ProfilePage from '../Pages/ProfilePage';
+import PostCaptionPage from '../Pages/PostCaptionPage';
 import { Session } from '@supabase/supabase-js'
 import SignUpStack from './SignUpStack';
 import Feed from '../Pages/BeWellFeed/Feed';

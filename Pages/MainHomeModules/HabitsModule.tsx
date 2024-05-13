@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo'
 import StreaksModule from "../MainHomeModules/StreaksModule"
+import { useNavigation } from '@react-navigation/native';
 
 function HabitsContent({ habitName, time, index }: HabitsProps) {
     return (
@@ -27,27 +28,12 @@ interface HabitsProps {
     habitName: String,
     time: Number,
     index?: number
+    navigation?: any
 }
-export default function HabitsModule({ habitName, time, index }: HabitsProps) {
-    const [backgroundColor, setBackgroundColor] = useState("")
-    const [imageSource, setImageSource] = useState(null);
-    const openCamera = async () => {
-
-        const status = await ImagePicker.requestCameraPermissionsAsync();
-        if (!status.granted) {
-            alert("Camera permission is required to take photos")
-            return;
-        }
-        let result = await ImagePicker.launchCameraAsync({
-            allowsEditing: true,
-            quality: 1,
-            aspect: [16, 9]
-        })
-        if (!result.canceled) {
-            setImageSource(result.assets?.[0]?.uri);
-        } else {
-            alert('You did not select any image.');
-        }
+export default function HabitsModule({ habitName, time, index , navigation }: HabitsProps) {
+    const [backgroundColor, setBackgroundColor] = useState("#AFC689")
+    const toCaptionPage = async() =>{
+        navigation.navigate("PostCaptionPage")
     }
     const viewGallery = () => {
         alert("Lol show past pictures taken")
@@ -65,10 +51,10 @@ export default function HabitsModule({ habitName, time, index }: HabitsProps) {
         <TouchableOpacity style={[styles.module, { backgroundColor: backgroundColor }]} onPress={viewGallery}>
             <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10 }}>
                 <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <HabitsContent habitName={habitName} time={time} />
-                    <StreaksModule days={10} color={backgroundColor} />
-                    <TouchableOpacity style={{ justifyContent: 'center', marginLeft: 15, zIndex: 1, padding: 10 }} onPress={openCamera}>
-                        <AntDesign name="camera" size={45} color={backgroundColor} />
+                    <HabitsContent habitName={habitName} time={time}/>
+                    <StreaksModule days={10} color={backgroundColor}/>
+                    <TouchableOpacity style={{ justifyContent: 'center', marginLeft : 15, zIndex : 1, padding : 10}} onPress={toCaptionPage}>
+                        <AntDesign name="camera" size={45} color={backgroundColor}/>
                     </TouchableOpacity>
                 </View>
             </View>
