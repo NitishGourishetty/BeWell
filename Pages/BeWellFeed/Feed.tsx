@@ -23,37 +23,48 @@ interface Post {
 
 
 
-function FeedModule({ post }: { post: Post }) {
+function FeedModule({ post, Session, username }: { post: Post, Session: Session, username: Object }) {
     const img: String = post.img_url
     const caption: String = post.caption;
-    const likes = post.likes.length;
     const time = post.created_at;
-    console.log("Type: s", typeof (time))
     const habit = post.habit;
-
+    const post_id = post.id;
+    const [likes, setLikes] = useState(post.likes.length);
     const timestamp = moment(time);
-    const formattedTime = timestamp.format("hh:mm A dddd")
+    const formattedTime = timestamp.format("hh:mm A MMMM Do, YYYY")
 
     const [lastTap, setLastTap] = useState(0);
+    useEffect(()=>{
+        // Clean up subscription when component unmounts
+        const handlePostUpdates = (payload) => {
+            setLikes(payload.new.likes.length);
+        }
+        
+        // Listen to inserts
+        supabase
+          .channel('posts')
+          .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'posts' }, handlePostUpdates)
+          .subscribe()
 
-    const handleDoubleTap = () => {
+          return () => {
+              supabase.channel('posts').unsubscribe()
+          }
+    }, [likes])
+    const handleDoubleTap = async () => {
         const now = Date.now();
         if (now - lastTap < 300) {
             // Perform the action for double tap
             console.log('Double tap detected!');
+            await backend.addLikes(Session, post.id)
             // Reset the lastTap state
             setLastTap(0);
             return;
         }
         setLastTap(now);
     };
-
-    // Get the day of the month (1-31)
-
     return (
-
         <View style={{ marginTop: 20, width: '100%' }}>
-            <Text style={{ fontFamily: 'Poppins-Bold' }}> TATATA</Text>
+            <Text style={{ fontFamily: 'Poppins-Bold' }}>{username.username}</Text>
             <Text style={{ marginBottom: -15, fontFamily: 'Poppins-Regular' }}>{formattedTime}</Text>
             <View style={{ height: '100%', width: '100%', justifyContent: 'center', alignSelf: 'center' }}>
                 <TouchableOpacity activeOpacity={1} onPress={handleDoubleTap}>
@@ -73,6 +84,7 @@ export default function Feed() {
     const [loading, setLoading] = useState(true);
     const [habitData, setHabitData] = useState([]); // Initialize as an empty array instead of null
     const [postsData, setPostsData] = useState([]);
+    const [name, setName] = useState({})
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: session }) => { // You're destructuring session here, so use it directly
@@ -105,14 +117,13 @@ export default function Feed() {
     async function retrievePosts() {
         try {
             setLoading(true);
-            if (!session?.user) { throw new Error('No user  retrieval on the session!'); }
-            console.log(session);
+            if (!session) { throw new Error('No user  retrieval on the session!'); }
             const data = await backend.getFriendsPosts(session);
             if (data) {
                 // Do Stuff with data
-                console.log(typeof (data))
-                setPostsData(data);
-                console.log("posts: ", data);
+                const postData = data.data
+                setPostsData(postData);
+                setName(data.profileName)
 
             }
         } catch (error) {
@@ -129,45 +140,16 @@ export default function Feed() {
         if (session) {
             retrievePosts();
         }
-        const channel = supabase.channel('table_db_changes').on('postgres_changes', {
-            event: '*',
-            schema: 'public',
-            table: 'posts',
-            filter: '' //change this later so that it's by friends
-        },
-            (payload) => {
-                const eventType = payload.eventType;
-                const newRecord = payload.new as Post; // Type assertion for newRecord
-                const oldRecord = payload.old as Post; // Type assertion for oldRecord
-                // Handle different types of events (insert, update, delete)
-                if (eventType === 'INSERT') {
-                    setPostsData(prevPostsData => [...prevPostsData, newRecord]);
-                } else if (eventType === 'UPDATE') {
-                    setPostsData(prevPostsData =>
-                        prevPostsData.map(post => (post?.id === newRecord?.id ? newRecord : post))
-                    );
-                } else if (eventType === 'DELETE') {
-                    setPostsData(prevPostsData =>
-                        prevPostsData.filter(post => post?.id !== oldRecord?.id)
-                    );
-                }
-            }).subscribe();
-
-        // Clean up subscription when component unmounts
-        return () => {
-            channel.unsubscribe();
-        };
     }, [session]);
     const { width, height } = useWindowDimensions();
     const user = "user";
     useCustomFonts();
-
     return (
         <SafeAreaView style={{ height: '100%' }}>
             <ScrollView showsVerticalScrollIndicator={true}>
                 <View style={{ justifyContent: 'center', flexDirection: 'column', alignSelf: 'center', width: '100%', height: 400 }}>
                     {postsData.map((post, index) => (
-                        <FeedModule key={index} post={post} />
+                        <FeedModule key={index} post={post} Session={session} username = {name} />
                     ))}
                 </View>
             </ScrollView>
