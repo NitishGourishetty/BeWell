@@ -98,7 +98,7 @@ export async function updateProfile({
         const {data,error} = await supabase
             .from('posts')
             .select('likes')
-            .eq('id', 1)
+            .eq('id', post_id)
             .single();
         if (error) {
           
@@ -118,7 +118,7 @@ export async function updateProfile({
             const { data: updateData, error: updateError } = await supabase
                 .from('posts')
                 .update({ likes: updatedLikes })
-                .eq('id', 1)
+                .eq('id', post_id)
                 .select()
 
             if (updateError) {
@@ -135,7 +135,25 @@ export async function updateProfile({
     }
 }
 
+export async function getNonFriends(session: Session){
+  try {
+    if (!session || !session.user) {
+          console.log(session)
+          throw new Error('Invalid session or user data!');
+    }
 
+    const {data, error} = await supabase.from("profiles").select("*").eq()
+
+    if (error) {
+      throw error
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      Alert.alert(error.message)
+    }
+  } finally {
+  }
+}
 
   
 
