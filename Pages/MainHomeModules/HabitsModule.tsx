@@ -9,7 +9,7 @@ import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo'
 import StreaksModule from "../MainHomeModules/StreaksModule"
 import { useNavigation } from '@react-navigation/native';
-import { getSpecificHabit } from "../../lib/backend";
+import { getPostsForHabit, getSpecificHabit } from "../../lib/backend";
 import { Session } from "@supabase/supabase-js";
 
 function timeConverter(time) {
@@ -58,17 +58,41 @@ interface HabitsProps {
 export default function HabitsModule({ habitName, time_start, time_end, index, streak, id, session }: HabitsProps) {
     const [backgroundColor, setBackgroundColor] = useState("#AFC689")
     const navigation = useNavigation(); 
-    const toCaptionPage = async() =>{
+    
+    const toCaptionPage = async () => {
         const currentTime = new Date();
-        const startTime = new Date(time_start);
-        const endTime = new Date(time_end);
-        if (currentTime >= startTime && currentTime <= endTime) { 
-            navigation.navigate("PostCaptionPage", {habit: id, session: session}); //passing in habitid]
+        const currentHour = currentTime.getHours();
+        const currentMinute = currentTime.getMinutes();
+        
+        const startTime = new Date();
+        const endTime = new Date();
+        const habitStartTime = new Date(time_start);
+        const habitEndTime = new Date(time_end);
+
+        startTime.setHours(habitStartTime.getHours(), habitStartTime.getMinutes(), 0, 0);
+        endTime.setHours(habitEndTime.getHours(), habitEndTime.getMinutes(), 0, 0);
+
+        if (currentHour >= habitStartTime.getHours() && currentHour <= habitEndTime.getHours() &&
+        !(currentMinute <= habitEndTime.getMinutes() && currentHour == habitEndTime.getHours())) {
+                let data = await getPostsForHabit(session, id);
+                // let date_created = new Date();
+                // date_created.setDate(date_created.getDate() - 1);
+                if(data && data!=undefined && data.length >= 1) {
+                    let date = (data[data.length-1].created_at)
+                    let date_created = new Date(date);
+                    habitStartTime.setFullYear(currentTime.getMonth(), currentTime.getDay())
+                    if (date_created > habitStartTime ) {
+                        alert("Error, You cannot create a post within 24 hours of your last post.");
+                        return;
+                    }
+                }
+                // let lastPost = new Date(date_created)
+
+                navigation.navigate("PostCaptionPage", { habit: id, session: session });
+        } else {
+            alert("Error, Current time is not within the habit time range.");
         }
-        else{ 
-            alert("Error " + "Current time is not within the habit time range."); 
-        }
-    }
+    };
     const viewGallery = () => {
         alert("Gallery of posts to be shown -> UI work needed")
     }
