@@ -208,6 +208,24 @@ export async function addHabit(session, habitText, startTime, endTime, visibilit
     }
   }
 
+  //Add visibleTo (category!!!!!)
+  export async function addPost(session, imgUrl, caption, habit_id) {
+    try {
+      if (!session || !session.user) {
+            console.log(session)
+            throw new Error('Invalid session or user data!');
+        }
+      const { error } = await supabase
+      .from('posts')
+      .insert({profile: session?.user.id, img_url:imgUrl, caption:caption, habit: habit_id })
+
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message)
+      }
+    }
+  }
+
 
 export async function getUsersHabits(session: Session) {
     try {
@@ -284,7 +302,7 @@ export async function getFriendsPosts(session: Session) {
 //   }
 // }
 
-
+//Change this to make it ID
 export async function getSpecificHabit({ habit_info, session }: { habit_info: string, session: Session }) {
   try {
     if (!session || !session.user) {
