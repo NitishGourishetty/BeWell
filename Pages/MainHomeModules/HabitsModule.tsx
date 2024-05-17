@@ -9,6 +9,8 @@ import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo'
 import StreaksModule from "../MainHomeModules/StreaksModule"
 import { useNavigation } from '@react-navigation/native';
+import { getSpecificHabit } from "../../lib/backend";
+import { Session } from "@supabase/supabase-js";
 
 function timeConverter(time) {
     const date = new Date(time);
@@ -48,9 +50,12 @@ interface HabitsProps {
     habitName: String,
     time_start: String,
     time_end: String,
-    index?: number
+    streak: Number,
+    id: Number,
+    index?: number,
+    session: Session
 }
-export default function HabitsModule({ habitName, time_start, time_end, index }: HabitsProps) {
+export default function HabitsModule({ habitName, time_start, time_end, index, streak, id, session }: HabitsProps) {
     const [backgroundColor, setBackgroundColor] = useState("#AFC689")
     const navigation = useNavigation(); 
     const toCaptionPage = async() =>{
@@ -58,14 +63,14 @@ export default function HabitsModule({ habitName, time_start, time_end, index }:
         const startTime = new Date(time_start);
         const endTime = new Date(time_end);
         if (currentTime >= startTime && currentTime <= endTime) { 
-            navigation.navigate("PostCaptionPage");
+            navigation.navigate("PostCaptionPage", {habit: id, session: session}); //passing in habitid]
         }
         else{ 
             alert("Error " + "Current time is not within the habit time range."); 
         }
     }
     const viewGallery = () => {
-        alert("Lol show past pictures taken")
+        alert("Gallery of posts to be shown -> UI work needed")
     }
     useEffect(() => {
         if (index % 3 === 0) {

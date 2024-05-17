@@ -221,6 +221,30 @@ export async function addHabit(session, habitText, startTime, endTime, visibilit
     }
   }
 
+  export async function getPostsForHabit(session: Session, habitID) {
+    try {
+      if (!session || !session.user) {
+        console.log(session)
+        throw new Error('Invalid session or user data!');
+    }
+        const { data, error, status } = await supabase
+          .from('posts')
+          .select('img_url, caption, created_at')
+          .eq('profile', session?.user.id)
+          .eq('habit', habitID)
+        if (error && status !== 406) {
+          throw error
+        }
+        return data;
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message)
+          return null;
+        }
+      } finally {
+      }
+}
+
 
 export async function getUsersHabits(session: Session) {
     try {

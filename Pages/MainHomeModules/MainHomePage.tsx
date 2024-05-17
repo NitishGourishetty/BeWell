@@ -17,7 +17,10 @@ export type HabitsModuleProps = {
   habitName: String;
   time_start: String;
   time_end: String,
+  streak: Number,
+  id: Number,
   index: Number;
+  session: Session;
 }
 export default function MainHomePage() {
   const [session, setSession] = useState<Session | null>(null)
@@ -82,7 +85,11 @@ export default function MainHomePage() {
                         <HabitsModule 
                           habitName={Object.values(habit[1])[0]} 
                           time_start={Object.values(habit[1])[1]} 
-                          time_end={Object.values(habit[1])[2]} index={index} 
+                          time_end={Object.values(habit[1])[2]} 
+                          streak = {Object.values(habit[1])[3]} 
+                          id = {Object.values(habit[1])[4]} 
+                          session = {session}
+                          index={index} 
                         />
                       );
                     }) : undefined}

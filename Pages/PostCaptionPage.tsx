@@ -11,30 +11,19 @@ import { addPost } from '../lib/backend';
 import { TextField } from 'react-native-ui-lib';
 const height = Dimensions.get("window").height * 0.9;
 
-export default function PostCaptionPage({ navigation }) {
+export default function PostCaptionPage({ route, navigation }) {
     useCustomFonts();
     const [imageSource, setImageSource] = useState(null);
     const [uploading, setUploading] = useState(false);
-    const [session, setSession] = useState<Session | null>(null)
     const [loading, setLoading] = useState(true)
     const [habitData, setHabitData] = useState(null)
     const [caption, setCaptionData] = useState("");
-  
+    const { habit, session } = route.params;
   
 
     useEffect(() => {
         console.log("Image Source:", imageSource);
     }, [imageSource]);
-
-    //Pass in next time
-    useEffect(() => {
-      supabase.auth.getSession().then(({ data: { session } }) => {
-        setSession(session)
-      })
-      supabase.auth.onAuthStateChange((_event, session) => {
-        setSession(session)
-      })
-    }, [])
 
     const handlePress = async () => {
         if (imageSource == null) {
@@ -126,7 +115,7 @@ export default function PostCaptionPage({ navigation }) {
     // };
 
     const saveImageUrl = async (url) => {
-        await addPost(session, imageSource, caption, 1);
+        await addPost(session, imageSource, caption, habit); //update streak functionality
     };
 
     return (
