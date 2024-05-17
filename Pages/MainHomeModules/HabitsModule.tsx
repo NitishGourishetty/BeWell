@@ -93,8 +93,9 @@ export default function HabitsModule({ habitName, time_start, time_end, index, s
             alert("Error, Current time is not within the habit time range.");
         }
     };
-    const viewGallery = () => {
-        alert("Gallery of posts to be shown -> UI work needed")
+    const viewGallery = async () => {
+        let data = await getPostsForHabit(session, id);
+        alert("You have made " + data.length + " posts")
     }
     useEffect(() => {
         if (index % 3 === 0) {
