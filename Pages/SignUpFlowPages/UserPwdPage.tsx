@@ -1,47 +1,21 @@
-import * as React from "react"
+import * as React from "react";
 import { useState, useEffect } from "react";
-import { TextInput } from "react-native";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
-import { ScrollView, AppState, Alert, View, StyleSheet, Text, Dimensions, Linking, TouchableOpacity } from "react-native";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
+import { ScrollView, View, StyleSheet, Text, Dimensions, Linking, Alert } from "react-native";
 import { Image, Button, TextField } from 'react-native-ui-lib';
-import SignUpStack from "../Navigation/SignUpStack";
-import { AntDesign } from '@expo/vector-icons';
-import { supabase } from '../lib/supabase'
-
-
-// Tells Supabase Auth to continuously refresh the session automatically if
-// the app is in the foreground. When this is added, you will continue to receive
-// `onAuthStateChange` events with the `TOKEN_REFRESHED` or `SIGNED_OUT` event
-// if the user's session is terminated. This should only be registered once.
-AppState.addEventListener('change', (state) => {
-    if (state === 'active') {
-        supabase.auth.startAutoRefresh()
-    } else {
-        supabase.auth.stopAutoRefresh()
-    }
-})
-import LoginStack from "../Navigation/SignUpStack";
-import { useNavigation } from "@react-navigation/native";
-import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
+import KeyboardAvoidingContainer from '../../assets/components/KeyboardAvoidingContainer';
+import { supabase } from "../../lib/supabase";
 
 const height = Dimensions.get("window").height * 0.9;
-export default function LoginPage({ navigation }) {
+export default function UserPwdPage({navigation}){
     useCustomFonts();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmedPassword, setConfirmedPassword] = useState("");
     const [loading, setLoading] = useState(false)
-
-    async function signInWithEmail() {
-        setLoading(true)
-        const { error } = await supabase.auth.signInWithPassword({
-            email: email,
-            password: password,
-        })
-
-        if (error) Alert.alert(error.message)
-        if (!error) handleLogin()
-        setLoading(false)
-    }
+    // useEffect(()=>console.log("Email: ", email), [email]);
+    // useEffect(()=>console.log("Password: ", password), [password]);
+    // useEffect(()=>console.log("Confirmed Password: ", confirmedPassword), [confirmedPassword]);
 
     async function signUpWithEmail() {
         setLoading(true)
@@ -54,27 +28,28 @@ export default function LoginPage({ navigation }) {
         })
 
         if (error) Alert.alert(error.message)
-        if (!session) Alert.alert('Please check your inbox for email verification!')
+        if(!error) navigation.navigate("Name")
+        if (!session) Alert.alert('Session error')
         setLoading(false)
     }
-
     const handleLogin = () => {
-        console.log("Username:", email);
-        console.log("Password:", password);
-        if (email && password) {
-            setPassword('')
-            setEmail('')
-            navigation.navigate('MainStack')
-        }
+        Alert.alert(
+            "Confirmation",
+            `Email: ${email}\nPassword: ${password}`,
+            [
+                {text: 'Confirm', onPress: () => signUpWithEmail() , isPreferred : true},
+                {text: 'Cancel', onPress: () => console.log('Canceled'), style: 'cancel'},
+            ]
+        )
     };
 
-    return (
+    return(
         <KeyboardAvoidingContainer>
             <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.content}>
-                    <View style={{ aspectRatio: 71 / 25, maxHeight: "20%", marginBottom: 30 }}>
-                        <Image
-                            source={require('../assets/img/logo.png')}
+                    <View style={{aspectRatio: 71/25, maxHeight: "20%", marginBottom: 30}}>
+                        <Image 
+                            source={require('../../assets/img/logo.png')}
                             style={styles.logo}
                             resizeMode="contain"
                         />
@@ -83,29 +58,40 @@ export default function LoginPage({ navigation }) {
                         <TextField
                             color="#80828C"
                             containerStyle={styles.textField}
-                            placeholder={'Username'}
+                            placeholder={'Please enter your email'}
                             selectionColor="#AFC689"
                             // floatingPlaceholderColor="#80828C"
                             // floatingPlaceholder
                             enableErrors
                             validate={['required', (value) => value.length > 6]}
-                            validationMessage={['Field is required', 'Password is too short']}
+                            validationMessage={['Field is required', 'Email is too short']}
                             onChangeText={text => setEmail(text)}
+                            typ
                         />
                         <TextField
                             color="#80828C"
                             containerStyle={styles.textField}
-                            placeholder={'Password'}
+                            placeholder={'Please choose a password'}
                             // floatingPlaceholderColor="#80828C"
                             // floatingPlaceholder
                             enableErrors
-                            validate={['required', (value) => value.length > 6]}
-                            validationMessage={['Field is required', 'Password is too short']}
                             onChangeText={text => setPassword(text)}
                         />
+                        <TextField
+                            color="#80828C"
+                            containerStyle={styles.textField}
+                            placeholder={'Confirm password'}
+                            // floatingPlaceholderColor="#80828C"
+                            // floatingPlaceholder
+                            enableErrors
+                            validateOnChange
+                            validate={['required']} // (value) => password ? value==password : null
+                            validationMessage={['Field is required']} // "Password is too short"
+                            onChangeText={text => setConfirmedPassword(text)}
+                        />
                     </View>
-                    <Button
-                        label="Login"
+                    <Button 
+                        label="Continue"
                         backgroundColor="#5D8E74"
                         color="white"
                         borderRadius={10}
@@ -116,21 +102,11 @@ export default function LoginPage({ navigation }) {
                             textAlign: "center",
                             flex: 1
                         }}
-                        onPress={signInWithEmail}
+                        onPress={handleLogin}
+                        disabled={!(password.length > 6 && email.length > 6 && password == confirmedPassword)}
                     />
-                    <View style={styles.signUp}>
-                        <Text style={{ color: '#80828C', fontFamily: "Poppins-Regular", marginRight: 3 }}>
-                            New user?
-                        </Text>
-                        <TouchableOpacity onPress={() => navigation.navigate("Sign Up")} style={{ alignSelf: "flex-end" }}>
-                            {/* don't know how to link properly */}
-                            <Text style={{ color: '#5D8E74', fontFamily: "Poppins-Regular" }}>
-                                Sign Up
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
-
+                
             </ScrollView>
         </KeyboardAvoidingContainer>
     )
@@ -148,7 +124,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     logo: {
-        flex: 1,
+        flex: 1, 
         width: undefined,
         height: undefined,
     },
@@ -170,7 +146,7 @@ const styles = StyleSheet.create({
     },
     signUp: {
         width: "100%",
-        flexDirection: "row",
-        justifyContent: "flex-end"
+        flexDirection : "row",
+        justifyContent : "flex-end"
     }
 });

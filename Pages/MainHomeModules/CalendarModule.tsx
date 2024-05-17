@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { View, Text } from "react-native-ui-lib";
 import { Dimensions, useWindowDimensions, StyleSheet, ScrollView } from "react-native";
 import { useFonts } from 'expo-font'
@@ -16,7 +16,7 @@ function DateBlock() {
 
     return (
         <View style={{ marginLeft: 10, marginTop: 10 }}>
-            <Text style={{ fontSize: 18, fontFamily: 'Poppins-Regular' }}>
+            <Text style={{ fontSize: 18, fontFamily: 'Poppins-Regular', color : "white" }}>
                 {dayOfWeek}
             </Text>
             <Text style={{ fontFamily: 'Poppins-Bold', fontSize: 38, fontWeight: "bold" }}>

@@ -1,19 +1,32 @@
-
+import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import MainHomePage from '../pages/MainHomePage';
-import LoginPage from '../pages/LoginPage';
+import MainHomePage from '../Pages/MainHomeModules/MainHomePage';
+import LoginPage from '../Pages/LoginPage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'
-import FriendsListPage from '../pages/FriendsModule/FriendsListPage';
-import ProfilePicturePage from '../pages/ProfilePicturePage';
+import FriendsListPage from '../Pages/FriendsModule/FriendsListPage';
+import PrivacySetupPage from '../Pages/SignUpFlowPages/PrivacySetupPage';
+import SetGoalsPage from '../Pages/SignUpFlowPages/SetGoalsPage';
+import TimePage from '../Pages/SignUpFlowPages/TimePage';
+import GoalSetupPage from '../Pages/SignUpFlowPages/GoalSetupPage';
+import UserPwdPage from '../Pages/SignUpFlowPages/UserPwdPage';
 
-const BottomTabStack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
+import ProfilePicturePage from '../Pages/SignUpFlowPages/ProfilePicturePage';
+import TempSignUpPage from '../Pages/NotInUse/TempSignUp';
+import Account from '../Pages/NotInUse/TempAccountPage';
+import ProfilePage from '../Pages/ProfilePage';
+import PostCaptionPage from '../Pages/PostCaptionPage';
+import { Session } from '@supabase/supabase-js'
+import SignUpStack from './SignUpStack';
+import Feed from '../Pages/BeWellFeed/Feed';
 
 
-export function MainStack() {
+const BottomTabStack = createBottomTabNavigator();
+const RootStack = createNativeStackNavigator();
+
+function BottomTabs() {
     return (
-        <Tab.Navigator
+        <BottomTabStack.Navigator
             initialRouteName='Home'
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -21,20 +34,21 @@ export function MainStack() {
                     let rn = route.name;
 
                     if (rn === 'Home') {
-                        iconName = 'home'
+                        iconName = 'home';
                     }
                     else if (rn === 'Login') {
-                        iconName = 'person'
+                        iconName = 'person';
                     }
                     else if (rn === 'Testing') {
-                        iconName = 'hammer'
+                        iconName = 'hammer';
                     }
                     else if (rn === 'Friends') {
-                        iconName = "person-add"
+                        iconName = "group";
                     }
 
-                    return <Ionicons name={iconName} size={size} color={color} />
+                    return <Ionicons name={iconName} size={size} color={color} />;
                 },
+                headerShown: false,
                 tabBarActiveTintColor: "#000000",
                 headerBackgroundContainerStyle: {
                     marginVertical: "-2%"
@@ -50,16 +64,22 @@ export function MainStack() {
                     borderTopWidth: 1,
                     borderBlockColor: 'grey',
                     backgroundColor: "white",
-
-                }
+                },
             })}
-
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
-            <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={ProfilePicturePage} />
-        </Tab.Navigator>
-    )
+            <BottomTabStack.Screen name="Feed" component={Feed} />
+            <BottomTabStack.Screen name="Testing" component={TempSignUpPage} />
+        </BottomTabStack.Navigator>
+    );
 }
 
+export function MainStack() {
+    return (
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            <RootStack.Screen name="MainTabs" component={BottomTabs} />
+            <RootStack.Screen name="PostCaptionPage" component={PostCaptionPage} />
+        </RootStack.Navigator>
+    );
+}

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useCustomFonts } from "../assets/fonts/fontDeclarations";
+import { useCustomFonts } from "../../assets/fonts/fontDeclarations";
 import { ScrollView, View, StyleSheet } from "react-native";
 import { Text, Button } from 'react-native-ui-lib';
 import { Dimensions } from "react-native";
