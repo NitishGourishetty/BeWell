@@ -10,7 +10,27 @@ import * as Permissions from 'expo'
 import StreaksModule from "../MainHomeModules/StreaksModule"
 import { useNavigation } from '@react-navigation/native';
 
-function HabitsContent({ habitName, time, index }: HabitsProps) {
+function timeConverter(time) {
+    const date = new Date(time);
+
+    // Extract hours and minutes
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+
+    // Determine AM/PM and convert to 12-hour format
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+
+    // Format minutes
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+    // Combine hours and minutes
+    const formattedTime = `${hours}:${formattedMinutes} ${ampm}`;
+    return formattedTime;
+}
+
+function HabitsContent({ habitName, time_start, time_end, index }: HabitsProps) {
     return (
         <View>
             <View style={{ flexDirection: 'column' }}>
@@ -18,7 +38,7 @@ function HabitsContent({ habitName, time, index }: HabitsProps) {
                     {habitName}
                 </Text>
                 <Text style={styles.time}>
-                    @{time} A.M
+                    {timeConverter(time_start)} - {timeConverter(time_end)}
                 </Text>
             </View>
         </View>
@@ -26,11 +46,12 @@ function HabitsContent({ habitName, time, index }: HabitsProps) {
 }
 interface HabitsProps {
     habitName: String,
-    time: Number,
+    time_start: String,
+    time_end: String,
     index?: number
     navigation?: any
 }
-export default function HabitsModule({ habitName, time, index , navigation }: HabitsProps) {
+export default function HabitsModule({ habitName, time_start, time_end, index , navigation }: HabitsProps) {
     const [backgroundColor, setBackgroundColor] = useState("#AFC689")
     const toCaptionPage = async() =>{
         navigation.navigate("PostCaptionPage")
@@ -51,7 +72,7 @@ export default function HabitsModule({ habitName, time, index , navigation }: Ha
         <TouchableOpacity style={[styles.module, { backgroundColor: backgroundColor }]} onPress={viewGallery}>
             <View style={{ backgroundColor: '#F1F3F6', margin: 10, borderRadius: 12, padding: 10 }}>
                 <View style={{ width: '90%', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <HabitsContent habitName={habitName} time={time}/>
+                    <HabitsContent habitName={habitName} time_start={time_start} time_end={time_end}/>
                     <StreaksModule days={10} color={backgroundColor}/>
                     <TouchableOpacity style={{ justifyContent: 'center', marginLeft : 15, zIndex : 1, padding : 10}} onPress={toCaptionPage}>
                         <AntDesign name="camera" size={45} color={backgroundColor}/>

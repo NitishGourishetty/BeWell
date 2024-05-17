@@ -218,7 +218,7 @@ export async function getUsersHabits(session: Session) {
   
         const { data, error, status } = await supabase
           .from('habits')
-          .select('habit_info')
+          .select('habit_info, time_start, time_end, streak, id')
           .eq('profile', session?.user.id)
         if (error && status !== 406) {
           throw error

@@ -15,7 +15,8 @@ import { addHabit, getUsersHabits } from "../../lib/backend";
 
 export type HabitsModuleProps = {
   habitName: String;
-  time: Number;
+  time_start: String;
+  time_end: String,
   index: Number;
 }
 export default function MainHomePage() {
@@ -37,7 +38,6 @@ export default function MainHomePage() {
 
   }, [])
 
-
   async function getHabitInfo() {
     try {
         setLoading(true)
@@ -56,11 +56,13 @@ export default function MainHomePage() {
         setLoading(false)
     }
   }
+
   useEffect(() => {
     if (session) getHabitInfo()
   }, [session])
   const user = "user";
   useCustomFonts();
+
   return (
     <SafeAreaView style={{ height: '100%' }}>
       <ScrollView showsVerticalScrollIndicator={true}>
@@ -78,7 +80,8 @@ export default function MainHomePage() {
           </Text>
           {habitData ? Object.entries(habitData).map((habit, index) => {
                       return(
-                        <HabitsModule habitName={Object.values(habit[1])[0]} time={10} index={index} />
+                        <HabitsModule habitName={Object.values(habit[1])[0]} time_start={Object.values(habit[1])[1]} time_end={Object.values(habit[1])[2]} index={index} />
+                        
                       );
                     }) : undefined}
         </View>
