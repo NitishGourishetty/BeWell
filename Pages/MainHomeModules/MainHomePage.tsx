@@ -7,81 +7,119 @@ import StreaksModule from "./StreaksModule";
 import CalendarModule from "./CalendarModule";
 import HabitsModule from "./HabitsModule";
 import { useEffect, useState } from "react";
-import { Session } from "@supabase/supabase-js";
 import { supabase } from "../../lib/supabase";
-import { getUsersHabits } from "../../lib/backend";
+import { Session } from "@supabase/supabase-js";
+import { addHabit, getUsersHabits } from "../../lib/backend";
 
 
+
+export type HabitsModuleProps = {
+  habitName: String;
+  time: Number;
+  index: Number;
+}
 export default function MainHomePage() {
   const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
   const [habitData, setHabitData] = useState(null)
+
+
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
+
 
     })
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
 
+
   }, [])
-  const user = "user";
-  const { width, height } = useWindowDimensions()
-  
+
+
   async function getHabitInfo() {
     try {
-        setLoading(true)
+      setLoading(true)
       if (!session?.user) throw new Error('No user on the session!')
       let data = await getUsersHabits(session);
-      if(data && data!=undefined) {
-       //Do Stuff with data
-       setHabitData(data)
+      if (data) {
+        //Do Stuff with data
+
+        setHabitData(data)
       }
     } catch (error) {
       if (error instanceof Error) {
-        console.log(error.message)
-        console.log("ERROR MAIN PAGE")
+        alert(error.message)
+        alert("ERROR")
       }
     } finally {
-        setLoading(false)
+      setLoading(false)
     }
   }
   useEffect(() => {
     if (session) getHabitInfo()
   }, [session])
+  const user = "user";
   useCustomFonts();
-    return (
-        <SafeAreaView style={{ height: '100%' }}>
-            <ScrollView showsVerticalScrollIndicator={true}>
-                <View style={{ justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
-                    <Text style={styles.Subheading}>
-                        Calendar
-                    </Text>
-                    <CalendarModule />
-                    <Text style={styles.Subheading}>
-                        Habits
-                    </Text>
-                    {habitData ? Object.entries(habitData).map((habit, index) => {
-                      return(
-                        <HabitsModule habitName={Object.values(habit[1])[0]} time={"10"} index={index} />
-                      );
-                    }) : undefined}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+  return (
 
-    )
+
+    <SafeAreaView style={{ height: '100%' }}>
+      <ScrollView showsVerticalScrollIndicator={true}>
+        <View style={{ justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+          <Text style={styles.Subheading}>
+            Calendar
+          </Text>
+          <CalendarModule />
+          <Text style={styles.Subheading}>
+            Streaks
+          </Text>
+          <StreaksModule days={10} color={'red'} />
+
+
+          <Text style={styles.Subheading}>
+            Habits
+          </Text>
+
+
+
+
+          {habitData != null ?
+            <>
+              <HabitsModule habitName={habitData[0].habit_info} time={10} index={0} />
+              <HabitsModule habitName={habitData[1].habit_info} time={7} index={1} />
+              <HabitsModule habitName={habitData[2].habit_info} time={12} index={2} />
+            </> :
+            <>
+              <HabitsModule habitName={"loading"} time={10} index={0} />
+              <HabitsModule habitName={"loading"} time={10} index={1} />
+              <HabitsModule habitName={"loading"} time={10} index={2} />
+            </>
+          }
+
+
+
+
+
+
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+
+
+  )
 }
 
+
 const styles = StyleSheet.create({
-    Subheading: {
-        fontFamily: "Poppins-SemiBold",
-        fontSize: 22,
-        marginBottom: "4%",
-        marginTop: "4%",
-        justifyContent: "flex-start",
-        alignSelf: "flex-start",
-        marginLeft: '7%'
-    }
+  Subheading: {
+    fontFamily: "Poppins-SemiBold",
+    fontSize: 22,
+    marginBottom: "4%",
+    marginTop: "4%",
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
+    marginLeft: '7%'
+  }
 })

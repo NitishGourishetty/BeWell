@@ -35,9 +35,9 @@ export default function App() {
     try {
       if (!session?.user) throw new Error('No user on the session!')
       let data = await checkOnboardStatus(session);
-      if(data) {
-       //Do Stuff with data
-       setOnboarded(data.onboarded)
+      if (data) {
+        //Do Stuff with data
+        setOnboarded(data.onboarded)
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -49,7 +49,7 @@ export default function App() {
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session)
-      if(session) {
+      if (session) {
         checkOnboarded()
         // alert(onboarded)
         setLoggedIn(true);
@@ -61,7 +61,7 @@ export default function App() {
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
-      if(session) {
+      if (session) {
         checkOnboarded()
         setLoggedIn(true);
       } else {

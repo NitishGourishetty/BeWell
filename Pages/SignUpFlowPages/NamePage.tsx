@@ -13,38 +13,41 @@ import KeyboardAvoidingContainer from "../../assets/components/KeyboardAvoidingC
 
 
 const height = Dimensions.get("window").height * 0.9;
-
 export default function NamePage({ navigation }) {
     const [session, setSession] = useState<Session | null>(null)
     const [first_name, setFirstName] = useState('')
     const [last_name, setLastName] = useState('')
-    
+
     //Pass in session next time, when revamping code
 
     useEffect(() => {
         supabase.auth.getSession().then(({ data: { session } }) => {
-          setSession(session)
-    
+            setSession(session)
+
         })
         supabase.auth.onAuthStateChange((_event, session) => {
-          setSession(session)
+            setSession(session)
         })
-      }, [])
+    }, [])
 
-      async function setProfileAttributes() {
+    async function setProfileAttributes() {
+        if (first_name.length == 0 || last_name.length == 0) {
+            alert("Please complete all fields.");
+            return;
+        }
         try {
-            updateProfile({session, first_name, last_name});
+            updateProfile({ session, first_name, last_name });
         } catch (error) {
-          if (error instanceof Error) {
-            Alert.alert(error.message)
-          }
+            if (error instanceof Error) {
+                Alert.alert(error.message)
+            }
         }
         finally {
             navigation.navigate("Profile Picture");
         }
-      }
-      useCustomFonts();
-    
+    }
+    useCustomFonts();
+
     return (
         <KeyboardAvoidingContainer>
             <ScrollView contentContainerStyle={styles.container}>

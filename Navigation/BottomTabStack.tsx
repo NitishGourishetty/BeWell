@@ -17,6 +17,8 @@ import Account from '../Pages/NotInUse/TempAccountPage';
 import ProfilePage from '../Pages/ProfilePage';
 import PostCaptionPage from '../Pages/PostCaptionPage';
 import { Session } from '@supabase/supabase-js'
+import SignUpStack from './SignUpStack';
+import Feed from '../Pages/BeWellFeed/Feed';
 
 
 const BottomTabStack = createNativeStackNavigator()
@@ -42,11 +44,12 @@ export function MainStack() {
                         iconName = 'hammer'
                     }
                     else if (rn === 'Friends') {
-                        iconName = "person-add"
+                        iconName = "group"
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />
                 },
+                headerShown: false,
                 tabBarActiveTintColor: "#000000",
                 headerBackgroundContainerStyle: {
                     marginVertical: "-2%"
@@ -63,13 +66,14 @@ export function MainStack() {
                     borderBlockColor: 'grey',
                     backgroundColor: "white",
 
-                }
+                },
+
             })}
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
-            <BottomTabStack.Screen name="Friends" component={FriendsListPage} />
-            <BottomTabStack.Screen name="Testing" component={Account} />
+            <BottomTabStack.Screen name="Feed" component={Feed} />
+            <BottomTabStack.Screen name="Testing" component={TempSignUpPage} />
         </Tab.Navigator>
     )
 }

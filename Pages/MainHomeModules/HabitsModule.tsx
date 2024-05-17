@@ -26,7 +26,7 @@ function HabitsContent({ habitName, time, index }: HabitsProps) {
 }
 interface HabitsProps {
     habitName: String,
-    time: String,
+    time: Number,
     index?: number
     navigation?: any
 }
