@@ -40,21 +40,20 @@ export default function MainHomePage() {
 
   async function getHabitInfo() {
     try {
-      setLoading(true)
+        setLoading(true)
       if (!session?.user) throw new Error('No user on the session!')
       let data = await getUsersHabits(session);
-      if (data) {
-        //Do Stuff with data
-
-        setHabitData(data)
+      if(data && data!=undefined) {
+       //Do Stuff with data
+       setHabitData(data)
       }
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message)
-        alert("ERROR")
+        console.log(error.message)
+        console.log("ERROR MAIN PAGE")
       }
     } finally {
-      setLoading(false)
+        setLoading(false)
     }
   }
   useEffect(() => {
@@ -63,8 +62,6 @@ export default function MainHomePage() {
   const user = "user";
   useCustomFonts();
   return (
-
-
     <SafeAreaView style={{ height: '100%' }}>
       <ScrollView showsVerticalScrollIndicator={true}>
         <View style={{ justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
@@ -76,38 +73,17 @@ export default function MainHomePage() {
             Streaks
           </Text>
           <StreaksModule days={10} color={'red'} />
-
-
           <Text style={styles.Subheading}>
             Habits
           </Text>
-
-
-
-
-          {habitData != null ?
-            <>
-              <HabitsModule habitName={habitData[0].habit_info} time={10} index={0} />
-              <HabitsModule habitName={habitData[1].habit_info} time={7} index={1} />
-              <HabitsModule habitName={habitData[2].habit_info} time={12} index={2} />
-            </> :
-            <>
-              <HabitsModule habitName={"loading"} time={10} index={0} />
-              <HabitsModule habitName={"loading"} time={10} index={1} />
-              <HabitsModule habitName={"loading"} time={10} index={2} />
-            </>
-          }
-
-
-
-
-
-
+          {habitData ? Object.entries(habitData).map((habit, index) => {
+                      return(
+                        <HabitsModule habitName={Object.values(habit[1])[0]} time={10} index={index} />
+                      );
+                    }) : undefined}
         </View>
       </ScrollView>
     </SafeAreaView>
-
-
   )
 }
 
