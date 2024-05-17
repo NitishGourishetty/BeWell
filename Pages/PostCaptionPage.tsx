@@ -1,44 +1,123 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert } from 'react-native';
-import { launchImageLibraryAsync } from 'expo-image-picker';
+import { Dimensions, Image, ScrollView, View, TouchableOpacity, StyleSheet, Text, Alert, ActivityIndicator } from 'react-native';
+import { launchCameraAsync, requestCameraPermissionsAsync } from 'expo-image-picker';
 import { useCustomFonts } from "../assets/fonts/fontDeclarations";
 import { FontAwesome, AntDesign } from '@expo/vector-icons';
 import KeyboardAvoidingContainer from '../assets/components/KeyboardAvoidingContainer';
-
+import { supabase } from '../lib/supabase';
+import { Session } from '@supabase/supabase-js';
+import { addPost } from '../lib/backend';
+import { TextField } from 'react-native-ui-lib';
 const height = Dimensions.get("window").height * 0.9;
-export default function PostCaptionPage({ navigation }) {
+
+export default function PostCaptionPage({ route, navigation }) {
     useCustomFonts();
     const [imageSource, setImageSource] = useState(null);
-    useEffect(()=>console.log("Image Source:", imageSource), [imageSource]);
-    const handlePress = () => {
-        if(imageSource == null){
+    const [uploading, setUploading] = useState(false);
+    const [loading, setLoading] = useState(true)
+    const [habitData, setHabitData] = useState(null)
+    const [caption, setCaptionData] = useState("");
+    const { habit, session } = route.params;
+  
+
+    useEffect(() => {
+        console.log("Image Source:", imageSource);
+    }, [imageSource]);
+
+    const handlePress = async () => {
+        if (imageSource == null) {
             Alert.alert(
                 "Confirmation",
-                `Are you sure you don't want to pick a profile picture?`,
+                `Are you sure you don't want to upload a picture`,
                 [
-                    {text: 'Yes', onPress: () => navigation.navigate("SetGoals") , isPreferred : true},
-                    {text: 'No', onPress: () => console.log('Canceled'), style: 'cancel'},
+                    { text: 'Yes', onPress: () => navigation.navigate("MainTabs"), isPreferred: true },
+                    { text: 'No', onPress: () => console.log('Canceled'), style: 'cancel' },
                 ]
-            )
-        }
-        else{
+            );
+        } else {
+            // await saveImageToSupabase();
+            saveImageUrl(imageSource)
             setImageSource(null);
-            navigation.navigate("SetGoals")
+            navigation.navigate("MainTabs");
         }
-    }
-    const openImagePicker = async () => {
-        let result = await launchImageLibraryAsync({
+    };
+
+    const openCamera = async () => {
+        const { status } = await requestCameraPermissionsAsync();
+        if (status !== 'granted') {
+            alert('Sorry, we need camera permissions to make this work!');
+            return;
+        }
+
+        let result = await launchCameraAsync({
             allowsEditing: true,
             quality: 1,
-            aspect : [16, 9]
-        })
+            aspect: [16, 9]
+        });
+
         if (!result.canceled) {
-            setImageSource(result.assets?.[0]?.uri);
+            const imageUri = result.assets?.[0]?.uri || result.uri;
+            setImageSource(imageUri);
         } else {
-            alert('You did not select any image.');
+            alert('You did not take any image.');
         }
-    }
+    };
+
+    //Move to backend.ts -> Adding something to bucket -> Implement public URL stuff later
+    // const saveImageToSupabase = async () => {
+    //     alert("SAVING");
+    //     if (!imageSource) {
+    //         console.warn('No image source provided');
+    //         return;
+    //     }
+    
+    //     setUploading(true);
+    
+    //     try {
+    //         const response = await fetch(imageSource);
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch image from source');
+    //         }
+    
+    //         const blob = await response.blob();
+    //         const filename = imageSource.substring(imageSource.lastIndexOf('/') + 1);
+    
+    //         const { data, error } = await supabase
+    //             .storage
+    //             .from('avatars') // Bucket Name - avatars
+    //             .upload(`public/${filename}`, imageSource, {
+    //                 cacheControl: '3600',
+    //                 upsert: false
+    //             });
+    
+    //         if (error) {
+    //             console.error('Error uploading image: ', error.message);
+    //             throw new Error('Failed to upload image');
+    //         }
+    
+    //         const { publicURL, error: urlError } = supabase
+    //             .storage
+    //             .from('avatars')
+    //             .getPublicUrl(`public/${filename}`);
+    
+    //         if (urlError) {
+    //             console.error('Error getting public URL: ', urlError.message);
+    //             throw new Error('Failed to get public URL');
+    //         }
+    
+    //         await saveImageUrl(publicURL);
+    //     } catch (err) {
+    //         console.error('Error in saveImageToSupabase: ', err.message);
+    //     } finally {
+    //         setUploading(false);
+    //     }
+    // };
+
+    const saveImageUrl = async (url) => {
+        await addPost(session, imageSource, caption, habit); //update streak functionality
+    };
+
     return (
         <KeyboardAvoidingContainer>
             <ScrollView contentContainerStyle={styles.container}>
@@ -46,11 +125,13 @@ export default function PostCaptionPage({ navigation }) {
                     {'Add a Post'}
                 </Text>
                 <View style={styles.content}>
-                    <TouchableOpacity onPress={openImagePicker}>
-                        {imageSource ? (
+                    <TouchableOpacity onPress={openCamera}>
+                        {uploading ? (
+                            <ActivityIndicator size="large" color="#0000ff" />
+                        ) : imageSource ? (
                             <Image
                                 source={{ uri: imageSource }}
-                                style={{ width: "100%" }}
+                                style={styles.image}
                             />
                         ) : (
                             <FontAwesome name="camera" size={200} color="black" />
@@ -60,9 +141,26 @@ export default function PostCaptionPage({ navigation }) {
                         <AntDesign name="arrowright" size={45} />
                     </TouchableOpacity>
                 </View>
+
+                <View style={styles.textFieldsContainer}>
+                        <TextField
+                            color="#498C68"
+                            containerStyle={styles.textField}
+                            placeholder={'caption'}
+                            selectionColor="#AFC689"
+                            floatingPlaceholderColor="#AFC689"
+                            floatingPlaceholder
+                            enableErrors
+                            validate={['required', (value) => value.length > 6]}
+                            validationMessage={['Field is required', 'Password is too short']}
+                            underlineColorAndroid="#AFC689"
+                            onChangeText={(text) => setCaptionData(text)}
+                        />
+                    </View>
             </ScrollView>
+
         </KeyboardAvoidingContainer>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -91,5 +189,19 @@ const styles = StyleSheet.create({
     arrow: {
         alignSelf: 'flex-end',
         marginTop: 50
-    }
+    },
+    image: {
+        width: 200,
+        height: 200,
+        borderRadius: 10
+    },
+    textFieldsContainer: {
+        width: "80%",
+        marginBottom: 20,
+    },
+    textField: {
+        borderBottomColor: '#AFC689',
+        borderBottomWidth: 1,
+        marginBottom: 20
+    },
 });
