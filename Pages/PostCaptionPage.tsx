@@ -17,15 +17,14 @@ export default function PostCaptionPage({ navigation }) {
                 "Confirmation",
                 `Are you sure you don't want to pick a profile picture?`,
                 [
-                    {text: 'Yes', onPress: () => navigation.navigate("SetGoals") , isPreferred : true},
+                    {text: 'Yes', onPress: () => navigation.navigate("MainTabs") , isPreferred : true},
                     {text: 'No', onPress: () => console.log('Canceled'), style: 'cancel'},
                 ]
             )
         }
         else{
             setImageSource(null);
-            navigation.navigate("SetGoals")
-        }
+                }
     }
     const openImagePicker = async () => {
         let result = await launchImageLibraryAsync({

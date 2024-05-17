@@ -21,13 +21,12 @@ import SignUpStack from './SignUpStack';
 import Feed from '../Pages/BeWellFeed/Feed';
 
 
-const BottomTabStack = createNativeStackNavigator()
-const Tab = createBottomTabNavigator()
+const BottomTabStack = createBottomTabNavigator();
+const RootStack = createNativeStackNavigator();
 
-
-export function MainStack() {
+function BottomTabs() {
     return (
-        <Tab.Navigator
+        <BottomTabStack.Navigator
             initialRouteName='Home'
             screenOptions={({ route }) => ({
                 tabBarIcon: ({ focused, color, size }) => {
@@ -35,19 +34,19 @@ export function MainStack() {
                     let rn = route.name;
 
                     if (rn === 'Home') {
-                        iconName = 'home'
+                        iconName = 'home';
                     }
                     else if (rn === 'Login') {
-                        iconName = 'person'
+                        iconName = 'person';
                     }
                     else if (rn === 'Testing') {
-                        iconName = 'hammer'
+                        iconName = 'hammer';
                     }
                     else if (rn === 'Friends') {
-                        iconName = "group"
+                        iconName = "group";
                     }
 
-                    return <Ionicons name={iconName} size={size} color={color} />
+                    return <Ionicons name={iconName} size={size} color={color} />;
                 },
                 headerShown: false,
                 tabBarActiveTintColor: "#000000",
@@ -65,15 +64,22 @@ export function MainStack() {
                     borderTopWidth: 1,
                     borderBlockColor: 'grey',
                     backgroundColor: "white",
-
                 },
-
             })}
         >
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Feed" component={Feed} />
             <BottomTabStack.Screen name="Testing" component={TempSignUpPage} />
-        </Tab.Navigator>
-    )
+        </BottomTabStack.Navigator>
+    );
+}
+
+export function MainStack() {
+    return (
+        <RootStack.Navigator screenOptions={{ headerShown: false }}>
+            <RootStack.Screen name="MainTabs" component={BottomTabs} />
+            <RootStack.Screen name="PostCaptionPage" component={PostCaptionPage} />
+        </RootStack.Navigator>
+    );
 }

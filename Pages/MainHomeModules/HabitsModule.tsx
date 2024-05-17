@@ -49,10 +49,10 @@ interface HabitsProps {
     time_start: String,
     time_end: String,
     index?: number
-    navigation?: any
 }
-export default function HabitsModule({ habitName, time_start, time_end, index , navigation }: HabitsProps) {
+export default function HabitsModule({ habitName, time_start, time_end, index }: HabitsProps) {
     const [backgroundColor, setBackgroundColor] = useState("#AFC689")
+    const navigation = useNavigation(); 
     const toCaptionPage = async() =>{
         navigation.navigate("PostCaptionPage")
     }

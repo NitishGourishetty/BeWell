@@ -56,7 +56,6 @@ export default function MainHomePage() {
         setLoading(false)
     }
   }
-
   useEffect(() => {
     if (session) getHabitInfo()
   }, [session])
@@ -80,8 +79,11 @@ export default function MainHomePage() {
           </Text>
           {habitData ? Object.entries(habitData).map((habit, index) => {
                       return(
-                        <HabitsModule habitName={Object.values(habit[1])[0]} time_start={Object.values(habit[1])[1]} time_end={Object.values(habit[1])[2]} index={index} />
-                        
+                        <HabitsModule 
+                          habitName={Object.values(habit[1])[0]} 
+                          time_start={Object.values(habit[1])[1]} 
+                          time_end={Object.values(habit[1])[2]} index={index} 
+                        />
                       );
                     }) : undefined}
         </View>
