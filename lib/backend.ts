@@ -135,11 +135,6 @@ export async function updateProfile({
     }
 }
 
-
-
-  
-
-
   export async function finishOnboarding(session) {
     try {
       if (!session || !session.user) {
@@ -208,6 +203,48 @@ export async function addHabit(session, habitText, startTime, endTime, visibilit
     }
   }
 
+  //Add visibleTo (category!!!!!)
+  export async function addPost(session, imgUrl, caption, habit_id) {
+    try {
+      if (!session || !session.user) {
+            console.log(session)
+            throw new Error('Invalid session or user data!');
+        }
+      const { error } = await supabase
+      .from('posts')
+      .insert({profile: session?.user.id, img_url:imgUrl, caption:caption, habit: habit_id })
+
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message)
+      }
+    }
+  }
+
+  export async function getPostsForHabit(session: Session, habitID) {
+    try {
+      if (!session || !session.user) {
+        console.log(session)
+        throw new Error('Invalid session or user data!');
+    }
+        const { data, error, status } = await supabase
+          .from('posts')
+          .select('img_url, caption, created_at')
+          .eq('profile', session?.user.id)
+          .eq('habit', habitID)
+        if (error && status !== 406) {
+          throw error
+        }
+        return data;
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message)
+          return null;
+        }
+      } finally {
+      }
+}
+
 
 export async function getUsersHabits(session: Session) {
     try {
@@ -218,7 +255,7 @@ export async function getUsersHabits(session: Session) {
   
         const { data, error, status } = await supabase
           .from('habits')
-          .select('habit_info')
+          .select('habit_info, time_start, time_end, streak, id')
           .eq('profile', session?.user.id)
         if (error && status !== 406) {
           throw error
@@ -284,7 +321,7 @@ export async function getFriendsPosts(session: Session) {
 //   }
 // }
 
-
+//Change this to make it ID
 export async function getSpecificHabit({ habit_info, session }: { habit_info: string, session: Session }) {
   try {
     if (!session || !session.user) {
