@@ -54,7 +54,15 @@ export default function HabitsModule({ habitName, time_start, time_end, index }:
     const [backgroundColor, setBackgroundColor] = useState("#AFC689")
     const navigation = useNavigation(); 
     const toCaptionPage = async() =>{
-        navigation.navigate("PostCaptionPage")
+        const currentTime = new Date();
+        const startTime = new Date(time_start);
+        const endTime = new Date(time_end);
+        if (currentTime >= startTime && currentTime <= endTime) { 
+            navigation.navigate("PostCaptionPage");
+        }
+        else{ 
+            alert("Error " + "Current time is not within the habit time range."); 
+        }
     }
     const viewGallery = () => {
         alert("Lol show past pictures taken")

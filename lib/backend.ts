@@ -135,11 +135,6 @@ export async function updateProfile({
     }
 }
 
-
-
-  
-
-
   export async function finishOnboarding(session) {
     try {
       if (!session || !session.user) {
