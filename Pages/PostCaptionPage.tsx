@@ -120,6 +120,7 @@ export default function PostCaptionPage({ route, navigation }) {
 
     return (
         <KeyboardAvoidingContainer>
+            <AntDesign name="arrowleft" size={30} marginTop={20} marginLeft={10}/>
             <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>
                     {'Add a Post'}
