@@ -43,7 +43,7 @@ const HabitBlock: React.FC<HabitBlockProps> = ({ title, beginningTime, endingTim
 
 
     return (
-        <View style={{ backgroundColor: backgroundColor, paddingHorizontal: 25, paddingVertical: 4, marginVertical: 5, marginHorizontal: 10, borderRadius: 12, width: 150 }}>
+        <View style={{ backgroundColor: backgroundColor, paddingHorizontal: 25, paddingVertical: 4, marginVertical: 5, marginHorizontal: 10, borderRadius: 12, width: 190 }}>
             <Text style={{ fontFamily: "Poppins-Regular", color: "#FFFEFC" }}>
                 {title}
             </Text>
@@ -59,7 +59,7 @@ export default function CalendarModule() {
     return (
         <View style={ModuleStyles.Module}>
             <DateBlock />
-            <View style={{ height: '80%', width: 9, backgroundColor: "#FFFFFF", alignSelf: "center", borderRadius: 4, marginLeft: "10%", marginRight: '2%' }}></View>
+            <View style={{ height: '80%', width: 9, backgroundColor: "#FFFFFF", alignSelf: "center", borderRadius: 4, marginLeft: "10%", marginRight: '3%' }}></View>
 
             <View style={{ flexDirection: "column", marginVertical: 10 }}>
                 <ScrollView >

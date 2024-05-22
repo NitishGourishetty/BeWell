@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     habit: {
         fontFamily: "Poppins-SemiBold",
         fontSize: 20,
-        width: 180
+        width: 160
     },
     time: {
         fontFamily: 'Poppins-Regular',
