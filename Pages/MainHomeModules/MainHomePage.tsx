@@ -73,10 +73,10 @@ export default function MainHomePage() {
             Calendar
           </Text>
           <CalendarModule />
-          <Text style={styles.Subheading}>
+          {/* <Text style={styles.Subheading}>
             Streaks
           </Text>
-          <StreaksModule days={10} color={'red'} />
+          <StreaksModule days={10} color={'red'} /> */}
           <Text style={styles.Subheading}>
             Habits
           </Text>

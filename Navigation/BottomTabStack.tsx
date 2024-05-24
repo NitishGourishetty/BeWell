@@ -70,7 +70,7 @@ function BottomTabs() {
             <BottomTabStack.Screen name="Home" component={MainHomePage} />
             <BottomTabStack.Screen name="Login" component={LoginPage} />
             <BottomTabStack.Screen name="Feed" component={Feed} />
-            <BottomTabStack.Screen name="Testing" component={TempSignUpPage} />
+            <BottomTabStack.Screen name="Testing" component={ProfilePage} />
         </BottomTabStack.Navigator>
     );
 }
