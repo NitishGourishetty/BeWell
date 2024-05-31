@@ -100,12 +100,12 @@ export default function App() {
   return (
     <>
       {
-        loggedIn && onboarded ?
-          <NavigationContainer>
-            <MainStack />
-            <StatusBar translucent={true} backgroundColor="transparent" />
-          </NavigationContainer>
-          :
+        // loggedIn && onboarded ?
+        //   <NavigationContainer>
+        //     <MainStack />
+        //     <StatusBar translucent={true} backgroundColor="transparent" />
+        //   </NavigationContainer>
+        //   :
           <NavigationContainer ref={navigationRef}>
             <SignUpStack />
           </NavigationContainer>
